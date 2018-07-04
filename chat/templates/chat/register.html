@@ -19,22 +19,29 @@
 <div class="container">
     <h1>Register</h1>
     <form method="POST">
+        {% csrf_token %}
+        {% if error_message %}
+        <div class="alert alert-danger"><strong>Error:</strong> {{ error_message }}</div>
+        {% endif %}
+        {% if success_message %}
+        <div class="alert alert-success"><strong>Success:</strong> {{ success_message }}</div>
+        {% endif %}
         <div style="margin:20px 0 25px 0;">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input class="form-control" name="username" id="username" placeholder="Enter name"
+                <input class="form-control" name="username" id="username"
                        type="text" autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input class="form-control" id="password" name="password" placeholder="Enter password"
+                <input class="form-control" id="password" name="password"
                        type="password">
             </div>
-            <!--<div class="form-group">-->
-                <!--<label for="confirm_password">Confirm password:</label>-->
-                <!--<input class="form-control" id="confirm_password" name="confirm_password" placeholder="Enter password"-->
-                       <!--type="password">-->
-            <!--</div>-->
+            <div class="form-group">
+                <label for="confirm_password">Confirm password:</label>
+                <input class="form-control" id="confirm_password" name="confirm_password"
+                       type="password">
+            </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </div>
     </form>
