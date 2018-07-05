@@ -18,7 +18,22 @@
 <body>
 <div class="wrapper">
     <div class="container">
-
+        <h1 class="text-center">Onlyours <small><small>chat</small></small></h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <div id="chat" style="background-color: white;">
+                    {% for message in messages %}
+                    <p><strong><big>{{ message.name }}:</big></strong> {{ message.text }}</p>
+                    {% endfor %}
+                </div>
+                <p></p>
+                <input type="text" class="form-control" id="message" name="message" autofocus>
+                <p></p>
+                <button type="submit" class="btn btn-default">Send</button>
+            </div>
+        </form>
+        <div class="text-right"><a href="/logout/">Logout</a></div>
     </div>
 </div>
 </body>
