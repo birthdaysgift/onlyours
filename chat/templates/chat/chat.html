@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <style>
+        html, body, .wrapper, .container {
+            height: 100%;
+        }
+    </style>
+
      <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -19,14 +25,14 @@
 <div class="wrapper">
     <div class="container">
         <h1 class="text-center">Onlyours <small><small>chat</small></small></h1>
+        <div id="chat" style="background-color: white; overflow-y:scroll; height:75%;">
+            {% for message in messages %}
+            <p><strong><big>{{ message.name }}:</big></strong> {{ message.text }}</p>
+            {% endfor %}
+        </div>
         <form method="POST">
             {% csrf_token %}
             <div class="form-group">
-                <div id="chat" style="background-color: white;">
-                    {% for message in messages %}
-                    <p><strong><big>{{ message.name }}:</big></strong> {{ message.text }}</p>
-                    {% endfor %}
-                </div>
                 <p></p>
                 <input type="text" class="form-control" id="message" name="message" autofocus>
                 <p></p>
