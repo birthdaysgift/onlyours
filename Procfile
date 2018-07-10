@@ -1,1 +1,1 @@
-web: gunicorn Onlyours.wsgi
+web: gunicorn onlyours.wsgi
