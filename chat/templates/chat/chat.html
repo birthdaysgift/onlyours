@@ -10,14 +10,12 @@
         }
     </style>
 
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'chat/style.css' %}">
+
      <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <title>Title</title>
 </head>
@@ -25,9 +23,9 @@
 <div class="wrapper">
     <div class="container">
         <h1 class="text-center">Onlyours <small><small>chat</small></small></h1>
-        <div id="chat" style="background-color: white; overflow-y:scroll; height:75%;">
+        <div id="chat">
             {% for message in messages %}
-            <p><strong><big>{{ message.name }}:</big></strong> {{ message.text }}</p>
+            <p><span style="color:grey">[{{ message.date }} {{ message.time }}]</span> <strong><big>{{ message.name }}:</big></strong> {{ message.text }}</p>
             {% endfor %}
         </div>
         <form method="POST">
@@ -42,5 +40,13 @@
         <div class="text-right"><a href="/logout/">Logout</a></div>
     </div>
 </div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="{% static 'chat/main.js' %}"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
