@@ -6,24 +6,28 @@ from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from .forms import ChatForm, LoginForm, RegisterForm
 from .models import User, Message2All
 
 
 def chat(request):
     if "username" not in request.session:
         return redirect(reverse("Login page name"))
-    messages = Message2All.objects.all()
-    if request.method == "POST" and request.POST["message"]:
-        context = {"message": request.POST["message"]}
-        msg_datetime = time.gmtime(time.time())
-        msg_date = time.strftime("%Y-%m-%d", msg_datetime)
-        msg_time = time.strftime("%X", msg_datetime)
-        name = request.session["username"]
-        text = request.POST["message"]
-        Message2All(date=msg_date, time=msg_time, name=name, text=text).save()
-
-        return redirect("Chat page name")
-    return render(request, "chat/chat.html", context={"messages": messages})
+    if request.method == "POST":
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            msg_datetime = time.gmtime(time.time())
+            msg_date = time.strftime("%Y-%m-%d", msg_datetime)
+            msg_time = time.strftime("%X", msg_datetime)
+            name = request.session["username"]
+            text = form.cleaned_data["message"]
+            Message2All(date=msg_date, time=msg_time, name=name, text=text).save()
+            return redirect("Chat page name")
+    context = {
+        "form": ChatForm(),
+        "messages": Message2All.objects.all()
+    }
+    return render(request, "chat/chat.html", context=context)
 
 
 def index(request):
@@ -32,16 +36,21 @@ def index(request):
 
 def login(request):
     if request.method == "POST":
-        try:
-            User.objects.get(name=request.POST["username"],
-                             password=request.POST["password"])
-        except ObjectDoesNotExist:
-            context = {"error_message": "Wrong username or password."}
-            return render(request, "chat/login.html", context=context)
-        else:
-            request.session["username"] = request.POST["username"]
-            return redirect(reverse("Chat page name"))
-    return render(request, "chat/login.html")
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            try:
+                User.objects.get(name=form.cleaned_data["username"],
+                                 password=form.cleaned_data["password"])
+            except ObjectDoesNotExist:
+                context = {
+                    "error_message": "Wrong username or password.",
+                    "form": LoginForm()
+                }
+                return render(request, "chat/login.html", context=context)
+            else:
+                request.session["username"] = request.POST["username"]
+                return redirect(reverse("Chat page name"))
+    return render(request, "chat/login.html", context={"form": LoginForm()})
 
 
 def logout(request):
@@ -50,19 +59,31 @@ def logout(request):
 
 
 def register(request):
-    context = dict()
     if request.method == "POST":
-        if request.POST["password"] != request.POST["confirm_password"]:
-            context["error_message"] = "Passwords are different."
-            return render(request, "chat/register.html", context=context)
-        try:
-            User(name=request.POST["username"],
-                 password=request.POST["password"]).save()
-        except IntegrityError:
-            context["error_message"] = "This username already exists."
-            return render(request, "chat/register.html", context=context)
-        else:
-            context["success_message"] = "{} have been registered!" \
-                .format(request.POST["username"])
-            return render(request, "chat/register.html", context=context)
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data["password"] != form.cleaned_data["password_confirm"]:
+                context = {
+                    "error_message": "Passwords are different.",
+                    "form": RegisterForm()
+                }
+                return render(request, "chat/register.html", context=context)
+            try:
+                User(name=form.cleaned_data["username"],
+                     password=form.cleaned_data["password"]).save()
+            except IntegrityError:
+                context = {
+                    "error_message": "This username already exists.",
+                    "form": RegisterForm()
+                }
+                return render(request, "chat/register.html", context=context)
+            else:
+                context = {
+                    "form": RegisterForm(),
+                    "success_message": "{} have been registered!".format(
+                        form.cleaned_data["username"]
+                    )
+                }
+                return render(request, "chat/register.html", context=context)
+    context = {"form": RegisterForm()}
     return render(request, "chat/register.html", context=context)
