@@ -23,7 +23,7 @@
         {% if error_message %}
         <div class="alert alert-danger"><strong>Error:</strong> {{ error_message }}</div>
         {% endif %}
-        <div style="margin:20px 0 25px 0;">
+        <div id="form-entries-block">
             <div class="form-group">
                 {{ form.username.label_tag }}
                 {{ form.username }}
@@ -35,7 +35,7 @@
             <button type="submit" class="btn btn-default">Login</button>
         </div>
     </form>
-    <div class="text-right"><a style="cursor:pointer;" href="/register/">Register</a></div>
+    <div class="text-right"><a href="/register/">Register</a></div>
 </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import User, Message2All
+from .models import User, Message
 
 
 admin.site.register(User)
-admin.site.register(Message2All)
+admin.site.register(Message)

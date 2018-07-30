@@ -1,0 +1,11 @@
+html, body, .wrapper, .container {
+    height: 100%;
+}
+
+#form-entries-block {
+    margin: 20px 0 25px 0;
+}
+
+a {
+    cursor: pointer;
+}

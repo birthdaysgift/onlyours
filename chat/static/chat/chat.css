@@ -10,3 +10,11 @@ html, body, .wrapper, .container {
     padding-left: 5px;
     border-radius: 5px 5px;
 }
+
+#chat > p > span {
+    color: grey;
+}
+
+a {
+    cursor: pointer;
+}
