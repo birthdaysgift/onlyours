@@ -2,10 +2,11 @@ from django.urls import path
 
 from . import views
 
+app_name = "chat"
 urlpatterns = [
-    path("", views.index, name="index-page-url"),
-    path("chat/<int:page>/", views.ChatView.as_view(), name="chat-page-url"),
-    path("login/", views.LoginView.as_view(), name="login-page-url"),
-    path("logout/", views.logout, name="logout-page-url"),
-    path("register/", views.RegisterView.as_view(), name="register-page-url")
+    path("", views.index, name="index"),
+    path("chat/<int:page>/", views.ChatView.as_view(), name="chat"),
+    path("login/", views.LoginView.as_view(), name="login"),
+    path("logout/", views.logout, name="logout"),
+    path("register/", views.RegisterView.as_view(), name="register")
 ]

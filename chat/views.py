@@ -14,7 +14,7 @@ class ChatView(views.View):
 
     def get(self, request, page=1):
         if "username" not in request.session:
-            return redirect(reverse("login-page-url"))
+            return redirect(reverse("chat:login"))
         last_page = Message.objects.page_nums[-1]
         if not (1 <= page <= last_page):
             raise Http404()
@@ -33,11 +33,11 @@ class ChatView(views.View):
                 name=request.session["username"],
                 text=form.cleaned_data["message"]
             ).save()
-            return redirect("chat-page-url", page=page)
+            return redirect("chat:chat", page=page)
 
 
 def index(request):
-    return redirect(reverse("login-page-url"))
+    return redirect(reverse("chat:login"))
 
 
 class LoginView(views.View):
@@ -57,7 +57,7 @@ class LoginView(views.View):
                         password=form.cleaned_data["password"]
                     ):
                 request.session["username"] = form.cleaned_data["username"]
-                return redirect(reverse("chat-page-url", kwargs={"page": 1}))
+                return redirect(reverse("chat:chat", kwargs={"page": 1}))
             else:
                 context = {
                     "error_message": "Wrong username or password.",
@@ -68,7 +68,7 @@ class LoginView(views.View):
 
 def logout(request):
     del request.session["username"]
-    return redirect(reverse("login-page-url"))
+    return redirect(reverse("chat:login"))
 
 
 class RegisterView(views.View):
