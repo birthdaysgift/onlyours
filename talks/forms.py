@@ -1,7 +1,7 @@
 from django import forms
 
 
-class ChatForm(forms.Form):
+class TalksForm(forms.Form):
     message = forms.CharField(
         widget=forms.TextInput(
             attrs={

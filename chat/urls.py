@@ -1,12 +1,11 @@
+from django.views.generic.base import RedirectView
 from django.urls import path
 
-from . import views
+from .views import ChatView
 
 app_name = "chat"
+
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("chat/<int:page>/", views.ChatView.as_view(), name="chat"),
-    path("login/", views.LoginView.as_view(), name="login"),
-    path("logout/", views.logout, name="logout"),
-    path("register/", views.RegisterView.as_view(), name="register")
+    path("", RedirectView.as_view(pattern_name="auth_custom:login")),
+    path("chat/<int:page>/", ChatView.as_view(), name="chat"),
 ]

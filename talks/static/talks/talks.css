@@ -1,0 +1,29 @@
+html, body, .wrapper, .container {
+	height: 100%;
+}
+
+.container {
+	position: relative;
+}
+
+#messages {
+	background-color: white;
+	overflow-y: scroll;
+	border: 1px solid #ddd;
+	padding-left: 5px;
+	border-radius: 5px 5px;
+	position: relative;
+	height: 75%;
+	width: 85%;
+	margin-left: 15%;
+}
+
+#contacts {
+	border: 1px solid #ddd;
+	border-radius: 5px 5px;
+	height: 75%;
+	width: 14.6%;
+	position: absolute;
+	overflow-y: scroll;
+	padding-left: 5px;
+}
