@@ -5,7 +5,9 @@
 
 	<title>Onlyours talks</title>
 
-	<link rel="stylesheet" href="../../static/talks/talks.css">
+	{% load static %}
+
+	<link rel="stylesheet" href="{% static 'talks/talks.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,7 +21,7 @@
 			<div id="contacts">
 				{% for user in users %}
 					<p>
-						<a href="{% url 'talks:talks' user.username %}">
+						<a href="{% url 'talks:talks' user.username 1 %}">
 							{{ user.username }}
 						</a>
 					</p>
@@ -42,13 +44,27 @@
 				{{ form.message.errors }}
 				<p></p>
 				<button type="submit" class="btn btn-default">Send</button>
-				<div class="text-right">Logged as: <strong>{{ username }}</strong></div>
-            	<div class="text-right"><a href="/logout/">Logout</a></div>
+				{% for page in pages %}
+				{% if page == current_page %}
+					<span>{{ page }}</span>
+				{% else %}
+					<a href="{% url 'talks:talks' receiver_name page %}">{{ page }}</a>
+				{% endif %}
+				{% endfor %}
 			</form>
+			<div class="text-right">Logged as: <strong>{{ username }}</strong></div>
+			<div class="text-right">
+				GOTO
+				<a href="{% url 'chat:chat' 1 %}">Chat</a>
+				|
+				<a href="{% url 'auth_custom:logout' %}">Logout</a>
+			</div>
 		</div>
 	</div>
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="{% static 'talks/main.js' %}"></script>
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

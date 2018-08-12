@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    "chat.apps.ChatConfig"
+    "auth_custom.apps.AuthConfig",
+    "chat.apps.ChatConfig",
+    "talks.apps.TalksConfig"
 ]
 
 MIDDLEWARE = [
@@ -77,6 +79,7 @@ WSGI_APPLICATION = 'Onlyours.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
+    # TODO: migrate on postgres
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": "db.sqlite3"

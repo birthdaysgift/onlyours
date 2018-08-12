@@ -1,11 +1,12 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path, reverse_lazy
 
-from .views import LoginView, RegisterView
+from .views import IndexView, LoginView, RegisterView
 
 app_name = "auth_custom"
 
 urlpatterns = [
+    path("", IndexView.as_view(), name="index"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/",
          LogoutView.as_view(next_page=reverse_lazy("auth_custom:login")),

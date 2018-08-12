@@ -8,6 +8,14 @@ from django.shortcuts import redirect, render
 from .forms import LoginForm, RegisterForm
 
 
+class IndexView(views.View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect(reverse("chat:chat", kwargs={"page": 1}))
+        else:
+            return redirect(reverse("auth_custom:login"))
+
+
 class LoginView(views.View):
     template = "auth_custom/login.html"
 
