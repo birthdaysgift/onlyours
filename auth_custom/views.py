@@ -11,7 +11,10 @@ from .forms import LoginForm, RegisterForm
 class IndexView(views.View):
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect(reverse("chat:chat", kwargs={"page": 1}))
+            return redirect(reverse("talks:talk", kwargs={
+                "receiver_name": "global",
+                "page_num": 1
+            }))
         else:
             return redirect(reverse("auth_custom:login"))
 
@@ -35,7 +38,10 @@ class LoginView(views.View):
             )
             if user:
                 login(request, user)
-                return redirect(reverse("chat:chat", kwargs={"page": 1}))
+                return redirect(reverse("talks:talk", kwargs={
+                    "receiver_name": "global",
+                    "page_num": 1
+                }))
             else:
                 context = {
                     "error_message": "Wrong username or password.",
@@ -71,7 +77,7 @@ class RegisterView(views.View):
                     "error_message": "This username already exists.",
                     "form": RegisterForm(),
                 }
-                return render(request, "chat/register.html", context=context)
+                return render(request, self.template, context=context)
             context = {
                 "form": RegisterForm(),
                 "success_message": "{} have been registered!".format(

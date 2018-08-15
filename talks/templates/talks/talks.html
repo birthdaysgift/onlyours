@@ -19,11 +19,16 @@
 		<div class="container">
 			<h1 class="text-center">Onlyours <small><small>talks</small></small></h1>
 			<div id="contacts">
-				{% for user in users %}
+				<p><a href="{% url 'talks:talk' 'global' 1 %}">GLOBAL</a></p>
+				{% for contact in contacts %}
 					<p>
-						<a href="{% url 'talks:talks' user.username 1 %}">
-							{{ user.username }}
+						{% if contact.username == receiver_name %}
+						<span>{{ receiver_name }}</span>
+						{% else %}
+						<a href="{% url 'talks:talk' contact.username 1 %}">
+							{{ contact.username }}
 						</a>
+						{% endif %}
 					</p>
 				{% endfor %}
 			</div>
@@ -31,7 +36,13 @@
                 {% for message in messages %}
                 <p>
                     <span>[{{ message.date }} {{ message.time }}]</span>
-                    <strong><big> {{ message.sender.username }}: </big></strong>
+					{% if message.sender.username == current_user.username %}
+					<strong><big> {{ message.sender.username }}: </big></strong>
+					{% else %}
+					<a href="{% url 'talks:talk' message.sender.username 1 %}">
+	                    <strong><big> {{ message.sender.username }}: </big></strong>
+					</a>
+					{% endif %}
                     {{ message.text }}
                 </p>
                 {% endfor %}
@@ -44,19 +55,18 @@
 				{{ form.message.errors }}
 				<p></p>
 				<button type="submit" class="btn btn-default">Send</button>
-				{% for page in pages %}
-				{% if page == current_page %}
-					<span>{{ page }}</span>
-				{% else %}
-					<a href="{% url 'talks:talks' receiver_name page %}">{{ page }}</a>
-				{% endif %}
-				{% endfor %}
+				<div class="pages-list">
+					{% for page in pages %}
+						{% if page == current_page %}
+						<span class="selected">{{ page }}</span>
+						{% else %}
+						<a href="{% url 'talks:talk' receiver_name page %}">{{ page }}</a>
+						{% endif %}
+					{% endfor %}
+				</div>
 			</form>
-			<div class="text-right">Logged as: <strong>{{ username }}</strong></div>
+			<div class="text-right">Logged as: <strong>{{ current_user.username }}</strong></div>
 			<div class="text-right">
-				GOTO
-				<a href="{% url 'chat:chat' 1 %}">Chat</a>
-				|
 				<a href="{% url 'auth_custom:logout' %}">Logout</a>
 			</div>
 		</div>

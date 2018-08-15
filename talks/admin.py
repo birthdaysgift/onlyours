@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Message
+from .models import PublicMessage, PrivateMessage
 
 
-admin.site.register(Message)
+admin.site.register(PublicMessage)
+admin.site.register(PrivateMessage)
