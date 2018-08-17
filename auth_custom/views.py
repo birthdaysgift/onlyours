@@ -1,22 +1,11 @@
 from django import views
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.urls import reverse
 from django.shortcuts import redirect, render
 
 from .forms import LoginForm, RegisterForm
-
-
-class IndexView(views.View):
-    def get(self, request):
-        if request.user.is_authenticated:
-            return redirect(reverse("talks:talk", kwargs={
-                "receiver_name": "global",
-                "page_num": 1
-            }))
-        else:
-            return redirect(reverse("auth_custom:login"))
+from .models import User
 
 
 class LoginView(views.View):

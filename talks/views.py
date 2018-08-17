@@ -1,9 +1,10 @@
 from django import views
-from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse
+
+from auth_custom.models import User
 
 from .forms import TalksForm
 from .models import PublicMessage, PrivateMessage
@@ -26,6 +27,11 @@ class TalksView(views.View):
                         Q(username="birthdaysgift")
                     ).order_by("username"),
                     "messages": reversed(paginator.page(page_num)),
+                    "pages": aligned_range_of_pages(
+                        page=page_num,
+                        last_page=paginator.num_pages
+                    ),
+                    "receiver_name": receiver_name,
                     "current_user": request.user
                 }
                 return render(request, self.template, context=context)

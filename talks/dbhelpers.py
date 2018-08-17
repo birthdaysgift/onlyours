@@ -1,7 +1,8 @@
 from random import randint
 
-from django.contrib.auth.models import User
 from django.http import HttpResponse
+
+from auth_custom.models import User
 
 from .models import PrivateMessage, PublicMessage
 

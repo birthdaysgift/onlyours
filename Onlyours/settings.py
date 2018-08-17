@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     "auth_custom.apps.AuthConfig",
-    "talks.apps.TalksConfig"
+    "talks.apps.TalksConfig",
+    "pages.apps.PagesConfig"
 ]
 
 MIDDLEWARE = [

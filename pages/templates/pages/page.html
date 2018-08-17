@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Onlyours pages</title>
+
+	{% load static %}
+
+	<link rel="stylesheet" href="{% static 'pages/page.css' %}">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+</head>
+<body>
+	
+	<div class="wrapper">
+		<div class="container">
+			<h1 class="text-center">Onlyours <small><small>pages</small></small></h1>
+			<h3>{{ user.username }}</h3>
+			<img src="{{ user.avatar }}">
+			<div>
+				<a href="{% url 'talks:talk' 'global' 1 %}">Back to Talks</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="{% static 'pages/main.js' %}"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
