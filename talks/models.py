@@ -1,6 +1,12 @@
 from auth_custom.models import User
+from Onlyours.settings import AUTH_USER_MODEL
+
 from django.db import models
 from django.db.models import Q
+
+
+class DialogDoesNotExist(Exception):
+    pass
 
 
 class PublicMessage(models.Model):
@@ -8,7 +14,7 @@ class PublicMessage(models.Model):
 
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=0,
+    sender = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING, default=0,
                                related_name="sender")
     text = models.TextField()
 
@@ -19,8 +25,11 @@ class PublicMessage(models.Model):
 
 class PrivateMessageQuerySet(models.QuerySet):
     def from_dialog(self, username1, username2):
-        user1 = User.objects.get(username=username1)
-        user2 = User.objects.get(username=username2)
+        try:
+            user1 = User.objects.get(username=username1)
+            user2 = User.objects.get(username=username2)
+        except User.DoesNotExist:
+            raise DialogDoesNotExist
         return self.filter(
             Q(sender=user1, receiver=user2) | Q(sender=user2, receiver=user1)
         )
@@ -29,7 +38,7 @@ class PrivateMessageQuerySet(models.QuerySet):
 class PrivateMessage(PublicMessage):
     objects = PrivateMessageQuerySet.as_manager()
 
-    receiver = models.ForeignKey(User, on_delete=models.DO_NOTHING,
+    receiver = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
                                  related_name="receiver")
 
     def __str__(self):

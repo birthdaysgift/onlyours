@@ -20,7 +20,8 @@
 	<div class="wrapper">
 		<div class="container">
 			<h1 class="text-center">Onlyours <small><small>pages</small></small></h1>
-			<h3>{{ user.username }}</h3>
+			<h3>{{ user.username }} <small><a href="">Change</a></small></h3>
+
 			<img src="{{ user.avatar }}">
 			<div>
 				<a href="{% url 'talks:talk' 'global' 1 %}">Back to Talks</a>

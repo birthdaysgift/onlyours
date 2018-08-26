@@ -1,82 +1,74 @@
 from django import views
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
 
 from auth_custom.models import User
 
 from .forms import TalksForm
-from .models import PublicMessage, PrivateMessage
+from .models import PublicMessage, PrivateMessage, DialogDoesNotExist
 from .utils import aligned_range_of_pages
 
 
-class TalksView(views.View):
+class TalksView(LoginRequiredMixin, views.View):
+    login_url = reverse_lazy("auth_custom:login")
+
     template = "talks/talks.html"
 
     def get(self, request, receiver_name="global", page_num=1):
-        if request.user.is_authenticated:
-            if receiver_name == "global":
-                messages = PublicMessage.objects.all().order_by("-date",
-                                                                "-time")
-                paginator = Paginator(messages, 30)
-                context = {
-                    "form": TalksForm(),
-                    "contacts": User.objects.exclude(
-                        Q(username=request.user.username) |
-                        Q(username="birthdaysgift")
-                    ).order_by("username"),
-                    "messages": reversed(paginator.page(page_num)),
-                    "pages": aligned_range_of_pages(
-                        page=page_num,
-                        last_page=paginator.num_pages
-                    ),
-                    "receiver_name": receiver_name,
-                    "current_user": request.user
-                }
-                return render(request, self.template, context=context)
-            messages = PrivateMessage.objects.from_dialog(
-                request.user.username,
-                receiver_name
-            ).order_by("-date", "-time")
+        if receiver_name == "global":
+            messages = PublicMessage.objects.all().order_by("-date",
+                                                            "-time")
             paginator = Paginator(messages, 30)
             context = {
                 "form": TalksForm(),
-                "messages": reversed(paginator.page(page_num)),
                 "contacts": User.objects.exclude(
                     Q(username=request.user.username) |
                     Q(username="birthdaysgift")
                 ).order_by("username"),
-                "current_user": request.user,
+                "messages": reversed(paginator.page(page_num)),
                 "pages": aligned_range_of_pages(
                     page=page_num,
                     last_page=paginator.num_pages
                 ),
-                "current_page": page_num,
-                "receiver_name": receiver_name
+                "receiver_name": receiver_name,
+                "current_user": request.user
             }
             return render(request, self.template, context=context)
-        else:
-            return redirect(reverse("auth_custom:login"))
+        try:
+            messages = PrivateMessage.objects.from_dialog(
+                request.user.username,
+                receiver_name
+            ).order_by("-date", "-time")
+        except DialogDoesNotExist:
+            raise Http404
+        paginator = Paginator(messages, 30)
+        context = {
+            "form": TalksForm(),
+            "messages": reversed(paginator.page(page_num)),
+            "contacts": User.objects.exclude(
+                Q(username=request.user.username) |
+                Q(username="birthdaysgift")
+            ).order_by("username"),
+            "current_user": request.user,
+            "pages": aligned_range_of_pages(
+                page=page_num,
+                last_page=paginator.num_pages
+            ),
+            "current_page": page_num,
+            "receiver_name": receiver_name
+        }
+        return render(request, self.template, context=context)
 
     def post(self, request, receiver_name=None, page_num=1):
         form = TalksForm(request.POST)
-        if request.user.is_authenticated:
-            if form.is_valid():
-                if receiver_name == "global":
-                    PublicMessage(
-                        sender=request.user,
-                        text=form.cleaned_data["message"]
-                    ).save()
-                    return redirect(
-                        reverse("talks:talk", kwargs={
-                            "receiver_name": receiver_name,
-                            "page_num": 1
-                        })
-                    )
-                PrivateMessage(
+        if form.is_valid():
+            if receiver_name == "global":
+                PublicMessage(
                     sender=request.user,
-                    receiver=User.objects.get(username=receiver_name),
                     text=form.cleaned_data["message"]
                 ).save()
                 return redirect(
@@ -85,7 +77,16 @@ class TalksView(views.View):
                         "page_num": 1
                     })
                 )
-            else:
-                return render(request, self.template, context={"form": form})
+            PrivateMessage(
+                sender=request.user,
+                receiver=get_object_or_404(User, username=receiver_name),
+                text=form.cleaned_data["message"]
+            ).save()
+            return redirect(
+                reverse("talks:talk", kwargs={
+                    "receiver_name": receiver_name,
+                    "page_num": 1
+                })
+            )
         else:
-            return redirect(reverse("auth_custom:login"))
+            return render(request, self.template, context={"form": form})
