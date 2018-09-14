@@ -19,7 +19,6 @@ class LoginView(views.View):
 
     def post(self, request):
         form = LoginForm(request.POST)
-        # TODO: how to change default browsers(!) validation
         if form.is_valid():
             user = authenticate(
                 username=form.cleaned_data["username"],

@@ -15,7 +15,8 @@ class PageView(LoginRequiredMixin, View):
         if username is not None:
             user = get_object_or_404(User, username=username)
             context = {
-                "user": user
+                "user": user,
+                "current_user": request.user
             }
             return render(request, self.template, context=context)
 

@@ -1,25 +1,27 @@
-from auth_custom.models import User
-from Onlyours.settings import AUTH_USER_MODEL
-
 from django.db import models
 from django.db.models import Q
 
+from auth_custom.models import User
+from Onlyours.settings import AUTH_USER_MODEL
 
-class DialogDoesNotExist(Exception):
-    pass
+from .exceptions import DialogDoesNotExist
 
 
-class PublicMessage(models.Model):
-    objects = models.Manager()
-
+class Message(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING, default=0,
-                               related_name="sender")
+    sender = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+                               default=0)
     text = models.TextField()
 
+    class Meta:
+        abstract = True
+
+
+class PublicMessage(Message):
+
     def __str__(self):
-        return f"#{self.id} [{self.date} {self.time}] {self.sender.name}: " \
+        return f"#{self.id} [{self.date} {self.time}] {self.sender.username}: "\
                f"{self.text}"
 
 
@@ -35,7 +37,7 @@ class PrivateMessageQuerySet(models.QuerySet):
         )
 
 
-class PrivateMessage(PublicMessage):
+class PrivateMessage(Message):
     objects = PrivateMessageQuerySet.as_manager()
 
     receiver = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load form_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,14 +28,15 @@
         <div id="form-entries-block">
             <div class="form-group">
                 {{ form.username.label_tag }}
-                {{ form.username }}
+                {{ form.username|set_attrs:"class='form-control' autofocus autocomplete='off'" }}
                 {{ form.username.errors }}
             </div>
             <div class="form-group">
                 {{ form.password.label_tag }}
-                {{ form.password }}
+                {{ form.password|set_attrs:"class='form-control' autocomplete='off'" }}
                 {{ form.password.errors }}
             </div>
+            <input type="hidden" name="next" value="{% url 'talks:talk' 'global' 1 %}">
             <button type="submit" class="btn btn-default">Login</button>
         </div>
     </form>

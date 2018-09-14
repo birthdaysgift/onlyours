@@ -22,48 +22,32 @@ class TalksView(LoginRequiredMixin, views.View):
         if receiver_name == "global":
             messages = PublicMessage.objects.all().order_by("-date",
                                                             "-time")
-            paginator = Paginator(messages, 30)
-            context = {
-                "form": TalksForm(),
-                "contacts": User.objects.exclude(
-                    Q(username=request.user.username) |
-                    Q(username="birthdaysgift")
-                ).order_by("username"),
-                "messages": reversed(paginator.page(page_num)),
-                "pages": aligned_range_of_pages(
-                    page=page_num,
-                    last_page=paginator.num_pages
-                ),
-                "receiver_name": receiver_name,
-                "current_user": request.user
-            }
-            return render(request, self.template, context=context)
-        try:
-            messages = PrivateMessage.objects.from_dialog(
-                request.user.username,
-                receiver_name
-            ).order_by("-date", "-time")
-        except DialogDoesNotExist:
-            raise Http404
+        else:
+            try:
+                messages = PrivateMessage.objects.from_dialog(
+                    request.user.username,
+                    receiver_name
+                ).order_by("-date", "-time")
+            except DialogDoesNotExist:
+                raise Http404
         paginator = Paginator(messages, 30)
         context = {
             "form": TalksForm(),
-            "messages": reversed(paginator.page(page_num)),
             "contacts": User.objects.exclude(
                 Q(username=request.user.username) |
                 Q(username="birthdaysgift")
             ).order_by("username"),
-            "current_user": request.user,
+            "messages": reversed(paginator.page(page_num)),
             "pages": aligned_range_of_pages(
                 page=page_num,
                 last_page=paginator.num_pages
             ),
-            "current_page": page_num,
-            "receiver_name": receiver_name
+            "receiver_name": receiver_name,
+            "current_user": request.user
         }
         return render(request, self.template, context=context)
 
-    def post(self, request, receiver_name=None, page_num=1):
+    def post(self, request, receiver_name="global", page_num=1):
         form = TalksForm(request.POST)
         if form.is_valid():
             if receiver_name == "global":

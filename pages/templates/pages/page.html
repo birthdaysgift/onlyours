@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<head>
 	<meta charset="UTF-8">
 
 	<title>Onlyours pages</title>
 
 	{% load static %}
 
-	<link rel="stylesheet" href="{% static 'pages/page.css' %}">
+	<link rel="stylesheet" href="{% static 'pages/pages.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-</head>
 </head>
 <body>
 	
 	<div class="wrapper">
 		<div class="container">
 			<h1 class="text-center">Onlyours <small><small>pages</small></small></h1>
-			<h3>{{ user.username }} <small><a href="">Change</a></small></h3>
-
-			<img src="{{ user.avatar }}">
-			<div>
-				<a href="{% url 'talks:talk' 'global' 1 %}">Back to Talks</a>
+			<div class="side-block">
+				<h3>{{ user.username }}
+					{% if user.username == current_user.username %}
+					<small><a href="">Change</a></small>
+					{% endif %}
+				</h3>
+				<img src="{{ user.avatar }}">
+				<h5>I'm user0's status. It's okey?..</h5>
+				<!--<p><a href="/friends/">Friends</a></p>-->
+				<!--<p><a href="{% url 'talks:talk' 'global' 1 %}">Talks</a></p>-->
 			</div>
+			<!--<div class="page-block">-->
+				<!--<div class="about"></div>-->
+				<!--<div class="pics"></div>-->
+				<!--<div class="posts"></div>-->
+			<!--</div>-->
 		</div>
 	</div>
 

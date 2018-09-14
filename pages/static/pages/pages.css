@@ -1,0 +1,30 @@
+.container{
+    position: relative;
+}
+
+.side-block {
+    height: 70px;
+    width: 200px;
+    position: fixed;
+}
+
+.side-block > img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px 5px;
+}
+
+.page-block {
+    height: 5000px;
+    margin-left: 210px;
+}
+
+.about, .pics, .posts {
+    width: 95%;
+    height: 200px;
+    background-color: yellow;
+    border-radius: 5px 5px;
+    margin: auto;
+    margin-top: 20px;
+}
