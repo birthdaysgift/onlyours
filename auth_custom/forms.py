@@ -1,30 +1,13 @@
-from django import forms
-from django.forms import ValidationError
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .models import User
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField(
-        label="Username:",
-        max_length=50,
-        widget=forms.TextInput()
-    )
-    password = forms.CharField(
-        label="Password:",
-        max_length=100,
-        widget=forms.PasswordInput()
-    )
+class LoginForm(AuthenticationForm):
+    pass
 
 
-class RegisterForm(LoginForm):
-    password_confirm = forms.CharField(
-        label="Confirm password:",
-        max_length=100,
-        widget=forms.PasswordInput()
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        if cleaned_data["password"] != \
-                cleaned_data["password_confirm"]:
-            raise ValidationError("Passwords are different.")
-        return cleaned_data
+class RegisterForm(UserCreationForm):
+    # TODO: change default password validation (at least 8 symbols including
+    # TODO: letters and numbers)
+    class Meta(UserCreationForm.Meta):
+        model = User
