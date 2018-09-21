@@ -7,7 +7,5 @@ class LoginForm(AuthenticationForm):
 
 
 class RegisterForm(UserCreationForm):
-    # TODO: change default password validation (at least 8 symbols including
-    # TODO: letters and numbers)
     class Meta(UserCreationForm.Meta):
         model = User

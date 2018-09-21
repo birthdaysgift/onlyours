@@ -2,29 +2,44 @@
     position: relative;
 }
 
-.side-block {
-    height: 70px;
-    width: 200px;
-    position: fixed;
+.col-4 {
+    border: 1px solid yellow;
 }
 
-.side-block > img {
+.elephant-logo {
+    height: 20px;
+    outline: 1px solid blue;
+}
+.avatar {
     width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 5px 5px;
+    display: block;
+    margin: 0 auto;
 }
 
-.page-block {
-    height: 5000px;
-    margin-left: 210px;
-}
 
-.about, .pics, .posts {
-    width: 95%;
+.friends-block {
     height: 200px;
-    background-color: yellow;
-    border-radius: 5px 5px;
-    margin: auto;
-    margin-top: 20px;
+    outline: 1px solid grey;
+}
+
+.about-block {
+    outline: 1px solid grey;
+    height: 300px;
+}
+
+.posts-block {
+    outline: 1px solid grey;
+}
+
+.photo-block, .video-block, .audio-block {
+    outline: 1px solid grey;
+    height: 150px;
+}
+
+.post {
+    height: 150px;
+    outline: 1px solid grey;
 }

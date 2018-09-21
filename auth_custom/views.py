@@ -17,7 +17,7 @@ class LogoutView(auth_views.LogoutView):
 
 class RegisterView(CreateView):
     template_name = "auth_custom/register.html"
-    tempalte_name_suffix = ""
+    template_name_suffix = ""
     form_class = RegisterForm
     success_url = reverse_lazy("talks:talk", kwargs={"receiver_name": "global",
-                                                "page_num": 1})
+                                                     "page_num": 1})
