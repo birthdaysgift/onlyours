@@ -49,14 +49,16 @@ function createElephant() {
     }
 
     function releaseElephant(event) {
-        elephantPanel.off();
+        screen.off();
         startElephant();
+        $("html").css("-moz-user-select", "auto");
     }
 
     function grabElephant(event) {
+        $("html").css("-moz-user-select", "none");
         stopElephant();
-        elephantPanel.mousemove(moveElephant);
-        elephantPanel.mouseup(releaseElephant);
+        screen.mousemove(moveElephant);
+        screen.mouseup(releaseElephant);
     }
 
     function findElephantOutOfScreen(event) {
@@ -68,7 +70,7 @@ function createElephant() {
 
     elephant.mousedown(grabElephant);
 
-    screen.resize(findElephantOutOfScreen);;
+    screen.resize(findElephantOutOfScreen);
 
 };
 
