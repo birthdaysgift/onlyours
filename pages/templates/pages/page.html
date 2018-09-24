@@ -14,18 +14,20 @@
 </head>
 <body>
 	<div class="wrapper">
-        <div class="elephant-logo">Elephant</div>
+        <div class="elephant-panel">
+            <div class="elephant"></div>
+        </div>
 		<div class="container">
-			<h1 class="text-center">Onlyours <small><small>pages</small></small></h1>
+			<h1 class="title-text text-center">Onlyours <small><small>pages</small></small></h1>
 			<div class="row">
                 <div class="left col-4">
-						<h3 class="text-center">{{ user.username }}
+						<h4 class="text-center">{{ user.username }}
                             {% if user.username == current_user.username %}
                             <small><a href="">Change</a></small>
                             {% endif %}
-                        </h3>
-						<img src="{{ user.avatar }}" class="avatar">
-                        <h5 class="text-center">I'm user0's status. It's okey?..</h5>
+                        </h4>
+						<img src="{{ user.avatar }}" class="user-avatar">
+                        <h6 class="status-text text-center">I'm user0's status. It's okey?..</h6>
                         <div class="friends-panel">
 							<a href="" class="friends-text"><b>Friends</b></a>
 							<div class="friend-icon">
@@ -69,10 +71,36 @@
 				<div class="middle col-4">
 					<p><b>Birthday: </b>15.03.1997</p>
 					<p><b>City: </b>Syktyvkar</p>
-					<div class="about-block"><b>About me: </b></div>
+					<div class="about-block"><b>About me: </b>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a leo mattis sem gravida feugiat vel nec magna. Proin nibh nibh, varius ut nunc eget, lacinia consequat elit. Cras sollicitudin magna sed euismod dignissim. Praesent interdum elit ac nisl cursus, aliquam consectetur nibh laoreet. Duis sit amet dolor non ex commodo posuere. Vestibulum at ipsum maximus, faucibus ipsum non, hendrerit orci. Ut sit amet ipsum quis massa pellentesque convallis. Vestibulum enim nisl, lacinia ac porta eu, commodo eu ante. Aliquam at magna egestas tellus malesuada venenatis quis at mi. Nullam dictum elit nec porttitor pretium. Etiam enim justo, consequat in nisl quis, rutrum posuere tellus. Suspendisse ac iaculis ipsum. Cras tempus turpis vel posuere imperdiet. Fusce sed volutpat mi, sit amet ultricies lacus. Proin interdum erat odio, quis pellentesque ipsum commodo id. </p>
+					</div>
                     <div class="posts-block">
-						<div class="post">post</div>
-						<div class="post">post</div>
+						<div class="post">
+							<div class="sender-icon">
+                                <a href="">
+                                    <div class="sender-avatar"></div>
+                                </a>
+                            </div>
+								<a href=""><b class="sender-name">Tom </b></a>
+								<p><small>15.03.2018 18.30</small></p>
+							<div style="clear:both"></div>
+							<p class="post-text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a leo mattis sem gravida feugiat vel nec magna.
+							</p>
+						</div>
+						<div class="post">
+                            <div class="sender-icon">
+                                <a href="">
+                                    <div class="sender-avatar"></div>
+                                </a>
+                            </div>
+								<a href=""><b class="sender-name">Alex </b></a>
+								<p><small>15.03.2018 18.30</small></p>
+							<div style="clear:both"></div>
+							<p class="post-text">
+                                Happy Birthday, mane1)
+							</p>
+                        </div>
 						<div class="post">post</div>
 						<div class="post">post</div>
 						<div class="post">post</div>
@@ -85,23 +113,79 @@
 					</div>
 				</div>
 				<div class="right col-4">
-					<div class="photo-block">photo</div>
-					<div class="video-block">video</div>
-					<div class="audio-block">audio</div>
+					<div class="photo-panel">
+						<a href="" class="photo-text"><b>Photo</b></a>
+                        <a href="">
+                            <div class="photo-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="photo-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="photo-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="photo-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="photo-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="photo-avatar"></div>
+                        </a>
+                    </div>
+					<div class="video-panel">
+                        <a href="" class="video-text"><b>Video</b></a>
+                        <a href="">
+                            <div class="video-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="video-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="video-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="video-avatar"></div>
+                        </a>
+                        <a href="">
+                            <div class="video-avatar"></div>
+                        </a>
+                    </div>
+					<div class="audio-panel">
+                        <a href="" class="audio-text"><b>Audio</b></a>
+                        <div class="track-panel">
+                            <a href="">
+                                <div class="play-icon"></div>
+                            </a>
+                            <p>
+                                <a href=""><b>Artist </b></a> - Title
+                            </p>
+                        </div>
+                        <div class="track-panel">
+                                <div class="play-icon"></div>
+                            <p>
+                                <a href=""><b>Artist </b></a> - Title
+                            </p>
+                        </div>
+                        <div class="track-panel">
+                                <div class="play-icon"></div>
+                            <p>
+                                <a href=""><b>Artist </b></a> - Title
+                            </p>
+                        </div>
+                    </div>
 				</div>
             </div>
-			<!--birthday-->
-			<!--current_city-->
-			<!--about_me-->
 		</div>
 	</div>
 
-	<script src="{% static 'pages/main.js' %}"></script>
 
 	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="{% static 'pages/main.js' %}"></script>
 </body>
 </html>
