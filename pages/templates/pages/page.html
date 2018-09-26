@@ -20,16 +20,19 @@
 		<div class="container">
 			<h1 class="title-text text-center">Onlyours <small><small>pages</small></small></h1>
 			<div class="row">
-                <div class="left col-4">
-						<h4 class="text-center">{{ user.username }}
-                            {% if user.username == current_user.username %}
-                            <small><a href="{% url 'pages:edit' user.pk %}">Edit</a></small>
+                <div class="left col-3">
+                        <div class="avatar-panel">
+                             <h4 class="text-center">{{ user.username }}
+                                {% if user.username == current_user.username %}
+                                <small><a href="{% url 'pages:edit' request.user.username %}">Edit</a></small>
+                                {% endif %}
+                            </h4>
+                            <img src="{{ user.avatar }}" class="user-avatar img-fluid">
+                            {% if user.status %}
+                            <p class="status-text text-center">{{ user.status }}</p>
                             {% endif %}
-                        </h4>
-						<img src="{{ user.avatar }}" class="user-avatar">
-                        {% if user.status %}
-                        <p class="status-text text-center">{{ user.status }}</p>
-                        {% endif %}
+                        </div>
+
                         <div class="friends-panel">
 							<a href="" class="friends-text"><b>Friends</b></a>
 							<div class="friend-icon">
@@ -68,27 +71,31 @@
                                     <p class="text-center">name</p>
 								</a>
 							</div>
+
 						</div>
                 </div>
-				<div class="middle col-4">
-                    {% if user.first_name %}
-                    <p><b>Name: </b>{{ user.first_name }} {{user.last_name}}</p>
-                    {% endif %}
-                    {% if user.birthday %}
-					<p><b>Birthday: </b>{{ user.birthday }}</p>
-                    {% endif %}
-                    {% if user.city %}
-					<p><b>City: </b>{{ user.city }}</p>
-                    {% endif %}
-                    <!--TODO: add choice form field to gender-->
-                    {% if user.gender %}
-                    <p><b>Gender: </b>{{ user.gender }}</p>
-                    {% endif %}
-                    {% if user.about %}
-					<div class="about-block"><b>About me: </b>
-                        <p>{{ user.about }}</p>
-					</div>
-                    {% endif %}
+				<div class="middle col-6">
+                    <div class="about-panel">
+                        {% if user.first_name %}
+                        <p><b>Name: </b>{{ user.first_name }} {{user.last_name}}</p>
+                        {% endif %}
+                        {% if user.birthday %}
+                        <p><b>Birthday: </b>{{ user.birthday }}</p>
+                        {% endif %}
+                        {% if user.city %}
+                        <p><b>City: </b>{{ user.city }}</p>
+                        {% endif %}
+
+                        <!--TODO: add choice form field to gender--> {% if user.gender %}
+                        <p><b>Gender: </b>{{ user.gender }}</p>
+                        {% endif %}
+
+                        {% if user.about %} <div class="about-block"><b>About me: </b>
+                            <p>{{ user.about }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="splitter"></div>
                     <div class="posts-block">
 						<div class="post">
 							<div class="sender-icon">
@@ -127,7 +134,7 @@
 						<div class="post">post</div>
 					</div>
 				</div>
-				<div class="right col-4">
+				<div class="right col-3">
 					<div class="photo-panel">
 						<a href="" class="photo-text"><b>Photo</b></a>
                         <a href="" class="photo-avatar"></a>
@@ -136,7 +143,6 @@
                         <a href="" class="photo-avatar"></a>
                         <a href="" class="photo-avatar"></a>
                         <a href="" class="photo-avatar"></a>
-
                     </div>
 					<div class="video-panel">
                         <a href="" class="video-text"><b>Video</b></a>

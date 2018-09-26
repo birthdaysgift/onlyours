@@ -3,6 +3,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    margin-bottom: 20px;
 }
 
 .container {
@@ -10,8 +11,17 @@
 }
 
 
-.col-4 {
-    border: 1px solid yellow;
+.middle {
+    border-left: 1px solid rgb(235, 235, 235);
+    border-right: 1px solid rgb(235, 235, 235);
+}
+
+.left {
+    border-left: 1px solid rgb(235, 235, 235);
+}
+
+.right {
+    border-right: 1px solid rgb(235, 235, 235);
 }
 
 .elephant-panel {
@@ -34,6 +44,10 @@
     cursor: grab;
 }
 
+.avatar-panel {
+    margin: 0 auto;
+}
+
 .status-text {
     margin-top: 7px;
 }
@@ -49,13 +63,10 @@
 
 .friends-text {
     display: block;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .friends-panel {
-    width: 284px;
-    height: 220px;
-    border: 1px solid grey;
     padding: 0px 0px 10px 10px;
     margin: 0 auto;
     margin-top: 15px;
@@ -63,32 +74,34 @@
 }
 
 .friend-icon {
-    width: 80px;
+    width: 70px;
     height: 80px;
     display: inline-block;
     margin-bottom: 11px;
-    margin-right: 7px;
     padding-top: 5px;
+    margin-left: 4px;
 }
 
 .friend-avatar {
     margin: 0 auto;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border: 1px solid grey;
     border-radius: 5px 5px;
 }
 
+.friend-avatar > p {
+    margin-top: 0px;
+}
 
 
 .about-block {
     text-align: justify;
     word-wraps: normal;
-    border-bottom: 1px solid grey;
 }
 
 .post {
-    border: 1px solid grey;
+    border: 1px solid rgb(240, 240, 240);
     border-radius: 5px 5px;
     margin-top: 20px;
     padding: 10px 10px;
@@ -116,14 +129,13 @@
 
 .photo-text {
     display: block;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .photo-panel {
-    width: 275px;
-    border: 1px solid grey;
     padding: 5px 0px 5px 10px;
     margin: 0 auto;
-    margin-top: 15px;
     border-radius: 5px 5px;
 }
 
@@ -131,31 +143,32 @@
 .photo-avatar {
     display: inline-block;
     margin: 0 auto;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
+    margin-left: 3px;
     border: 1px solid grey;
     border-radius: 5px 5px;
 }
 
 .video-text{
     display: block;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .video-panel {
-    width: 275px;
-    border: 1px solid grey;
     padding: 5px 0px 5px 10px;
     margin: 0 auto;
     margin-top: 15px;
     border-radius: 5px 5px;
 }
 
-
 .video-avatar {
     display: inline-block;
     margin: 0 auto;
-    width: 60px;
-    height: 60px;
+    margin-left: 3px;
+    width: 70px;
+    height: 70px;
     border: 1px solid grey;
     border-radius: 5px 5px;
 }
@@ -166,8 +179,6 @@
 }
 
 .audio-panel {
-    width: 275px;
-    border: 1px solid grey;
     padding: 5px 0px 5px 10px;
     margin: 0 auto;
     margin-top: 15px;
@@ -184,3 +195,21 @@
     background-image: url("play.png");
     background-size: 100% 100%;
 }
+
+.avatar-panel, .photo-panel, .video-panel, .friends-panel, .audio-panel, .post, .about-panel {
+    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 5px 5px;
+}
+
+.about-panel {
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px 5px;
+}
+
+.splitter {
+    height: 20px;
+    border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+

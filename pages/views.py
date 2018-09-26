@@ -1,8 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic.edit import UpdateView
 
 from auth_custom.models import User
 
@@ -24,10 +23,22 @@ class PageView(LoginRequiredMixin, View):
             return render(request, self.template, context=context)
 
 
-class EditView(UpdateView):
+class EditView(LoginRequiredMixin, View):
     template_name = "pages/edit.html"
-    template_name_suffix = ""
-    success_url = reverse_lazy("talks:talk", kwargs={"receiver_name": "global",
-                                                     "page_num": 1})
-    form_class = EditPageForm
-    model = User
+
+    def get(self, request, username=None):
+        if username != request.user.username:
+            return redirect(reverse_lazy("pages:edit",
+                                         kwargs={"username":
+                                                     request.user.username}))
+        return render(request, self.template_name, context={
+            "form": EditPageForm(instance=request.user)
+        })
+
+    def post(self, request, username=None):
+        form = EditPageForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy("pages:page", kwargs={
+                "username": request.user.username
+            }))

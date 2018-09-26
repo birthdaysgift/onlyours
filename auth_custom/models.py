@@ -2,9 +2,13 @@ from django.contrib.auth import models as auth_models
 from django.db import models
 
 
+def user_photos_path(instance, filename):
+    return f"{instance.username}/photos/{filename}"
+
+
 class User(auth_models.AbstractUser):
     objects = auth_models.UserManager()
-
+    # TODO: change to ImageField
     avatar = models.URLField(default="https://i2.bongacams.com/00d/"
                                      "0e8/134/60307272da340d6aeccaf1"
                                      "09399d57a2_thumb_big.jpg")
