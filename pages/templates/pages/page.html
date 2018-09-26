@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 
-	<title>Onlyours pages</title>
+	<title>Onlyours</title>
 
 	{% load static %}
 
@@ -23,11 +23,13 @@
                 <div class="left col-4">
 						<h4 class="text-center">{{ user.username }}
                             {% if user.username == current_user.username %}
-                            <small><a href="">Change</a></small>
+                            <small><a href="{% url 'pages:edit' user.pk %}">Edit</a></small>
                             {% endif %}
                         </h4>
 						<img src="{{ user.avatar }}" class="user-avatar">
-                        <h6 class="status-text text-center">I'm user0's status. It's okey?..</h6>
+                        {% if user.status %}
+                        <p class="status-text text-center">{{ user.status }}</p>
+                        {% endif %}
                         <div class="friends-panel">
 							<a href="" class="friends-text"><b>Friends</b></a>
 							<div class="friend-icon">
@@ -69,11 +71,24 @@
 						</div>
                 </div>
 				<div class="middle col-4">
-					<p><b>Birthday: </b>15.03.1997</p>
-					<p><b>City: </b>Syktyvkar</p>
+                    {% if user.first_name %}
+                    <p><b>Name: </b>{{ user.first_name }} {{user.last_name}}</p>
+                    {% endif %}
+                    {% if user.birthday %}
+					<p><b>Birthday: </b>{{ user.birthday }}</p>
+                    {% endif %}
+                    {% if user.city %}
+					<p><b>City: </b>{{ user.city }}</p>
+                    {% endif %}
+                    <!--TODO: add choice form field to gender-->
+                    {% if user.gender %}
+                    <p><b>Gender: </b>{{ user.gender }}</p>
+                    {% endif %}
+                    {% if user.about %}
 					<div class="about-block"><b>About me: </b>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a leo mattis sem gravida feugiat vel nec magna. Proin nibh nibh, varius ut nunc eget, lacinia consequat elit. Cras sollicitudin magna sed euismod dignissim. Praesent interdum elit ac nisl cursus, aliquam consectetur nibh laoreet. Duis sit amet dolor non ex commodo posuere. Vestibulum at ipsum maximus, faucibus ipsum non, hendrerit orci. Ut sit amet ipsum quis massa pellentesque convallis. Vestibulum enim nisl, lacinia ac porta eu, commodo eu ante. Aliquam at magna egestas tellus malesuada venenatis quis at mi. Nullam dictum elit nec porttitor pretium. Etiam enim justo, consequat in nisl quis, rutrum posuere tellus. Suspendisse ac iaculis ipsum. Cras tempus turpis vel posuere imperdiet. Fusce sed volutpat mi, sit amet ultricies lacus. Proin interdum erat odio, quis pellentesque ipsum commodo id. </p>
+                        <p>{{ user.about }}</p>
 					</div>
+                    {% endif %}
                     <div class="posts-block">
 						<div class="post">
 							<div class="sender-icon">
@@ -160,11 +175,10 @@
 	</div>
 
 
-	<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script src="{% static 'pages/main.js' %}"></script>
+	<script src="{% static 'pages/elephant.js' %}"></script>
 </body>
 </html>
