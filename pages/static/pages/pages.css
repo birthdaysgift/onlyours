@@ -14,7 +14,7 @@
 .middle {
     border-left: 1px solid rgb(235, 235, 235);
     border-right: 1px solid rgb(235, 235, 235);
-}
+            }
 
 .left {
     border-left: 1px solid rgb(235, 235, 235);
@@ -175,6 +175,7 @@
 
 .audio-text {
     display: block;
+    margin-left: 5px;
     margin-bottom: 10px;
 }
 
