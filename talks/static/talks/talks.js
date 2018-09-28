@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+     messages = document.body.querySelectorAll(".message-icon");
+     lastMessage = messages[messages.length - 1];
+     lastMessage.scrollIntoView();
+});
+
 $(".contact-icon").click(function(event) {
     clicked = $(event.target);
     if (clicked.hasClass("last-message-text")) {
