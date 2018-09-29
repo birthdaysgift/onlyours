@@ -36,7 +36,7 @@ class EditView(LoginRequiredMixin, View):
         })
 
     def post(self, request, username=None):
-        form = EditPageForm(request.POST, instance=request.user)
+        form = EditPageForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect(reverse_lazy("pages:page", kwargs={

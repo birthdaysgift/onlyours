@@ -34,8 +34,7 @@ class TalksView(LoginRequiredMixin, views.View):
         context = {
             "form": TalksForm(),
             "contacts": User.objects.exclude(
-                Q(username=request.user.username) |
-                Q(username="birthdaysgift")
+                username=request.user.username
             ).order_by("username"),
             "messages": reversed(paginator.page(page_num)),
             "pages": aligned_range_of_pages(

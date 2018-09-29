@@ -21,19 +21,23 @@
 			<h1 class="title-text text-center">Onlyours <small><small>pages</small></small></h1>
 			<div class="row">
                 <div class="left col-3">
-                        <div class="avatar-panel">
-                             <h4 class="text-center">{{ user.username }}
-                                {% if user.username == current_user.username %}
-                                <small><a href="{% url 'pages:edit' request.user.username %}">Edit</a></small>
-                                {% endif %}
-                            </h4>
-                            <img src="{{ user.avatar }}" class="user-avatar img-fluid">
-                            {% if user.status %}
-                            <p class="status-text text-center">{{ user.status }}</p>
-                            {% endif %}
-                        </div>
+                    <div class="avatar-panel">
+                        <h4 class="text-center">{{ user.username }}
+                                                   {% if user.username == current_user.username %}
+                                                   <small><a href="{% url 'pages:edit' request.user.username %}">Edit</a></small>
+                                                   {% endif %}
+                                                   </h4>
+                        {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" class="user-avatar img-fluid">
+                        {% else %}
+                        <img src="{% static 'pages/avatar_placeholder.png' %}" class="user-avatar img-fluid">
+                        {% endif %}
+                        {% if user.status %}
+                        <p class="status-text text-center">{{ user.status }}</p>
+                        {% endif %}
+                    </div>
 
-                        <div class="friends-panel">
+                    <div class="friends-panel">
 							<a href="" class="friends-text"><b>Friends</b></a>
 							<div class="friend-icon">
 								<a href="">

@@ -16,7 +16,7 @@
         <div class="container">
             <h1 class="title-text text-center">Onlyours <small><small>pages</small></small></h1>
             <h4>{{ user.username }}</h4>
-            <form method="POST">
+            <form enctype="multipart/form-data" method="POST">
                 {% csrf_token %}
                 <!--TODO: birthday form validation-->
                 {% for field in form %}

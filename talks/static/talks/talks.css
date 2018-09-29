@@ -32,7 +32,7 @@ html, body, .wrapper, .container {
 }
 
 .contact-icon-selected {
-    margin-top: 15px;
+    margin-bottom: 10px;
     border: 1px solid rgb(200, 200, 200);
     border-radius: 5px 5px;
     height: 72px;
