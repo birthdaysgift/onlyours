@@ -29,7 +29,7 @@
 .left .avatar-panel {
   margin-bottom: 15px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
 .left .avatar-panel .status-text {
@@ -39,7 +39,7 @@
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   display: block;
   margin: 0 auto;
@@ -47,7 +47,7 @@
 .left .friends-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
@@ -76,7 +76,7 @@
 .middle .about-panel {
   margin-bottom: 15px;
   padding: 10px 10px 10px 10px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
@@ -97,7 +97,7 @@
   padding: 10px 10px;
   text-align: justify;
   text-wraps: normal;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
@@ -106,7 +106,7 @@
   width: 60px;
   height: 60px;
   margin-right: 5px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
 .right {
@@ -115,7 +115,7 @@
 .right .photo-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
@@ -134,7 +134,7 @@
 .right .video-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
@@ -153,7 +153,7 @@
 .right .audio-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }

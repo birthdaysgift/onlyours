@@ -4,8 +4,8 @@ from time import asctime, sleep
 
 print("Less compiler has been started.")
 
-app_name = "pages"
-file_name = "page"
+app_name = "talks"
+file_name = "talks"
 app_path = join(dirname(abspath(__file__)), app_name, "static", app_name)
 less_path = join(app_path, "less", file_name + ".less")
 css_path = join(app_path, "css", file_name + ".css")

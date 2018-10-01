@@ -1,135 +1,95 @@
-html, body, .wrapper, .container {
-	height: 100%;
-}
-
 .logo-text {
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
-
 .row {
-    height: 750px;
+  height: 750px;
 }
-
-.contacts-panel {
-    border: 1px solid rgb(240, 240, 240);
-    border-radius: 5px 0px 0px 5px;
-    height: 750px;
-    overflow-y: scroll;
-    padding: 10px 10px;
+.row .contacts-panel {
+  overflow-y: scroll;
+  padding: 10px 10px;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 0px 0px 5px;
 }
-
-.contact-icon {
-    margin-bottom: 10px;
-    border: 1px solid rgb(240, 240, 240);
-    border-radius: 5px 5px;
-    width: 100%;
-    height: 72px;
-    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
-    cursor: pointer;
+.row .contacts-panel .contact-icon {
+  margin-bottom: 10px;
+  width: 100%;
+  height: 72px;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-
-.contact-icon-selected {
-    margin-bottom: 10px;
-    border: 1px solid rgb(200, 200, 200);
-    border-radius: 5px 5px;
-    height: 72px;
-    width: 100%;
-    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
-    cursor: pointer;
+.row .contacts-panel .contact-icon:hover {
+  border: 1px solid #c8c8c8;
 }
-
-.contact-icon-selected > p, .contact-icon > p {
-   margin-top: 10px;
+.row .contacts-panel .contact-icon .contact-avatar {
+  display: inline-block;
+  float: left;
+  width: 70px;
+  height: 70px;
+  border: 1px solid grey;
+  border-radius: 5px 5px;
+  margin-right: 10px;
+  object-fit: cover;
 }
-
-.contact-icon-selected > b, .contact-icon > b {
-    color: #1E7BFF;
+.row .contacts-panel .contact-icon .contact-username-text {
+  color: #1E7BFF;
 }
-
-.contact-icon > b:hover, .contact-icon-selected > b:hover {
-    text-decoration: underline;
-    color: #0056b3;
+.row .contacts-panel .contact-icon .contact-username-text:hover {
+  text-decoration: underline;
+  color: #0056b3;
 }
-
-.contact-icon:hover {
-    border: 1px solid rgb(200, 200, 200);
+.row .contacts-panel .contact-icon .last-message-text {
+  margin-top: 10px;
 }
-
-.contact-avatar {
-    display: inline-block;
-    float:left;
-    width: 70px;
-    height: 70px;
-    border: 1px solid grey;
-    border-radius: 5px 5px;
-    margin-right: 10px;
-    object-fit: cover;
+.row .messages-header {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #ebebeb;
+  border-radius: 0px 5px 0px 0px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-
-.messages-header {
-    width: 100%;
-    height: 52px;
-    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
-    border: 1px solid rgb(240, 240, 240);
-    border-radius: 0px 5px 0px 0px;
+.row .messages-header .receiver-username-text {
+  padding-top: 7px;
 }
-
-.messages-header > h4 {
-    padding-top: 7px;
+.row .messages-panel {
+  height: 663px;
+  overflow-y: scroll;
+  padding: 10px 10px 10px 10px;
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #ebebeb;
 }
-
-.messages-panel {
-    border-radius: 0px 5px 5px 0px;
-    height: 663px;
-    overflow-y: scroll;
-    padding: 10px 10px 10px 10px;
+.row .messages-panel .message-icon {
+  margin-bottom: 10px;
+  padding: 0px 10px 5px 10px;
+  display: inline-block;
+  max-width: 80%;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-
-.col-9 > form > input {
-    width: 100%;
-    height: 35px;
-    font-size: 14px;
-    border: 1px solid rgb(240, 240, 240);
-    border-radius: 0px 5px 5px 0px;
-    padding-left: 10px;
-    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
+.row .messages-panel .message-icon .message-text {
+  display: inline-block;
+  margin-bottom: 0px;
 }
-
-.col-9 > form > input:focus {
-    border: 1px solid rgb(200, 200, 200);
+.row .messages-panel .message-right {
+  float: right;
 }
-
-.col-9 > form > input:invalid{
-    box-shadow: none;
+.row .message-input {
+  width: 100%;
+  height: 35px;
+  font-size: 14px;
+  padding-left: 10px;
+  border: 1px solid #ebebeb;
+  border-radius: 0px 5px 5px 0px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-
-.receiver-avatar {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    float: left;
-    border: 1px solid grey;
-    border-radius: 5px 5px;
+.row .message-input:focus {
+  border: 1px solid #c8c8c8;
 }
-
-.message-icon {
-    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
-    border: 1px solid rgb(240, 240, 240);
-    border-radius: 5px 5px;
-    margin-bottom: 10px;
-    padding: 0px 10px 5px 10px;
-    display: inline-block;
-    max-width: 80%;
-}
-
-.right {
-    float: right;
-}
-
-.message-icon > p {
-    display: inline-block;
-    margin-bottom: 0px;
+.row .message-input:invalid {
+  box-shadow: none;
 }
