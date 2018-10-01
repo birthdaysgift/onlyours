@@ -7,7 +7,7 @@
 
 	{% load static %}
 
-	<link rel="stylesheet" href="{% static 'pages/pages.css' %}">
+	<link rel="stylesheet" href="{% static 'pages/css/page.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -23,14 +23,14 @@
                 <div class="left col-3">
                     <div class="avatar-panel">
                         <h4 class="text-center">{{ user.username }}
-                                                   {% if user.username == current_user.username %}
-                                                   <small><a href="{% url 'pages:edit' request.user.username %}">Edit</a></small>
-                                                   {% endif %}
-                                                   </h4>
+                            {% if user.username == current_user.username %}
+                            <small><a href="{% url 'pages:edit' request.user.username %}">Edit</a></small>
+                            {% endif %}
+                        </h4>
                         {% if user.avatar %}
                         <img src="{{ user.avatar.url }}" class="user-avatar img-fluid">
                         {% else %}
-                        <img src="{% static 'pages/avatar_placeholder.png' %}" class="user-avatar img-fluid">
+                        <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="user-avatar img-fluid">
                         {% endif %}
                         {% if user.status %}
                         <p class="status-text text-center">{{ user.status }}</p>
@@ -38,44 +38,43 @@
                     </div>
 
                     <div class="friends-panel">
-							<a href="" class="friends-text"><b>Friends</b></a>
+							<b class="friends-text"><a href="">Friends</a></b>
 							<div class="friend-icon">
 								<a href="">
                                     <div class="friend-avatar"></div>
-                                    <p class="text-center">name</p>
+                                    <div class="text-center friend-name">name</div>
 								</a>
 							</div>
 							<div class="friend-icon">
 								<a href="">
                                         <div class="friend-avatar"></div>
-                                        <p class="text-center">name</p>
+                                        <div class="text-center friend-name">name</div>
                                 </a>
 							</div>
                             <div class="friend-icon">
 								<a href="">
                                     <div class="friend-avatar"></div>
-                                    <p class="text-center">name</p>
+                                    <div class="text-center friend-name">name</div>
 								</a>
 							</div>
                             <div class="friend-icon">
 								<a href="">
                                     <div class="friend-avatar"></div>
-                                    <p class="text-center">name</p>
+                                    <div class="text-center friend-name">name</div>
 								</a>
 							</div>
                             <div class="friend-icon">
 								<a href="">
                                     <div class="friend-avatar"></div>
-                                    <p class="text-center">name</p>
+                                    <div class="text-center friend-name">name</div>
 								</a>
 							</div>
                             <div class="friend-icon">
 								<a href="">
                                     <div class="friend-avatar"></div>
-                                    <p class="text-center">name</p>
+                                    <div class="text-center friend-name">name</div>
 								</a>
 							</div>
-
 						</div>
                 </div>
 				<div class="middle col-6">
@@ -100,33 +99,24 @@
                         {% endif %}
                     </div>
                     <div class="splitter"></div>
-                    <div class="posts-block">
+                    <div class="posts-panel">
 						<div class="post">
-							<div class="sender-icon">
+                            <a href="">
+                                <div class="sender-avatar"></div>
+                            </a>
+                            <div class="sender-name">
                                 <a href="">
-                                    <div class="sender-avatar"></div>
+                                    <b>Tom</b>
                                 </a>
                             </div>
-								<a href=""><b class="sender-name">Tom </b></a>
-								<p><small>15.03.2018 18.30</small></p>
+                            <div class="post-date">
+                                <small>15.03.2018 18.30</small>
+                            </div>
 							<div style="clear:both"></div>
-							<p class="post-text">
+							<div class="post-text">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a leo mattis sem gravida feugiat vel nec magna.
-							</p>
+							</div>
 						</div>
-						<div class="post">
-                            <div class="sender-icon">
-                                <a href="">
-                                    <div class="sender-avatar"></div>
-                                </a>
-                            </div>
-								<a href=""><b class="sender-name">Alex </b></a>
-								<p><small>15.03.2018 18.30</small></p>
-							<div style="clear:both"></div>
-							<p class="post-text">
-                                Happy Birthday, mane1)
-							</p>
-                        </div>
 						<div class="post">post</div>
 						<div class="post">post</div>
 						<div class="post">post</div>
@@ -186,9 +176,9 @@
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script src="{% static 'pages/elephant.js' %}"></script>
+	<script src="{% static 'pages/js/elephant.js' %}"></script>
 </body>
 </html>

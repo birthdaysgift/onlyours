@@ -11,7 +11,7 @@ from .forms import EditPageForm
 class PageView(LoginRequiredMixin, View):
     login_url = reverse_lazy("auth_custom:login")
 
-    template = "pages/page.html"
+    template_name = "pages/page.html"
 
     def get(self, request, username=None):
         if username is not None:
@@ -20,7 +20,7 @@ class PageView(LoginRequiredMixin, View):
                 "user": user,
                 "current_user": request.user
             }
-            return render(request, self.template, context=context)
+            return render(request, self.template_name, context=context)
 
 
 class EditView(LoginRequiredMixin, View):
@@ -28,9 +28,10 @@ class EditView(LoginRequiredMixin, View):
 
     def get(self, request, username=None):
         if username != request.user.username:
-            return redirect(reverse_lazy("pages:edit",
-                                         kwargs={"username":
-                                                     request.user.username}))
+            return redirect(reverse_lazy(
+                "pages:edit",
+                kwargs={"username": request.user.username}
+            ))
         return render(request, self.template_name, context={
             "form": EditPageForm(instance=request.user)
         })
@@ -42,3 +43,4 @@ class EditView(LoginRequiredMixin, View):
             return redirect(reverse_lazy("pages:page", kwargs={
                 "username": request.user.username
             }))
+        return render(request, self.template_name, context={"form": form})

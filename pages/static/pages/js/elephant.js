@@ -51,6 +51,7 @@ function createElephant() {
     function releaseElephant(event) {
         screen.off();
         screen.resize(findElephantOutOfScreen);
+        findElephantOutOfScreen();
         startElephant();
         $("html").css("-moz-user-select", "auto");
     }
@@ -63,8 +64,14 @@ function createElephant() {
     }
 
     function findElephantOutOfScreen(event) {
-        if (elephantPosition + elephant.width() > screen.width())
+        if (elephantPosition + elephant.width() > screen.width()) {
             elephantPosition = screen.width() - elephant.width();
+            return;
+        }
+        if (elephantPosition < 0) {
+            elephantPosition = 0;
+            return;
+        }
     }
 
     startElephant();

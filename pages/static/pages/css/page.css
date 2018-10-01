@@ -1,0 +1,173 @@
+.elephant-panel {
+  height: 40px;
+  background-image: url("../img/grass.png");
+  background-size: auto 204%;
+}
+.elephant-panel .elephant {
+  display: inline-block;
+  width: 44px;
+  height: 40px;
+  background-image: url("../img/elephant2.png");
+  background-size: 200% 100%;
+  background-position: 44px 0px;
+  position: relative;
+  left: 0px;
+}
+.elephant-panel .elephant:hover {
+  cursor: grab;
+}
+.title-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-bottom: 10px;
+}
+.left {
+  border-left: 1px solid #ebebeb;
+}
+.left .avatar-panel {
+  margin-bottom: 15px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+}
+.left .avatar-panel .status-text {
+  margin-top: 7px;
+}
+.left .avatar-panel .user-avatar {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  display: block;
+  margin: 0 auto;
+}
+.left .friends-panel {
+  margin-bottom: 15px;
+  padding: 5px 0px 5px 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+}
+.left .friends-panel .friends-text {
+  display: block;
+  margin-bottom: 5px;
+}
+.left .friends-panel .friend-icon {
+  width: 70px;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.left .friends-panel .friend-icon .friend-avatar {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin-left: 3px;
+  border: 1px solid grey;
+  border-radius: 5px 5px;
+}
+.middle {
+  border-left: 1px solid #ebebeb;
+  border-right: 1px solid #ebebeb;
+}
+.middle .about-panel {
+  margin-bottom: 15px;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+}
+.middle .about-panel .about-block {
+  text-align: justify;
+  word-wraps: normal;
+}
+.middle .splitter {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ebebeb;
+  background-color: blue;
+}
+.middle .posts-panel {
+  margin-bottom: 15px;
+}
+.middle .posts-panel .post {
+  margin-bottom: 15px;
+  padding: 10px 10px;
+  text-align: justify;
+  text-wraps: normal;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+}
+.middle .posts-panel .post .sender-avatar {
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin-right: 5px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+}
+.right {
+  border-right: 1px solid #ebebeb;
+}
+.right .photo-panel {
+  margin-bottom: 15px;
+  padding: 5px 0px 5px 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+}
+.right .photo-panel .photo-text {
+  display: block;
+  margin-bottom: 5px;
+}
+.right .photo-panel .photo-avatar {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin-left: 3px;
+  border: 1px solid grey;
+  border-radius: 5px 5px;
+}
+.right .video-panel {
+  margin-bottom: 15px;
+  padding: 5px 0px 5px 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+}
+.right .video-panel .video-text {
+  display: block;
+  margin-bottom: 5px;
+}
+.right .video-panel .video-avatar {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin-left: 3px;
+  border: 1px solid grey;
+  border-radius: 5px 5px;
+}
+.right .audio-panel {
+  margin-bottom: 15px;
+  padding: 5px 0px 5px 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+}
+.right .audio-panel .audio-text {
+  display: block;
+  margin-bottom: 5px;
+}
+.right .audio-panel .play-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+  background-image: url("../img/play.png");
+  background-size: 100% 100%;
+}

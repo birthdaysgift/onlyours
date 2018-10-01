@@ -1,8 +1,6 @@
 from django.contrib.auth import models as auth_models
 from django.db import models
 
-from Onlyours import settings
-
 
 def user_photos_path(instance, filename):
     return f"users/{instance.username}/photos/{filename}"

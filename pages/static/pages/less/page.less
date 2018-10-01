@@ -1,0 +1,206 @@
+// ========MIXINS========
+.main_bg() {
+    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
+}
+.main_border() {
+    border: 1px solid rgb(240, 240, 240);
+    border-radius: 5px 5px;
+}
+// ======================
+
+.elephant-panel {
+    height: 40px;
+    background-image: url("../img/grass.png");
+    background-size: auto 204%;
+
+    .elephant {
+        display: inline-block;
+        width: 44px;
+        height: 40px;
+        background-image: url("../img/elephant2.png");
+        background-size: 200% 100%;
+        background-position: 44px 0px;
+        position: relative;
+        left: 0px;
+
+        &:hover {
+            cursor: grab;
+        }
+    }
+}
+
+.title-text {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-bottom: 10px;
+}
+
+.left {
+    border-left: 1px solid rgb(235, 235, 235);
+
+    .avatar-panel {
+        margin-bottom: 15px;
+        .main_bg();
+        .main_border();
+
+        .status-text {
+            margin-top: 7px;
+        }
+
+        .user-avatar {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            .main_border();
+            display: block;
+            margin: 0 auto;
+        }
+    }
+
+   .friends-panel {
+        margin-bottom: 15px;
+        border-radius: 5px 5px;
+        padding: 5px 0px 5px 12px;
+        .main_border();
+        .main_bg();
+
+        .friends-text {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .friend-icon {
+            width: 70px;
+            display: inline-block;
+            margin-right: 5px;
+            margin-bottom: 5px;
+
+            .friend-avatar {
+                display: inline-block;
+                width: 70px;
+                height: 70px;
+                margin-left: 3px;
+                border: 1px solid grey;
+                border-radius: 5px 5px;
+            }
+        }
+    }
+}
+
+.middle {
+    border-left: 1px solid rgb(235, 235, 235);
+    border-right: 1px solid rgb(235, 235, 235);
+
+    .about-panel {
+        margin-bottom: 15px;
+        padding: 10px 10px 10px 10px;
+        border-radius: 5px 5px;
+        .main_border();
+        .main_bg();
+
+        .about-block {
+            text-align: justify;
+            word-wraps: normal;
+        }
+    }
+
+    .splitter {
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgb(235, 235, 235);
+        background-color: blue;
+    }
+
+    .posts-panel {
+       margin-bottom: 15px;
+
+        .post {
+            margin-bottom: 15px;
+            padding: 10px 10px;
+            text-align: justify;
+            text-wraps: normal;
+            .main_border();
+            .main_bg();
+
+            .sender-avatar {
+                float: left;
+                width: 60px;
+                height: 60px;
+                margin-right: 5px;
+                .main_border();
+            }
+        }
+    }
+}
+
+
+.right {
+    border-right: 1px solid rgb(235, 235, 235);
+
+    .photo-panel {
+        margin-bottom: 15px;
+        padding: 5px 0px 5px 12px;
+        .main_border();
+        .main_bg();
+
+        .photo-text {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .photo-avatar {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            margin-left: 3px;
+            border: 1px solid grey;
+            border-radius: 5px 5px;
+        }
+    }
+
+    .video-panel {
+        margin-bottom: 15px;
+        padding: 5px 0px 5px 12px;
+        .main_border();
+        .main_bg();
+
+        .video-text {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .video-avatar {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            margin-left: 3px;
+            border: 1px solid grey;
+            border-radius: 5px 5px;
+        }
+    }
+
+    .audio-panel {
+        margin-bottom: 15px;
+        border-radius: 5px 5px;
+        padding: 5px 0px 5px 12px;
+        .main_border();
+        .main_bg();
+
+        .audio-text {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .play-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            float: left;
+            margin-right: 5px;
+            margin-top: 3px;
+            background-image: url("../img/play.png");
+            background-size: 100% 100%;
+        }
+    }
+}

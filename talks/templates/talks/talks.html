@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load form_tags %}
+{% load html_attrs %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -8,7 +8,7 @@
 
 	{% load static %}
 
-	<link rel="stylesheet" href="{% static 'talks/talks.css' %}">
+	<link rel="stylesheet" href="{% static 'talks/css/talks.css' %}">
 
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -20,6 +20,18 @@
 			<h1 class="logo-text text-center">Onlyours <small><small>talks</small></small></h1>
 			<div class="row">
 				<div class="contacts-panel col-3 pl-2 pr-2">
+                    {% if receiver_name == 'global' %}
+                    <div class="contact-icon-selected">
+                    {% else %}
+                    <div class="contact-icon">
+                    {% endif %}
+                        <a href="" class="contact-link"></a>
+                        <a href="{% url 'talks:talk' 'global' 1 %}" class="talk-link"></a>
+                        <img src="{% static 'talks/img/global_avatar.jpg' %}" class="contact-avatar">
+                        <b class="contact-username">GLOBAL</b>
+                        <!--TODO: last message-->
+                        <p class="last-message-text">Last message...</p>
+                    </div>
                     {% for contact in contacts %}
                     {% if contact.username == receiver_name %}
                     <div class="contact-icon-selected">
@@ -32,9 +44,9 @@
                         {% if contact.avatar %}
                         <img src="{{ contact.avatar.url }}" class="contact-avatar">
                         {% else %}
-                        <img src="{% static 'talks/avatar_placeholder.png' %}" class="contact-avatar">
+                        <img src="{% static 'talks/img/avatar_placeholder.png' %}" class="contact-avatar">
                         {% endif %}
-                        <b class="contact-username">{{ contact.username }} </b>
+                        <b class="contact-username">{{ contact.username }}</b>
                         <p class="last-message-text">Last message...</p>
                     </div>
 					{% endfor %}
@@ -73,6 +85,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script src="{% static 'talks/talks.js' %}"></script>
+	<script src="{% static 'talks/js/talks.js' %}"></script>
 </body>
 </html>
