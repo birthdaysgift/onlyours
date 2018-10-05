@@ -36,44 +36,37 @@
                         <p class="status-text text-center">{{ user.status }}</p>
                     {% endif %}
                 </div>
+                {% if user != current_user %}
+                    {% if friendship_status == 'friend' %}
+                        <a href="{% url 'pages:remove_friend' user.username %}">Remove friend</a>
+                    {% elif friendship_status == 'requested' %}
+                        <a href="{% url 'pages:reset_friend_request' user.username %}">Reset friend request</a>
+                    {% elif friendship_status == 'requesting' %}
+                        <a href="{% url 'pages:accept_friend_request' user.username %}">Accept friend request</a>
+                        <br>
+                        <a href="{% url 'pages:deny_friend_request' user.username %}">Deny friend request</a>
+                    {% else %}
+                        <a href="{% url 'pages:send_friend_request' user.username %}">Send friend request</a>
+                    {% endif %}
+                {% endif %}
                 <div class="friends-panel">
-                        <b class="friends-text"><a href="">Friends</a></b>
+                    <b class="friends-text"><a href="">Friends</a></b>
+                    {% for friend in friends %}
                         <div class="friend-icon">
-                            <a href="">
-                                <div class="friend-avatar"></div>
-                                <div class="text-center friend-name">name</div>
+                            <a href="{% url 'pages:page' friend.username %}">
+                                {% if friend.avatar %}
+                                    <img src="{{ friend.avatar.url }}" class="friend-avatar">
+                                {% else %}
+                                    <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="friend-avatar">
+                                {% endif %}
+                                {% if friend.username|length > 8 %}
+                                    <div class="text-center friend-name">{{ friend.username|slice:":9" }}...</div>
+                                {% else %}
+                                    <div class="text-center friend-name">{{ friend.username }}</div>
+                                {% endif %}
                             </a>
                         </div>
-                        <div class="friend-icon">
-                            <a href="">
-                                    <div class="friend-avatar"></div>
-                                    <div class="text-center friend-name">name</div>
-                            </a>
-                        </div>
-                        <div class="friend-icon">
-                            <a href="">
-                                <div class="friend-avatar"></div>
-                                <div class="text-center friend-name">name</div>
-                            </a>
-                        </div>
-                        <div class="friend-icon">
-                            <a href="">
-                                <div class="friend-avatar"></div>
-                                <div class="text-center friend-name">name</div>
-                            </a>
-                        </div>
-                        <div class="friend-icon">
-                            <a href="">
-                                <div class="friend-avatar"></div>
-                                <div class="text-center friend-name">name</div>
-                            </a>
-                        </div>
-                        <div class="friend-icon">
-                            <a href="">
-                                <div class="friend-avatar"></div>
-                                <div class="text-center friend-name">name</div>
-                            </a>
-                        </div>
+                    {% endfor %}
                     </div>
             </div>
             <div class="middle col-6">
@@ -162,7 +155,7 @@
                         </p>
                     </div>
                     <div class="track-panel">
-                            <div class="play-icon"></div>
+                        <div class="play-icon"></div>
                         <p>
                             <a href=""><b>Artist </b></a> - Title
                         </p>
@@ -179,3 +172,17 @@
 <script src="{% static 'pages/js/elephant.js' %}"></script>
 </body>
 </html>
+
+SELECT A.friend
+FROM userrelation A, userrelation B
+WHERE A.user = B.friend AND B.user = A.friend
+
+oleg vasya      oleg vasya
+vasya oleg      vasya oleg
+petya kolya     petya kolya
+kolya petya     kolya petya
+sanya igor      igor sanya
+
+
+oleg vasya      oleg vasya
+petya kolya     petya kolya

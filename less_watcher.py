@@ -2,7 +2,7 @@ from os.path import abspath, dirname, getmtime, join
 from subprocess import run
 from time import asctime, sleep
 
-print("Less compiler has been started.")
+print("Less watcher has been started.")
 
 app_name = "talks"
 file_name = "talks"
