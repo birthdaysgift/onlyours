@@ -12,10 +12,12 @@ from .forms import EditPageForm
 from .models import Friendship, FriendshipRequest
 
 
-def get_friends_of(user):
+def get_friends_of(user, order_by=None):
     user_friend_pairs = Friendship.objects.filter(
-                Q(user1=user) | Q(user2=user)
-            ).select_related("user1", "user2")
+        Q(user1=user) | Q(user2=user)
+    ).select_related("user1", "user2")
+    if order_by:
+        user_friend_pairs = user_friend_pairs.order_by(order_by)
     friends = []
     for pair in user_friend_pairs:
         if pair.user1 == user:
@@ -88,7 +90,7 @@ class SendFriendRequestView(View):
         user = get_object_or_404(User, username=username)
         FriendshipRequest(from_user=request.user, to_user=user).save()
         return redirect(reverse("pages:page", kwargs={
-                "username": username
+            "username": username
         }))
 
 
@@ -99,7 +101,7 @@ class ResetFriendRequestView(View):
             from_user=request.user, to_user=user
         ).delete()
         return redirect(reverse("pages:page", kwargs={
-                "username": username
+            "username": username
         }))
 
 
@@ -124,7 +126,7 @@ class DenyFriendRequestView(View):
             from_user=user, to_user=request.user
         ).delete()
         return redirect(reverse("pages:page", kwargs={
-                "username": username
+            "username": username
         }))
 
 
@@ -136,5 +138,15 @@ class RemoveFriendView(View):
             Q(user1=request.user, user2=user)
         ).delete()
         return redirect(reverse("pages:page", kwargs={
-                "username": username
+            "username": username
         }))
+
+
+class FriendsListView(View):
+    def get(self, request, username=None):
+        user = User.objects.get(username=username)
+        friends = get_friends_of(user)
+        # TODO: make sort in db query
+        friends.sort(key=lambda e: e.username.lower())
+        return render(request, "pages/friends.html",
+                      context={"friends": friends})
