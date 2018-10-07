@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 
 from auth_custom.models import User
+from pages.views import get_friends_of
 
 from .forms import TalksForm
 from .models import PublicMessage, PrivateMessage, DialogDoesNotExist
@@ -30,12 +31,21 @@ class TalksView(LoginRequiredMixin, views.View):
                 ).order_by("-date", "-time")
             except DialogDoesNotExist:
                 raise Http404
+        messages_rows = PrivateMessage.objects.filter(
+            Q(sender=request.user) | Q(receiver=request.user)
+        ).select_related("sender", "receiver")\
+            .distinct("sender").distinct("receiver")
+        contacts = []
+        for row in messages_rows:
+            if row.sender == request.user:
+                contacts.append(row.receiver)
+            else:
+                contacts.append(row.sender)
         paginator = Paginator(messages, 30)
         context = {
             "form": TalksForm(),
-            "contacts": User.objects.exclude(
-                username=request.user.username
-            ).order_by("username"),
+            "contacts": contacts,
+            "friends": get_friends_of(request.user),
             "messages": reversed(paginator.page(page_num)),
             "pages": aligned_range_of_pages(
                 page=page_num,

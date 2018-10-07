@@ -22,6 +22,7 @@
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+  position: relative;
 }
 .row .contacts-panel .contact-icon:hover {
   border: 1px solid #c8c8c8;
@@ -46,6 +47,14 @@
 .row .contacts-panel .contact-icon .last-message-text {
   margin-top: 10px;
 }
+.row .contacts-panel .contact-icon .friends-icon {
+  display: inline-block;
+  width: 17px;
+  height: 13px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
 .row .contacts-panel .contact-icon-selected {
   margin-bottom: 10px;
   width: 100%;
@@ -53,6 +62,7 @@
   cursor: pointer;
   border: 1px solid #ebebeb;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
+  position: relative;
   border: 1px solid #aaaaaa;
   border-radius: 5px 5px;
 }
@@ -78,6 +88,14 @@
 }
 .row .contacts-panel .contact-icon-selected .last-message-text {
   margin-top: 10px;
+}
+.row .contacts-panel .contact-icon-selected .friends-icon {
+  display: inline-block;
+  width: 17px;
+  height: 13px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 .row .messages-header {
   width: 100%;

@@ -94,7 +94,7 @@ class SendFriendRequestView(View):
         }))
 
 
-class ResetFriendRequestView(View):
+class CancelFriendRequestView(View):
     def get(self, request, username=None):
         user = get_object_or_404(User, username=username)
         FriendshipRequest.objects.get(

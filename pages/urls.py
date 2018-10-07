@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import EditView, PageView, SendFriendRequestView, \
     AcceptFriendRequestView, DenyFriendRequestView, RemoveFriendView, \
-    ResetFriendRequestView, FriendsListView
+    CancelFriendRequestView, FriendsListView
 
 app_name = "pages"
 
@@ -12,7 +12,7 @@ urlpatterns = [
     path("<str:username>/send_friend_request/", SendFriendRequestView.as_view(),
          name="send_friend_request"),
     path("<str:username>/reset_friend_request/",
-         ResetFriendRequestView.as_view(), name="reset_friend_request"),
+         CancelFriendRequestView.as_view(), name="cancel_friend_request"),
     path("<str:username>/accept_friend_request/",
          AcceptFriendRequestView.as_view(), name="accept_friend_request"),
     path("<str:username>/deny_friend_request/", DenyFriendRequestView.as_view(),

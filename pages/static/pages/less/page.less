@@ -43,19 +43,20 @@
     background-color: rgba(100, 100, 100, 0.3);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 1;
 
     .all-friends {
         height: 600px;
-        width: 100%;
+        width: 350px;
+        margin: 0 auto;
         background-color: white;
         position:relative;
         top: 150px;
         .main_border();
 
         .friends-header {
-            width: 100%;
+            width: 350px;
             .main_bg();
             .main_border();
             border-radius: 0px 0px;
@@ -63,7 +64,8 @@
 
         .friends-list {
             height: 560px;
-            overflow-y: scroll;
+            width: 350px;
+            overflow-y: auto;
             padding: 10px 10px;
 
             .friends-list-icon {
@@ -71,6 +73,7 @@
                 width: 100%;
                 height: 72px;
                 cursor: pointer;
+                position: relative;
                 .main_border();
                 .main_bg();
 
@@ -98,8 +101,56 @@
                     }
                 }
 
-                .last-message-text {
-                   margin-top: 10px;
+                .add-to-friends-btn {
+                    display: inline-block;
+                    position: absolute;
+                    right: 180px;
+                    top: 30px;
+                    width: 50px;
+                    height: 30px;
+                    .main_border();
+                    .main_bg();
+                    box-shadow: 0px 0px 1px rgb(0, 255, 0);
+                    text-decoration: none;
+                    color: black;
+
+                    &:hover {
+                        box-shadow: none;
+                        border-color: rgb(0, 200, 0)
+                    }
+                }
+
+                .write-message-btn {
+                    display: inline-block;
+                    position: absolute;
+                    left: 80px;
+                    top: 30px;
+                    .main_border();
+                    .main_bg();
+                    width: 130px;
+                    height: 30px;
+                    color: black;
+                    text-decoration: none;
+
+                    &:hover {
+                        border-color: rgb(200, 200, 200);
+                    }
+
+                }
+
+                .remove-friend-link {
+                    display: inline-block;
+                    width: 15px;
+                    height: 15px;
+                    position: absolute;
+                    background-image: url("../img/close-icon.png");
+                    background-size: 100% 100%;
+                    right: 8px;
+                    top: 5px;
+
+                    &:hover {
+                        outline: 1px solid #999;
+                    }
                 }
             }
         }
@@ -110,7 +161,7 @@
     border-left: 1px solid rgb(235, 235, 235);
 
     .avatar-panel {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         padding: 0px 10px 15px 10px;
         .main_bg();
         .main_border();
@@ -129,6 +180,70 @@
             margin: 0 auto;
         }
     }
+
+    .write-message-btn {
+        height: 30px;
+        width: 100%;
+        color: black;
+        text-decoration: none;
+        .main_bg();
+        .main_border();
+        box-shadow: 0px 0px 1px rgb(0, 0, 255);
+        margin-bottom: 10px;
+        display: inline-block;
+
+        &:hover {
+            border-color: rgb(100, 100, 255);
+        }
+    }
+
+    .friendship-status-panel {
+        .main_bg();
+        .main_border();
+        margin-bottom: 10px;
+
+        .friendship-status-text {
+            margin-bottom: 5px;
+        }
+
+        .send-friend-request-btn {
+            .write-message-btn();
+            box-shadow: 0px 0px 1px rgb(0, 200, 0);
+            margin-bottom: 0px;
+
+
+            &:hover {
+                border-color: rgb(0, 200, 0);
+            }
+        }
+
+        .remove-friend-btn {
+            .send-friend-request-btn();
+            box-shadow: 0px 0px 1px rgb(255, 0, 0);
+
+            &:hover {
+                border-color: rgb(255, 130, 130);
+            }
+        }
+
+        .accept-friend-request-btn {
+            .send-friend-request-btn();
+        }
+
+        .deny-friend-request-btn {
+            .remove-friend-btn();
+        }
+
+        .cancel-friend-request-btn {
+            .deny-friend-request-btn();
+            box-shadow: 0px 0px 1px 1px rgb(255, 255, 0);
+
+            &:hover {
+                border-color: rgb(255, 226, 40);
+            }
+        }
+    }
+
 
    .friends-panel {
         margin-bottom: 15px;

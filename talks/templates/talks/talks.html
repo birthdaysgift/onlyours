@@ -52,6 +52,9 @@
                             <a href="{% url 'pages:page' contact.username %}">
                                 <b class="contact-username-text">{{ contact.username }}</b>
                             </a>
+                            {% if contact in friends %}
+                                <img src="{% static 'talks/img/friends.png' %}" class="friends-icon" alt="">
+                            {% endif %}
                             <p class="last-message-text">Last message...</p>
                     {% if contact.username == receiver_name %}
                         </div>

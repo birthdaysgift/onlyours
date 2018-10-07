@@ -36,18 +36,26 @@
                         <p class="status-text text-center">{{ user.status }}</p>
                     {% endif %}
                 </div>
+                {% if user.username != current_user.username %}
+                    <a class="write-message-btn text-center" href="">Write a message</a>
+                {% endif %}
                 {% if user != current_user %}
-                    {% if friendship_status == 'friend' %}
-                        <a href="{% url 'pages:remove_friend' user.username %}">Remove friend</a>
-                    {% elif friendship_status == 'requested' %}
-                        <a href="{% url 'pages:reset_friend_request' user.username %}">Reset friend request</a>
-                    {% elif friendship_status == 'requesting' %}
-                        <a href="{% url 'pages:accept_friend_request' user.username %}">Accept friend request</a>
-                        <br>
-                        <a href="{% url 'pages:deny_friend_request' user.username %}">Deny friend request</a>
-                    {% else %}
-                        <a href="{% url 'pages:send_friend_request' user.username %}">Send friend request</a>
-                    {% endif %}
+                    <div class="friendship-status-panel">
+                        {% if friendship_status == 'friend' %}
+                            <p class="friendship-status-text text-center"><small>{{ user.username }} is your friend</small></p>
+                            <a href="{% url 'pages:remove_friend' user.username %}" class="remove-friend-btn text-center">Remove</a>
+                        {% elif friendship_status == 'requested' %}
+                            <p class="friendship-status-text text-center">You've requested a friendship</p>
+                            <a class="cancel-friend-request-btn text-center" href="{% url 'pages:cancel_friend_request' user.username %}">Cancel</a>
+                        {% elif friendship_status == 'requesting' %}
+                            <p class="friendship-status-text text-center"><small>{{ user.username }} requesting your friendship</small></p>
+                            <a href="{% url 'pages:accept_friend_request' user.username %}" class="accept-friend-request-btn text-center">Accept</a>
+                            <a href="{% url 'pages:deny_friend_request' user.username %}" class="deny-friend-request-btn text-center">Deny</a>
+                        {% else %}
+                            <p class="friendship-status-text text-center"><small>{{ user.username }} isn't your friend</small></p>
+                            <a class="send-friend-request-btn text-center" href="{% url 'pages:send_friend_request' user.username %}">Add to friends</a>
+                        {% endif %}
+                    </div>
                 {% endif %}
                 <div class="friends-panel">
                     <!--First letter disappears when hover-->
