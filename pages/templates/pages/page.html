@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load html_attrs %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -37,7 +38,7 @@
                     {% endif %}
                 </div>
                 {% if user.username != current_user.username %}
-                    <a class="write-message-btn text-center" href="">Write a message</a>
+                    <a class="write-message-btn text-center" href="{% url 'talks:talk' user.username 1 %}">Write a message</a>
                 {% endif %}
                 {% if user != current_user %}
                     <div class="friendship-status-panel">
@@ -102,38 +103,44 @@
                     {% endif %}
                     {% if user.about %}
                         <div class="about-block"><b>About me: </b>
-                            <p>{{ user.about }}</p>
+                            <p class="about-text">{{ user.about|linebreaksbr }}</p>
                         </div>
                     {% endif %}
                 </div>
                 <div class="splitter"></div>
                 <div class="posts-panel">
-                    <div class="post">
-                        <a href="">
-                            <div class="sender-avatar"></div>
-                        </a>
-                        <div class="sender-name">
-                            <a href="">
-                                <b>Tom</b>
-                            </a>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors}}
+                        <!--TODO: get rid of default form validation pop-up window-->
+                        <div class="form-info-block">
+                            {{ form.text|set_attrs:"class='add-post' placeholder='Add a new post...' oninvalid='this.setCustomValidity(\'\')'" }}
+                            <p class="form-info-text text-right">Press Ctrl+Enter to post</p>
                         </div>
-                        <div class="post-date">
-                            <small>15.03.2018 18.30</small>
-                        </div>
-                        <div style="clear:both"></div>
-                        <div class="post-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a leo mattis sem gravida feugiat vel nec magna.
-                        </div>
-                    </div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
-                    <div class="post">post</div>
+                        {{ form.text.errors}}
+                    </form>
+                    <!--TODO: add links to posts-->
+                    {% if posts %}
+                        {% for post in posts %}
+                            <div class="post">
+                                    {% if post.sender.avatar %}
+                                        <img src="{{ post.sender.avatar.url }}" class="sender-avatar">
+                                    {% else %}
+                                        <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="sender-avatar">
+                                    {% endif %}
+                                    <div class="post-sender">
+                                        <b>{{ post.sender.username }}</b>
+                                        <small>{{ post.date }} {{ post.time }}</small>
+                                    </div>
+                                    {% if user.username == current_user.username %}
+                                        <a class="close-icon"></a>
+                                        <!--This link is used in js-->
+                                        <a class="close-icon-link" href="{% url 'pages:post_delete_confirm' user.username post.id %}"></a>
+                                    {% endif %}
+                                    {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="right col-3">
@@ -187,6 +194,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="{% static 'pages/js/elephant.js' %}"></script>
 <script src="{% static 'pages/js/friends.js' %}"></script>
+<script src="{% static 'pages/js/posts.js' %}"></script>
 </body>
 </html>
 

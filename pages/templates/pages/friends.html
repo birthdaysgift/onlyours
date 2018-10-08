@@ -22,9 +22,10 @@
                                 <a href="{% url 'pages:page' friend.username %}">
                                     <b class="contact-username-text">{{ friend.username }}</b>
                                 </a>
-                                <!--<a class="add-to-friends-btn text-center" href="">Add</a>-->
+                                {% if friend in session_user_friends %}
+                                    <img class="friends-icon" src="{% static 'pages/img/friends.png' %}">
+                                {% endif %}
                                 <a class="write-message-btn text-center" href="{% url 'talks:talk' friend.username 1 %}">Write a message</a>
-                                <!--<a class="remove-friend-link" href=""></a>-->
                             </div>
                         {% endfor %}
                     </div>

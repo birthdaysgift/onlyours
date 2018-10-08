@@ -16,3 +16,6 @@ class EditPageForm(forms.ModelForm):
             )),
         }
 
+
+class AddPostForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea)

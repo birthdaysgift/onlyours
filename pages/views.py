@@ -8,8 +8,8 @@ from django.views import View
 
 from auth_custom.models import User
 
-from .forms import EditPageForm
-from .models import Friendship, FriendshipRequest
+from .forms import EditPageForm, AddPostForm
+from .models import Friendship, FriendshipRequest, Post
 
 
 def get_friends_of(user, order_by=None):
@@ -35,6 +35,7 @@ class PageView(LoginRequiredMixin, View):
     def get(self, request, username=None):
         if username is not None:
             user = get_object_or_404(User, username=username)
+            posts = Post.objects.filter(receiver=user).select_related("sender")
             friends = get_friends_of(user)
             friendship_status = None
             if request.user in friends:
@@ -54,12 +55,41 @@ class PageView(LoginRequiredMixin, View):
                 k = len(friends)
             friends = random.sample(friends, k)
             context = {
+                "form": AddPostForm(),
                 "user": user,
                 "current_user": request.user,
+                "posts": posts,
                 "friends": friends,
                 "friendship_status": friendship_status
             }
             return render(request, self.template_name, context=context)
+
+    def post(self, request, username=None):
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            Post(
+                sender=request.user,
+                receiver=get_object_or_404(User, username=username),
+                text=form.cleaned_data["text"]
+            ).save()
+            return redirect(reverse("pages:page", kwargs={
+                "username": username}))
+        else:
+            return render(request, self.template_name, context={"form": form})
+
+
+class PostDeleteConfirmView(View):
+    def get(self, request, username=None, post_id=None):
+        post = Post.objects.get(id=post_id)
+        return render(request, 'pages/delete_post.html', context={"post": post})
+
+
+class DeletePostView(View):
+    def get(self, request, username=None, post_id=None):
+        Post.objects.get(id=post_id).delete()
+        return redirect(reverse('pages:page', kwargs={
+            "username": username
+        }))
 
 
 class EditView(LoginRequiredMixin, View):
@@ -146,7 +176,9 @@ class FriendsListView(View):
     def get(self, request, username=None):
         user = User.objects.get(username=username)
         friends = get_friends_of(user)
+        session_user_friends = get_friends_of(request.user)
         # TODO: make sort in db query
         friends.sort(key=lambda e: e.username.lower())
         return render(request, "pages/friends.html",
-                      context={"friends": friends})
+                      context={"friends": friends,
+                               "session_user_friends": session_user_friends})

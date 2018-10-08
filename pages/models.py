@@ -1,6 +1,17 @@
 from django.db import models
 
 from auth_custom.models import User
+from Onlyours.settings import AUTH_USER_MODEL
+
+
+class Post(models.Model):
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
+    sender = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+                               default=0, related_name="post_sender")
+    receiver = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+                                 default=0, related_name="post_receiver")
+    text = models.TextField()
 
 
 class Friendship(models.Model):
