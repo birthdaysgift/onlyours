@@ -29,7 +29,8 @@ $(".add-post").focusout(function(event) {
 });
 
 $(".close-icon").click(function(event) {
-    var url = $(".close-icon-link").attr("href");
+//    TODO: fix deleting
+    var url = $(event.target).parent().find(".close-icon-link").attr("href");
     $.get({
         url: url,
         dataType: "html",
