@@ -462,15 +462,26 @@
         .photo-text {
             display: block;
             margin-bottom: 5px;
+            cursor: pointer;
+            color: #007bff;
+
+            &:hover {
+                color: #0056b3;
+                text-decoration: underline;
+            }
+
         }
 
         .photo-avatar {
+            padding: 0px 0px;
             display: inline-block;
             width: 70px;
             height: 70px;
             margin-left: 3px;
+            margin-bottom: 5px;
             border: 1px solid grey;
             border-radius: 5px 5px;
+            object-fit: cover;
         }
     }
 

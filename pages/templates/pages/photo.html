@@ -1,0 +1,83 @@
+{% load html_attrs %}
+<div class="smooth-background">
+    <div class="smooth-background" style="display: none">
+        <img class="photo-img" src="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="photo-list-window">
+                    <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' user.username %}">
+                        {% csrf_token %}
+                        {{ photo_form.non_field_errors }}
+                        {{ photo_form.photo|set_attrs:"class='new-photo-input'" }}
+                        {{ photo_form.photo.errors }}
+                        <input type="submit" class="new-photo-submit">
+                    </form>
+                    <a class="add-new-photo"></a>
+                    {% for photo in photos %}
+                        <img class="photo-list-avatar" src="{{ photo.photo.photo.url }}">
+                        <div class="delete-photo-icon">
+                            <a href="{% url 'pages:delete_photo' user.username photo.id %}" class="delete-photo-link"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".wrapper > .smooth-background").click(function(event) {
+            $(".smooth-background").remove();
+        });
+
+        $(".smooth-background > .smooth-background").click(function(event){
+            event.stopPropagation();
+            $(".smooth-background > .smooth-background").css("display", "none");
+        });
+
+        $(".add-new-photo").click(function(event) {
+            $(".new-photo-input").click(function(event){
+                event.stopPropagation();
+            });
+            event.stopPropagation();
+            $(".new-photo-input").trigger("click");
+        });
+
+        $(".new-photo-submit").click(function(event) {
+            event.stopPropagation();
+        });
+
+        $(".photo-list-avatar").click(function(event){
+            event.stopPropagation();
+            var src = $(event.target).attr("src");
+            $(".photo-img").attr("src", src);
+            $(".smooth-background > .smooth-background").css("display", "flex");
+        });
+        
+        $(".delete-photo-icon").click(function(event){
+            event.stopPropagation();
+            var url = $(event.target).find(".delete-photo-link").attr("href");
+            $.get({
+                url: url,
+                success: function(event) {
+                    window.location.reload(true);
+                }
+            });
+            $(".photo-text").click(function(event) {
+                var url = $(".photos-list-link").attr("href");
+                $.get({
+                    url: url,
+                    dataType: "html",
+                    success: function(htmlData) {
+                        $(".wrapper").prepend(htmlData);
+                    }
+                });
+            });
+        });
+
+        $(".new-photo-input").change(function(event) {
+            $(".new-photo-submit").trigger("click");
+        });
+        
+    </script>
+</div>

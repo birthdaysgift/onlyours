@@ -1,0 +1,86 @@
+.smooth-background {
+  background-color: rgba(100, 100, 100, 0.3);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.smooth-background .col-12 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.smooth-background .col-12 .photo-list-window {
+  padding: 20px 0px 20px 20px;
+  max-height: 750px;
+  max-width: 1085px;
+  background-color: white;
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.smooth-background .col-12 .photo-list-window .photo-list-avatar {
+  width: 203px;
+  height: 203px;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  object-fit: cover;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-right: -5px;
+}
+.smooth-background .col-12 .photo-list-window .delete-photo-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-image: url('../img/close-icon.png');
+  background-size: 200% 100%;
+  position: relative;
+  top: -90px;
+  right: 12px;
+  cursor: pointer;
+}
+.smooth-background .col-12 .photo-list-window .delete-photo-icon:hover {
+  background-position: 50px 0px;
+}
+.smooth-background .col-12 .photo-list-window .new-photo-input {
+  display: none;
+}
+.smooth-background .col-12 .photo-list-window .new-photo-submit {
+  display: none;
+}
+.smooth-background .col-12 .photo-list-window .add-new-photo {
+  width: 203px;
+  height: 203px;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  object-fit: cover;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-right: -5px;
+  background-image: url('../img/plus-icon.png');
+  background-size: 200% 100%;
+  background-position: 0px 0px;
+  margin-right: 5px;
+}
+.smooth-background .col-12 .photo-list-window .add-new-photo:hover {
+  cursor: pointer;
+  background-position: 603px 0px;
+}
+.smooth-background > .smooth-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.photo-img {
+  max-width: 800px;
+  max-height: 800px;
+  background-size: 100% 100%;
+  border-radius: 5px 5px;
+}

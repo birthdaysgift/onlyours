@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load html_attrs %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.photo }}
+        {{ form.photo.errors }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

@@ -8,8 +8,8 @@ from django.views import View
 
 from auth_custom.models import User
 
-from .forms import EditPageForm, AddPostForm
-from .models import Friendship, FriendshipRequest, Post
+from .forms import EditPageForm, AddPostForm, AddPhotoForm
+from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo
 
 
 def get_friends_of(user, order_by=None):
@@ -36,7 +36,10 @@ class PageView(LoginRequiredMixin, View):
         if username is not None:
             user = get_object_or_404(User, username=username)
             posts = Post.objects.filter(receiver=user).select_related("sender")
+            posts = posts.order_by("-date", "-time")
             friends = get_friends_of(user)
+            photos = UserPhoto.objects.filter(user=user)
+            photos = photos.select_related("user", "photo")[:6]
             friendship_status = None
             if request.user in friends:
                 friendship_status = "friend"
@@ -60,6 +63,7 @@ class PageView(LoginRequiredMixin, View):
                 "current_user": request.user,
                 "posts": posts,
                 "friends": friends,
+                "photos": photos,
                 "friendship_status": friendship_status
             }
             return render(request, self.template_name, context=context)
@@ -182,3 +186,50 @@ class FriendsListView(View):
         return render(request, "pages/friends.html",
                       context={"friends": friends,
                                "session_user_friends": session_user_friends})
+
+
+class PhotosListView(View):
+    def get(self, request, username=None):
+        user = get_object_or_404(User, username=username)
+        photos = UserPhoto.objects.filter(user=user).select_related("photo")
+        return render(request, "pages/photo.html", context={
+            "photos": photos,
+            "user": user,
+            "photo_form": AddPhotoForm(),
+            "current_user": request.user
+        })
+
+
+class AddNewPhotoView(View):
+    template_name = "pages/add_photo.html"
+
+    def get(self, request, username=None):
+        return render(request, self.template_name, context={
+            "form": AddPhotoForm()
+        })
+
+    def post(self, request, username=None):
+        form = AddPhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            user = get_object_or_404(User, username=username)
+            photo = get_object_or_404(
+                Photo,
+                photo=form.cleaned_data['photo'].name.strip().replace(" ", "_")
+            )
+            UserPhoto(user=user, photo=photo).save()
+            return redirect(reverse("pages:page", kwargs={
+                "username": username
+            }))
+        else:
+            return render(request, self.template_name, context={
+                "form": form
+            })
+
+
+class DeletePhotoView(View):
+    def get(self, request, username=None, userphoto_id=None):
+        print("GOT")
+        print(userphoto_id)
+        UserPhoto.objects.get(id=userphoto_id).delete()
+        return redirect(reverse("pages:page", kwargs={"username": username}))

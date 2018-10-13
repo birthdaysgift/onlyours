@@ -14,10 +14,26 @@ class Post(models.Model):
     text = models.TextField()
 
 
+class Photo(models.Model):
+    photo = models.ImageField()
+
+    def __str__(self):
+        return self.photo.name
+
+
+class UserPhoto(models.Model):
+    # TODO: add date and time
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.photo.photo.name}"
+
+
 class Friendship(models.Model):
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE,
+    user1 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user1")
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE,
+    user2 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user2")
 
 

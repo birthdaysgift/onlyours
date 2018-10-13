@@ -1,6 +1,7 @@
 from django import forms
 
 from auth_custom.models import User
+from .models import Photo, UserPhoto
 
 
 class EditPageForm(forms.ModelForm):
@@ -19,3 +20,9 @@ class EditPageForm(forms.ModelForm):
 
 class AddPostForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
+
+
+class AddPhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ("photo", )

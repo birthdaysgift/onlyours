@@ -12,8 +12,12 @@ def watch(app_name, file_name):
     print(f"Less watcher has been started on {app_name}:{file_name}.")
 
     time_tmp = getmtime(less_path)
+    time = time_tmp
     while True:
-        time = getmtime(less_path)
+        try:
+            time = getmtime(less_path)
+        except FileNotFoundError:
+            continue
         if time_tmp != time:
             time_tmp = time
             result = run("lessc " + less_path + " " + css_path, shell=True)
@@ -33,4 +37,5 @@ def watch(app_name, file_name):
 
 
 Thread(target=watch, args=("pages", "page")).start()
+Thread(target=watch, args=("pages", "photo")).start()
 Thread(target=watch, args=("talks", "talks")).start()

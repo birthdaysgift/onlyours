@@ -9,6 +9,7 @@
 	{% load static %}
 
 	<link rel="stylesheet" href="{% static 'pages/css/page.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/photo.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -149,13 +150,12 @@
             </div>
             <div class="right col-3">
                 <div class="photo-panel">
-                    <a href="" class="photo-text"><b>Photo</b></a>
-                    <a href="" class="photo-avatar"></a>
-                    <a href="" class="photo-avatar"></a>
-                    <a href="" class="photo-avatar"></a>
-                    <a href="" class="photo-avatar"></a>
-                    <a href="" class="photo-avatar"></a>
-                    <a href="" class="photo-avatar"></a>
+                    <div class="photo-text"><b>Photo</b></div>
+                    <!--This link is used by js-->
+                    <a href="{% url 'pages:photos' user.username %}" class="photos-list-link"></a>
+                    {% for photo in photos %}
+                        <img src="{{ photo.photo.photo.url }}" class="photo-avatar">
+                    {% endfor %}
                 </div>
                 <div class="video-panel">
                     <a href="" class="video-text"><b>Video</b></a>
@@ -199,6 +199,7 @@
 <script src="{% static 'pages/js/elephant.js' %}"></script>
 <script src="{% static 'pages/js/friends.js' %}"></script>
 <script src="{% static 'pages/js/posts.js' %}"></script>
+<script src="{% static 'pages/js/photos.js' %}"></script>
 </body>
 </html>
 
