@@ -183,7 +183,7 @@ class FriendsListView(View):
         session_user_friends = get_friends_of(request.user)
         # TODO: make sort in db query
         friends.sort(key=lambda e: e.username.lower())
-        return render(request, "pages/friends.html",
+        return render(request, "pages/all_friends.html",
                       context={"friends": friends,
                                "session_user_friends": session_user_friends})
 
@@ -192,7 +192,7 @@ class PhotosListView(View):
     def get(self, request, username=None):
         user = get_object_or_404(User, username=username)
         photos = UserPhoto.objects.filter(user=user).select_related("photo")
-        return render(request, "pages/photo.html", context={
+        return render(request, "pages/all_photos.html", context={
             "photos": photos,
             "user": user,
             "photo_form": AddPhotoForm(),

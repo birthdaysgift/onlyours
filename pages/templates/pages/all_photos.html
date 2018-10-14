@@ -1,0 +1,29 @@
+{% load html_attrs %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'pages/css/all_photos.css' %}">
+<div class="all-photos-background">
+    <div class="detail-photo-background" style="display: none">
+        <img class="photo-img" src="">
+    </div>
+    <div class="photo-list-window">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' user.username %}">
+            {% csrf_token %}
+            {{ photo_form.non_field_errors }}
+            {{ photo_form.photo|set_attrs:"class='new-photo-input'" }}
+            {{ photo_form.photo.errors }}
+            <input type="submit" class="new-photo-submit">
+        </form>
+        <a class="add-new-photo"></a>
+        {% for photo in photos %}
+            <img class="photo-list-avatar" src="{{ photo.photo.photo.url }}">
+            <div class="delete-photo-icon">
+                <a href="{% url 'pages:delete_photo' user.username photo.id %}" class="delete-photo-link"></a>
+            </div>
+        {% endfor %}
+    </div>
+    <!--TODO: why this is doing that way-->
+    <script>
+        var url = "{% static 'pages/js/all_photos.js' %}";
+        $.getScript(url);
+    </script>
+</div>

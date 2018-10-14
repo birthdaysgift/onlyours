@@ -1,3 +1,14 @@
+$(".friends-text").click( function(event) {
+    var url = $(".friends-list-link").attr("href");
+    $.get({
+        url: url,
+        dataType: "html",
+        success: function(htmlData) {
+            $(".wrapper").prepend(htmlData);
+        }
+    });
+});
+
 $(".form-info-block").keypress(function(event) {
     if ((event.which == 10 && event.ctrlKey) ||
         (event.which == 13 && event.ctrlKey)) {
@@ -29,7 +40,6 @@ $(".add-post").focusout(function(event) {
 });
 
 $(".close-icon").click(function(event) {
-//    TODO: fix deleting
     var url = $(event.target).parent().find(".close-icon-link").attr("href");
     $.get({
         url: url,
@@ -40,4 +50,14 @@ $(".close-icon").click(function(event) {
     })
 });
 
-
+$(".photo-text").click(function(event) {
+    var url = $(".photos-list-link").attr("href");
+    $.get({
+        async: true,
+        url: url,
+        dataType: "html",
+        success: function(htmlData) {
+            $(".wrapper").prepend(htmlData);
+        }
+    });
+});

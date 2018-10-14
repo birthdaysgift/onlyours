@@ -37,5 +37,7 @@ def watch(app_name, file_name):
 
 
 Thread(target=watch, args=("pages", "page")).start()
-Thread(target=watch, args=("pages", "photo")).start()
+Thread(target=watch, args=("pages", "delete_post")).start()
+Thread(target=watch, args=("pages", "all_friends")).start()
+Thread(target=watch, args=("pages", "all_photos")).start()
 Thread(target=watch, args=("talks", "talks")).start()
