@@ -61,3 +61,13 @@ $(".photo-text").click(function(event) {
         }
     });
 });
+
+$(".photo-avatar").click(function(event) {
+    $(".page-detail-photo-background").css("display", "flex");
+    var src = $(event.target).attr("src");
+    $(".page-photo-img").attr("src", src);
+});
+
+$(".page-detail-photo-background").click(function(event) {
+    $(".page-detail-photo-background").css("display", "none");
+});

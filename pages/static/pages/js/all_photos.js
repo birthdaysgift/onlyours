@@ -2,9 +2,9 @@ $(".wrapper > .all-photos-background").click(function(event) {
     $(".all-photos-background").remove();
 });
 
-$(".detail-photo-background").click(function(event){
+$(".all-photos-detail-photo-background").click(function(event){
     event.stopPropagation();
-    $(".detail-photo-background").css("display", "none");
+    $(".all-photos-detail-photo-background").css("display", "none");
 });
 
 $(".add-new-photo").click(function(event) {
@@ -22,8 +22,8 @@ $(".new-photo-submit").click(function(event) {
 $(".photo-list-avatar").click(function(event){
     event.stopPropagation();
     var src = $(event.target).attr("src");
-    $(".photo-img").attr("src", src);
-    $(".detail-photo-background").css("display", "flex");
+    $(".all-photos-photo-img").attr("src", src);
+    $(".all-photos-detail-photo-background").css("display", "flex");
 });
 
 $(".delete-photo-icon").click(function(event){

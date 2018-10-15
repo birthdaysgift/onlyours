@@ -8,13 +8,20 @@
 	<title>Onlyours</title>
 
 	<link rel="stylesheet" href="{% static 'pages/css/page.css' %}">
-    <link rel="stylesheet" href="{% static 'pages/css/photos.css' %}">
+    <!--TODO: why i cant include these in their html files-->
+    <link rel="stylesheet" href="{% static 'pages/css/all_friends.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/delete_post.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/all_photos.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
 <div class="wrapper">
+    <!--TODO: refactor this, i dont know how-->
+    <div class="page-detail-photo-background">
+        <img src="" class="page-photo-img">
+    </div>
     <div class="elephant-panel">
         <div class="elephant"></div>
     </div>
@@ -59,7 +66,6 @@
                     </div>
                 {% endif %}
                 <div class="friends-panel">
-                    <!--First letter disappears when hover-->
                     <b class="friends-text">Friends</b>
                     <!--This link is used in js.-->
                     <a href="{% url 'pages:friends' user.username %}" class="friends-list-link"></a>

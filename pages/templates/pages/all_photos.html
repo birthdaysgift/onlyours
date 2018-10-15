@@ -1,9 +1,8 @@
 {% load html_attrs %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'pages/css/all_photos.css' %}">
 <div class="all-photos-background">
-    <div class="detail-photo-background" style="display: none">
-        <img class="photo-img" src="">
+    <div class="all-photos-detail-photo-background">
+        <img class="all-photos-photo-img" src="">
     </div>
     <div class="photo-list-window">
         <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' user.username %}">

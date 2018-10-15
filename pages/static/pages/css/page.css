@@ -1,3 +1,19 @@
+.page-detail-photo-background {
+  background-color: rgba(100, 100, 100, 0.3);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.page-detail-photo-background .page-photo-img {
+  max-width: 800px;
+  max-height: 800px;
+  background-size: 100% 100%;
+  border-radius: 5px 5px;
+}
 .elephant-panel {
   height: 40px;
   background-image: url("../img/grass.png");
@@ -363,6 +379,7 @@
   border: 1px solid grey;
   border-radius: 5px 5px;
   object-fit: cover;
+  cursor: pointer;
 }
 .right .video-panel {
   margin-bottom: 15px;
