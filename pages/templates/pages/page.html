@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'pages/css/all_friends.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/delete_post.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/all_photos.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/all_videos.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -19,10 +20,14 @@
 <body>
 <div class="wrapper">
     <!--TODO: refactor this, i dont know how-->
+    <div class="page-detail-video-background">
+        <video src="" class="page-video-img" controls></video>
+    </div>
     <div class="page-detail-photo-background">
         <img src="" class="page-photo-img">
     </div>
     <div class="elephant-panel">
+        <!--TODO: bug: Elephant speeding up when left click then right click-->
         <div class="elephant"></div>
     </div>
     <div class="container">
@@ -163,12 +168,14 @@
                     {% endfor %}
                 </div>
                 <div class="video-panel">
-                    <a href="" class="video-text"><b>Video</b></a>
-                    <a href="" class="video-avatar"></a>
-                    <a href="" class="video-avatar"></a>
-                    <a href="" class="video-avatar"></a>
-                    <a href="" class="video-avatar"></a>
-                    <a href="" class="video-avatar"></a>
+                    <div class="video-text"><b>Video</b></div>
+                    <!--This link is used by js-->
+                    <a href="{% url 'pages:videos' user.username %}" class="videos-list-link"></a>
+                    {% for video in videos %}
+                        <!--TODO: refactor ofc-->
+                        <!--Custom attr src used in js to get access to video instance-->
+                        <div src="{{ video.video.video.url }}" class="video-avatar"></div>
+                    {% endfor %}
                 </div>
                 <div class="audio-panel">
                     <a href="" class="audio-text"><b>Audio</b></a>

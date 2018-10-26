@@ -71,3 +71,26 @@ $(".photo-avatar").click(function(event) {
 $(".page-detail-photo-background").click(function(event) {
     $(".page-detail-photo-background").css("display", "none");
 });
+
+$(".video-text").click(function(event) {
+    var url = $(".videos-list-link").attr("href");
+    $.get({
+        async: true,
+        url: url,
+        dataType: "html",
+        success: function(htmlData) {
+            $(".wrapper").prepend(htmlData);
+        }
+    });
+});
+
+$(".video-avatar").click(function(event) {
+    $(".page-detail-video-background").css("display", "flex");
+    var src = $(event.target).attr("src");
+    $(".page-video-img").attr("src", src);
+});
+
+$(".page-detail-video-background").click(function(event) {
+    $(".page-detail-video-background").css("display", "none");
+    $(".page-video-img").get(0).pause();
+});

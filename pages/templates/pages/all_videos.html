@@ -1,0 +1,31 @@
+{% load html_attrs %}
+{% load static %}
+<div class="all-videos-background">
+    <div class="all-videos-detail-video-background">
+        <video class="all-videos-video-img" src="" controls></video>
+    </div>
+    <div class="video-list-window">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' user.username %}">
+            {% csrf_token %}
+            {{ video_form.non_field_errors }}
+            {{ video_form.video|set_attrs:"class='new-video-input'" }}
+            {{ video_form.video.errors }}
+            <input type="submit" class="new-video-submit">
+        </form>
+        <a class="add-new-video"></a>
+        {% for video in videos %}
+        <div class="video-list-avatar" src="{{ video.video.video.url }}"></div>
+            <!--TODO: do this via permissions (or not?)-->
+            {% if user == curent_user %}
+                <div class="delete-video-icon">
+                    <a href="{% url 'pages:delete_video' user.username video.id %}" class="delete-video-link"></a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <!--TODO: why this is doing that way-->
+    <script>
+        var url = "{% static 'pages/js/all_videos.js' %}";
+        $.getScript(url);
+    </script>
+</div>

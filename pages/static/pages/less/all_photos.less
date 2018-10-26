@@ -40,8 +40,8 @@
     }
 
     .photo-list-window {
-        padding: 20px 0px 20px 20px;
-        max-height: 750px;
+        padding: 20px 5px 20px 20px;
+        max-height: 800px;
         max-width: 1085px;
         background-color: white;
         overflow-y: auto;
@@ -51,30 +51,53 @@
         flex-wrap: wrap;
         flex-direction: row;
 
-        .photo-list-avatar {
+        .photo-avatar-wrapper {
             width: 203px;
             height: 203px;
-            .main_border();
-            object-fit: cover;
             margin-bottom: 5px;
             display: inline-block;
-            margin-right: -5px;
-            cursor: pointer;
-        }
-
-        .delete-photo-icon {
-            width: 10px;
-            height: 10px;
-            display: inline-block;
-            background-image: url('../img/close-icon.png');
-            background-size: 200% 100%;
+            margin-right: 5px;
             position: relative;
-            top: -90px;
-            right: 12px;
-            cursor: pointer;
 
-            &:hover {
-                background-position: 50px 0px;
+            .add-new-photo {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                .main_border();
+                object-fit: cover;
+                cursor: pointer;
+                background-image: url('../img/plus-icon.png');
+                background-size: 200% 100%;
+                background-position: 0px 0px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-position: 603px 0px;
+                }
+            }
+
+            .photo-list-avatar {
+                width: 100%;
+                height: 100%;
+                .main_border();
+                object-fit: cover;
+                cursor: pointer;
+            }
+
+            .delete-photo-icon {
+                width: 10px;
+                height: 10px;
+                display: inline-block;
+                background-image: url('../img/close-icon.png');
+                background-size: 200% 100%;
+                position: absolute;
+                top: 10px;
+                right: 12px;
+                cursor: pointer;
+
+                &:hover {
+                    background-position: 50px 0px;
+                }
             }
         }
 
@@ -86,18 +109,7 @@
             display: none;
         }
 
-        .add-new-photo {
-            .photo-list-avatar();
-            background-image: url('../img/plus-icon.png');
-            background-size: 200% 100%;
-            background-position: 0px 0px;
-            margin-right: 5px;
 
-            &:hover {
-                cursor: pointer;
-                background-position: 603px 0px;
-            }
-        }
 
     }
 }

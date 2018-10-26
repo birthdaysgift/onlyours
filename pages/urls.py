@@ -4,7 +4,7 @@ from .views import EditView, PageView, SendFriendRequestView, \
     AcceptFriendRequestView, DenyFriendRequestView, RemoveFriendView, \
     CancelFriendRequestView, FriendsListView, DeletePostView, \
     PostDeleteConfirmView, PhotosListView, AddNewPhotoView, \
-    DeletePhotoView
+    DeletePhotoView, VideosListView, AddNewVideoView, DeleteVideoView
 
 app_name = "pages"
 
@@ -32,5 +32,12 @@ urlpatterns = [
          name="add_new_photo"),
     path("<str:username>/delete_photo/<int:userphoto_id>/",
          DeletePhotoView.as_view(),
-         name="delete_photo")
+         name="delete_photo"),
+
+    path("<str:username>/videos/", VideosListView.as_view(), name="videos"),
+    path("<str:username>/add_new_video/", AddNewVideoView.as_view(),
+         name="add_new_video"),
+    path("<str:username>/delete_video/<int:uservideo>/",
+         DeleteVideoView.as_view(),
+         name="delete_video")
 ]

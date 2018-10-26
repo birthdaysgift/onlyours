@@ -1,7 +1,7 @@
 from django import forms
 
 from auth_custom.models import User
-from .models import Photo, UserPhoto
+from .models import Photo, Video
 
 
 class EditPageForm(forms.ModelForm):
@@ -26,3 +26,9 @@ class AddPhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = ("photo", )
+
+
+class AddVideoForm(forms.ModelForm):
+    class Meta:
+        model = Video
+        fields = ("video", )

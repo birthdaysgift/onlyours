@@ -1,0 +1,103 @@
+// ========MIXINS========
+.main_bg() {
+    background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+    /*rgba(160, 160, 255, 0.1)*/
+}
+.main_border() {
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: 5px 5px;
+
+}
+// ======================
+
+.all-videos-background {
+    background-color: rgba(100, 100, 100, 0.3);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+
+    .all-videos-detail-video-background {
+
+        background-color: rgba(100, 100, 100, 0.3);
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+
+        .all-videos-video-img {
+            max-width: 800px;
+            max-height: 800px;
+            background-size: 100% 100%;
+            border-radius: 5px 5px;
+        }
+    }
+
+    .video-list-window {
+        padding: 20px 5px 20px 20px;
+        max-height: 750px;
+        max-width: 1085px;
+        background-color: white;
+        overflow-y: auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        .video-list-avatar {
+            width: 203px;
+            height: 203px;
+            .main_border();
+            object-fit: cover;
+            margin-bottom: 5px;
+            margin-right: 5px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .delete-video-icon {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            background-image: url('../img/close-icon.png');
+            background-size: 200% 100%;
+            position: relative;
+            top: -90px;
+            right: 12px;
+            cursor: pointer;
+
+            &:hover {
+                background-position: 50px 0px;
+            }
+        }
+
+        .new-video-input {
+            display: none;
+        }
+
+        .new-video-submit {
+            display: none;
+        }
+
+        .add-new-video {
+            .video-list-avatar();
+            background-image: url('../img/plus-icon.png');
+            background-size: 200% 100%;
+            background-position: 0px 0px;
+            margin-right: 5px;
+
+            &:hover {
+                cursor: pointer;
+                background-position: 603px 0px;
+            }
+        }
+
+    }
+}

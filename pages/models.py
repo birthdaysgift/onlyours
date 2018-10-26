@@ -30,6 +30,21 @@ class UserPhoto(models.Model):
         return f"{self.user.username}: {self.photo.photo.name}"
 
 
+class Video(models.Model):
+    video = models.FileField()
+
+    def __str__(self):
+        return self.video.name
+
+
+class UserVideo(models.Model):
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.video.video.name}"
+
+
 class Friendship(models.Model):
     user1 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user1")

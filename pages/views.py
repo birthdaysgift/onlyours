@@ -8,8 +8,9 @@ from django.views import View
 
 from auth_custom.models import User
 
-from .forms import EditPageForm, AddPostForm, AddPhotoForm
-from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo
+from .forms import EditPageForm, AddPostForm, AddPhotoForm, AddVideoForm
+from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
+    UserVideo, Video
 
 
 def get_friends_of(user, order_by=None):
@@ -40,6 +41,8 @@ class PageView(LoginRequiredMixin, View):
             friends = get_friends_of(user)
             photos = UserPhoto.objects.filter(user=user)
             photos = photos.select_related("user", "photo")[:6]
+            videos = UserVideo.objects.filter(user=user)
+            videos = videos.select_related("user", "video")[:6]
             friendship_status = None
             if request.user in friends:
                 friendship_status = "friend"
@@ -64,7 +67,8 @@ class PageView(LoginRequiredMixin, View):
                 "posts": posts,
                 "friends": friends,
                 "photos": photos,
-                "friendship_status": friendship_status
+                "friendship_status": friendship_status,
+                "videos": videos
             }
             return render(request, self.template_name, context=context)
 
@@ -213,6 +217,7 @@ class AddNewPhotoView(View):
         if form.is_valid():
             form.save()
             user = get_object_or_404(User, username=username)
+            # TODO: clarify name formatting when saving to db
             photo = get_object_or_404(
                 Photo,
                 photo=form.cleaned_data['photo'].name.strip().replace(" ", "_")
@@ -232,4 +237,54 @@ class DeletePhotoView(View):
         print("GOT")
         print(userphoto_id)
         UserPhoto.objects.get(id=userphoto_id).delete()
+        return redirect(reverse("pages:page", kwargs={"username": username}))
+
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+
+class VideosListView(View):
+    def get(self, request, username=None):
+        user = get_object_or_404(User, username=username)
+        videos = UserVideo.objects.filter(user=user).select_related("video")
+        return render(request, "pages/all_videos.html", context={
+            "videos": videos,
+            "user": user,
+            "video_form": AddVideoForm(),
+            "current_user": request.user
+        })
+
+
+class AddNewVideoView(View):
+    template_name = "pages/add_video.html"
+
+    def get(self, request, username=None):
+        return render(request, self.template_name, context={
+            "form": AddVideoForm()
+        })
+
+    def post(self, request, username=None):
+        form = AddVideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            user = get_object_or_404(User, username=username)
+            # TODO: clarify name formatting when saving to db
+            video = get_object_or_404(
+                Video,
+                video=form.cleaned_data['video'].name.strip().replace(" ", "_")
+            )
+            UserVideo(user=user, video=video).save()
+            return redirect(reverse("pages:page", kwargs={
+                "username": username
+            }))
+        else:
+            return render(request, self.template_name, context={
+                "form": form
+            })
+
+
+class DeleteVideoView(View):
+    def get(self, request, username=None, uservideo=None):
+        UserVideo.objects.get(id=uservideo).delete()
         return redirect(reverse("pages:page", kwargs={"username": username}))
