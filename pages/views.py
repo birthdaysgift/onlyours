@@ -7,7 +7,6 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 
 from auth_custom.models import User
-
 from .forms import EditPageForm, AddPostForm, AddPhotoForm, AddVideoForm
 from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
     UserVideo, Video
@@ -205,12 +204,8 @@ class PhotosListView(View):
 
 
 class AddNewPhotoView(View):
-    template_name = "pages/add_photo.html"
-
-    def get(self, request, username=None):
-        return render(request, self.template_name, context={
-            "form": AddPhotoForm()
-        })
+    # TODO: Bug: exceptions in dango console after adding (with video also)
+    template_name = 'pages/all_photos.html'
 
     def post(self, request, username=None):
         form = AddPhotoForm(request.POST, request.FILES)
@@ -234,8 +229,6 @@ class AddNewPhotoView(View):
 
 class DeletePhotoView(View):
     def get(self, request, username=None, userphoto_id=None):
-        print("GOT")
-        print(userphoto_id)
         UserPhoto.objects.get(id=userphoto_id).delete()
         return redirect(reverse("pages:page", kwargs={"username": username}))
 
@@ -272,7 +265,7 @@ class AddNewVideoView(View):
             # TODO: clarify name formatting when saving to db
             video = get_object_or_404(
                 Video,
-                video=form.cleaned_data['video'].name.strip().replace(" ", "_")
+                video=form.cleaned_data['video'].name.strip().replace(' ', '_')
             )
             UserVideo(user=user, video=video).save()
             return redirect(reverse("pages:page", kwargs={
