@@ -1,27 +1,8 @@
-<!--TODO: divide templates by include() template tags-->
-<!DOCTYPE html>
+{% extends 'auth_custom/base.html' %}
+
 {% load html_attrs %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% load static %}
-
-    <link rel="stylesheet" href="{% static 'auth_custom/register.css' %}">
-     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <title>Onlyours</title>
-</head>
-<body>
-<div class="container">
+{% block content %}
     <h1>Register</h1>
     <form method="POST">
         {% csrf_token %}
@@ -55,6 +36,4 @@
         </div>
     </form>
     <div class="text-right"><a href="{% url 'auth_custom:login' %}">Login</a></div>
-</div>
-</body>
-</html>
+{% endblock content %}
