@@ -8,7 +8,7 @@ from .forms import LoginForm, RegisterForm
 class LoginView(auth_views.LoginView):
     form_class = LoginForm
     template_name = "auth_custom/login.html"
-    redirect_authenticated_user = True
+    redirect_authenticated_user = False
 
 
 class LogoutView(auth_views.LogoutView):
