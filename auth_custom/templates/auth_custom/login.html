@@ -4,11 +4,13 @@
 
 {% block content %}
     <h1>Login</h1>
+    {% for message in status_messages %}
+        <div class="alert alert-{{ message.level_tag }}">
+            <strong>Success:</strong> {{ message.message }}
+        </div>
+    {% endfor %}
     <form method="POST">
         {% csrf_token %}
-        {% if error_message %}
-        <div class="alert alert-danger"><strong>Error:</strong> {{ error_message }}</div>
-        {% endif %}
         {{ form.non_field_errors }}
         <div id="form-entries-block">
             <div class="form-group">
