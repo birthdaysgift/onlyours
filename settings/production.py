@@ -35,3 +35,5 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
