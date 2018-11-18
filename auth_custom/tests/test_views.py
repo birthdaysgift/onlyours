@@ -5,7 +5,6 @@ from django.utils import html
 from auth_custom.models import User
 
 
-@test.tag('current')
 class RegisterViewTest(test.TestCase):
     def setUp(self):
         super().setUp()
@@ -98,3 +97,51 @@ class RegisterViewTest(test.TestCase):
                     'only letters, numbers, and @/./+/-/_ characters.'
                 )
             )
+
+
+class LoginViewTest(test.TestCase):
+    def setUp(self):
+        self.client = test.Client()
+
+    def test_get_login_page(self):
+        response = self.client.get(
+            reverse('auth_custom:login')
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('auth_custom/login.html')
+
+    def test_login_success_redirect(self):
+        User.objects.create_user(
+            username='u',
+            password='p'
+        )
+        response = self.client.post(
+            reverse('auth_custom:login'),
+            {
+                'username': 'u',
+                'password': 'p'
+            },
+            follow=True
+        )
+        self.assertRedirects(
+            response,
+            reverse('pages:page', kwargs={'username': 'u'}),
+            status_code=302,
+            target_status_code=200
+        )
+
+    def test_login_error_message(self):
+        response = self.client.post(
+            reverse('auth_custom:login'),
+            {
+                'username': 'u',
+                'password': 'p'
+            }
+        )
+        self.assertContains(
+            response,
+            html.escape(
+                'Please enter a correct username and password. '
+                'Note that both fields may be case-sensitive.'
+            )
+        )
