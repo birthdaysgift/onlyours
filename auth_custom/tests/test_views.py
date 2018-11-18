@@ -145,3 +145,18 @@ class LoginViewTest(test.TestCase):
                 'Note that both fields may be case-sensitive.'
             )
         )
+
+    def test_login_user_in_session(self):
+        user = User.objects.create_user(
+            username='u',
+            password='p'
+        )
+        response = self.client.post(
+            reverse('auth_custom:login'),
+            {
+                'username': 'u',
+                'password': 'p'
+            }
+        )
+        session_user_id = int(self.client.session['_auth_user_id'])
+        self.assertEqual(session_user_id, user.pk)
