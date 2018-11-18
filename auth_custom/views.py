@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView
 
 from .forms import LoginForm, RegisterForm
@@ -19,6 +19,10 @@ class LoginView(auth_views.LoginView):
             'status_messages': status_messages
         })
         return context_data
+
+    def get_success_url(self):
+        username = self.request.POST['username']
+        return reverse('pages:page', kwargs={'username': username})
 
 
 class LogoutView(auth_views.LogoutView):
