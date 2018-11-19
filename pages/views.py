@@ -204,7 +204,6 @@ class PhotosListView(View):
 
 
 class AddNewPhotoView(View):
-    # TODO: Bug: exceptions in dango console after adding (with video also)
     template_name = 'pages/all_photos.html'
 
     def post(self, request, username=None):
