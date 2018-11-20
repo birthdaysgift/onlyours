@@ -1,7 +1,6 @@
 from django import views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -31,16 +30,18 @@ class TalksView(LoginRequiredMixin, views.View):
                 ).order_by("-date", "-time")
             except DialogDoesNotExist:
                 raise Http404
-        messages_rows = PrivateMessage.objects.filter(
-            Q(sender=request.user) | Q(receiver=request.user)
-        ).select_related("sender", "receiver")\
-            .distinct("sender").distinct("receiver")
-        contacts = []
-        for row in messages_rows:
-            if row.sender == request.user:
-                contacts.append(row.receiver)
-            else:
-                contacts.append(row.sender)
+
+        sent_messages = PrivateMessage.objects.filter(
+            sender=request.user
+        ).distinct('receiver').select_related('receiver')
+        received_messages = PrivateMessage.objects.filter(
+            receiver=request.user
+        ).distinct('sender').select_related('sender')
+        receivers = tuple(msg.receiver for msg in sent_messages)
+        senders = tuple(msg.sender for msg in received_messages)
+        contacts = list(set(receivers + senders))
+        contacts.sort(key=lambda contact: contact.username)
+
         paginator = Paginator(messages, 30)
         context = {
             "form": TalksForm(),
