@@ -94,9 +94,11 @@
                     {{ form.message|set_attrs:"class='message-input' autofocus autocomplete='off' placeholder='Write a message...'" }}
                 </form>
                 <div class="pages text-right">
-                    {% for page in pages %}
-                        <a href="{% url 'talks:talk' receiver_name page  %}">{{ page }}</a>
-                    {% endfor %}
+                    {% if pages %}
+                        {% for page in pages %}
+                            <a href="{% url 'talks:talk' receiver_name page  %}">{{ page }}</a>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

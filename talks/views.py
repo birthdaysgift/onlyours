@@ -38,6 +38,8 @@ class TalksView(LoginRequiredMixin, views.View):
             page=page_num,
             last_page=paginator.num_pages
         )
+        if len(pages) == 1:
+            pages = None
 
         # get friends
         friends = get_friends_of(request.user)
