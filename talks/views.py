@@ -15,22 +15,34 @@ from .utils import aligned_range_of_pages
 
 class TalksView(LoginRequiredMixin, views.View):
     login_url = reverse_lazy("auth_custom:login")
-
     template = "talks/talks.html"
 
     def get(self, request, receiver_name="global", page_num=1):
+        # get messages
         if receiver_name == "global":
-            messages = PublicMessage.objects.all().order_by("-date",
-                                                            "-time")
+            messages = PublicMessage.objects.all()
         else:
             try:
                 messages = PrivateMessage.objects.from_dialog(
                     request.user.username,
                     receiver_name
-                ).order_by("-date", "-time")
+                )
             except DialogDoesNotExist:
                 raise Http404
+        messages = messages.order_by("-date", "-time")
+        paginator = Paginator(messages, 10)
+        messages = reversed(paginator.page(page_num))
 
+        # get pages
+        pages = aligned_range_of_pages(
+            page=page_num,
+            last_page=paginator.num_pages
+        )
+
+        # get friends
+        friends = get_friends_of(request.user)
+
+        # get contacts
         sent_messages = PrivateMessage.objects.filter(
             sender=request.user
         ).distinct('receiver').select_related('receiver')
@@ -42,16 +54,12 @@ class TalksView(LoginRequiredMixin, views.View):
         contacts = list(set(receivers + senders))
         contacts.sort(key=lambda contact: contact.username)
 
-        paginator = Paginator(messages, 30)
         context = {
             "form": TalksForm(),
             "contacts": contacts,
-            "friends": get_friends_of(request.user),
-            "messages": reversed(paginator.page(page_num)),
-            "pages": aligned_range_of_pages(
-                page=page_num,
-                last_page=paginator.num_pages
-            ),
+            "friends": friends,
+            "messages": messages,
+            "pages": pages,
             "receiver_name": receiver_name,
             "current_user": request.user
         }
@@ -65,22 +73,18 @@ class TalksView(LoginRequiredMixin, views.View):
                     sender=request.user,
                     text=form.cleaned_data["message"]
                 ).save()
-                return redirect(
-                    reverse("talks:talk", kwargs={
-                        "receiver_name": receiver_name,
-                        "page_num": 1
-                    })
-                )
-            PrivateMessage(
-                sender=request.user,
-                receiver=get_object_or_404(User, username=receiver_name),
-                text=form.cleaned_data["message"]
-            ).save()
-            return redirect(
-                reverse("talks:talk", kwargs={
-                    "receiver_name": receiver_name,
-                    "page_num": 1
-                })
-            )
+            else:
+                receiver = get_object_or_404(User, username=receiver_name)
+                PrivateMessage(
+                    sender=request.user,
+                    receiver=receiver,
+                    text=form.cleaned_data["message"]
+                ).save()
+            kwargs = {
+                "receiver_name": receiver_name,
+                "page_num": 1
+            }
+            url = reverse("talks:talk", kwargs=kwargs)
+            return redirect(url)
         else:
             return render(request, self.template, context={"form": form})
