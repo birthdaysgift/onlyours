@@ -32,53 +32,70 @@ class PageView(LoginRequiredMixin, View):
     template_name = "pages/page.html"
 
     def get(self, request, username=None):
-        if username is not None:
-            page_owner = get_object_or_404(User, username=username)
-            posts = Post.objects.filter(receiver=page_owner).select_related("sender")
-            posts = posts.order_by("-date", "-time")
-            friends = get_friends_of(page_owner)
-            photos = UserPhoto.objects.filter(user=page_owner)
-            photos = photos.select_related("user", "photo")[:6]
-            videos = UserVideo.objects.filter(user=page_owner)
-            videos = videos.select_related("user", "video")[:6]
-            friendship_status = None
-            if request.user in friends:
-                friendship_status = "friend"
-            requesting = FriendshipRequest.objects.filter(
-                    from_user=page_owner, to_user=request.user
-            ).exists()
-            if requesting:
-                friendship_status = "requesting"
-            requested = FriendshipRequest.objects.filter(
-                from_user=request.user, to_user=page_owner
-            ).exists()
-            if requested:
-                friendship_status = "requested"
-            k = 6
-            if len(friends) < k:
-                k = len(friends)
-            friends = random.sample(friends, k)
-            context = {
-                "form": AddPostForm(),
-                "page_owner": page_owner,
-                "posts": posts,
-                "friends": friends,
-                "photos": photos,
-                "friendship_status": friendship_status,
-                "videos": videos
-            }
-            return render(request, self.template_name, context=context)
+        # get page owner
+        page_owner = get_object_or_404(User, username=username)
+
+        # get posts
+        posts = Post.objects.filter(receiver=page_owner)
+        posts = posts.select_related('sender')
+        posts = posts.order_by("-date", "-time")
+
+        # get photos
+        photos = UserPhoto.objects.filter(user=page_owner)
+        photos = photos.select_related("user", "photo")[:6]
+
+        # get videos
+        videos = UserVideo.objects.filter(user=page_owner)
+        videos = videos.select_related("user", "video")[:6]
+
+        # get friends
+        friends = get_friends_of(page_owner)
+        max_friends = 6  # max friends on friends-panel in page.html
+        if len(friends) < max_friends:
+            friends = random.sample(friends, len(friends))
+        else:
+            friends = random.sample(friends, max_friends)
+
+        # get friendship status
+        # friend:     user <-> page_owner
+        # requested:  user --> page_owner
+        # requesting: user <-- page_owner
+        friendship_status = None
+        if request.user in friends:
+            friendship_status = "friend"
+        requested = FriendshipRequest.objects.filter(
+            from_user=request.user, to_user=page_owner
+        ).exists()
+        if requested:
+            friendship_status = "requested"
+        requesting = FriendshipRequest.objects.filter(
+            from_user=page_owner, to_user=request.user
+        ).exists()
+        if requesting:
+            friendship_status = "requesting"
+
+        context = {
+            "form": AddPostForm(),
+            "page_owner": page_owner,
+            "posts": posts,
+            "friends": friends,
+            "photos": photos,
+            "friendship_status": friendship_status,
+            "videos": videos
+        }
+        return render(request, self.template_name, context=context)
 
     def post(self, request, username=None):
         form = AddPostForm(request.POST)
         if form.is_valid():
+            receiver = get_object_or_404(User, username=username)
             Post(
                 sender=request.user,
-                receiver=get_object_or_404(User, username=username),
+                receiver=receiver,
                 text=form.cleaned_data["text"]
             ).save()
-            return redirect(reverse("pages:page", kwargs={
-                "username": username}))
+            url = reverse('pages:page', kwargs={'username': username})
+            return redirect(url)
         else:
             return render(request, self.template_name, context={"form": form})
 
