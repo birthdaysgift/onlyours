@@ -62,8 +62,7 @@ class TalksView(LoginRequiredMixin, views.View):
             "friends": friends,
             "messages": messages,
             "pages": pages,
-            "receiver_name": receiver_name,
-            "current_user": request.user
+            "receiver_name": receiver_name
         }
         return render(request, self.template, context=context)
 

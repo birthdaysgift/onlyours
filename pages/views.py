@@ -29,7 +29,6 @@ def get_friends_of(user, order_by=None):
 
 class PageView(LoginRequiredMixin, View):
     login_url = reverse_lazy("auth_custom:login")
-
     template_name = "pages/page.html"
 
     def get(self, request, username=None):
@@ -62,7 +61,6 @@ class PageView(LoginRequiredMixin, View):
             context = {
                 "form": AddPostForm(),
                 "page_owner": page_owner,
-                "current_user": request.user,
                 "posts": posts,
                 "friends": friends,
                 "photos": photos,
@@ -198,8 +196,7 @@ class PhotosListView(View):
         return render(request, "pages/all_photos.html", context={
             "photos": photos,
             "page_owner": page_owner,
-            "photo_form": AddPhotoForm(),
-            "current_user": request.user
+            "photo_form": AddPhotoForm()
         })
 
 
@@ -243,8 +240,7 @@ class VideosListView(View):
         return render(request, "pages/all_videos.html", context={
             "videos": videos,
             "page_owner": page_owner,
-            "video_form": AddVideoForm(),
-            "current_user": request.user
+            "video_form": AddVideoForm()
         })
 
 
