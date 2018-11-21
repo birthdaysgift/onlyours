@@ -34,24 +34,24 @@ class PageView(LoginRequiredMixin, View):
 
     def get(self, request, username=None):
         if username is not None:
-            user = get_object_or_404(User, username=username)
-            posts = Post.objects.filter(receiver=user).select_related("sender")
+            page_owner = get_object_or_404(User, username=username)
+            posts = Post.objects.filter(receiver=page_owner).select_related("sender")
             posts = posts.order_by("-date", "-time")
-            friends = get_friends_of(user)
-            photos = UserPhoto.objects.filter(user=user)
+            friends = get_friends_of(page_owner)
+            photos = UserPhoto.objects.filter(user=page_owner)
             photos = photos.select_related("user", "photo")[:6]
-            videos = UserVideo.objects.filter(user=user)
+            videos = UserVideo.objects.filter(user=page_owner)
             videos = videos.select_related("user", "video")[:6]
             friendship_status = None
             if request.user in friends:
                 friendship_status = "friend"
             requesting = FriendshipRequest.objects.filter(
-                    from_user=user, to_user=request.user
+                    from_user=page_owner, to_user=request.user
             ).exists()
             if requesting:
                 friendship_status = "requesting"
             requested = FriendshipRequest.objects.filter(
-                from_user=request.user, to_user=user
+                from_user=request.user, to_user=page_owner
             ).exists()
             if requested:
                 friendship_status = "requested"
@@ -61,7 +61,7 @@ class PageView(LoginRequiredMixin, View):
             friends = random.sample(friends, k)
             context = {
                 "form": AddPostForm(),
-                "user": user,
+                "page_owner": page_owner,
                 "current_user": request.user,
                 "posts": posts,
                 "friends": friends,
@@ -181,8 +181,8 @@ class RemoveFriendView(View):
 
 class FriendsListView(View):
     def get(self, request, username=None):
-        user = User.objects.get(username=username)
-        friends = get_friends_of(user)
+        page_owner = User.objects.get(username=username)
+        friends = get_friends_of(page_owner)
         session_user_friends = get_friends_of(request.user)
         # TODO: make sort in db query
         friends.sort(key=lambda e: e.username.lower())
@@ -193,11 +193,11 @@ class FriendsListView(View):
 
 class PhotosListView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        photos = UserPhoto.objects.filter(user=user).select_related("photo")
+        page_owner = get_object_or_404(User, username=username)
+        photos = UserPhoto.objects.filter(user=page_owner).select_related("photo")
         return render(request, "pages/all_photos.html", context={
             "photos": photos,
-            "user": user,
+            "page_owner": page_owner,
             "photo_form": AddPhotoForm(),
             "current_user": request.user
         })
@@ -238,11 +238,11 @@ class DeletePhotoView(View):
 
 class VideosListView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        videos = UserVideo.objects.filter(user=user).select_related("video")
+        page_owner = get_object_or_404(User, username=username)
+        videos = UserVideo.objects.filter(user=page_owner).select_related("video")
         return render(request, "pages/all_videos.html", context={
             "videos": videos,
-            "user": user,
+            "page_owner": page_owner,
             "video_form": AddVideoForm(),
             "current_user": request.user
         })

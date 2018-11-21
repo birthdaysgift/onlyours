@@ -35,45 +35,45 @@
         <div class="row">
             <div class="left col-3">
                 <div class="avatar-panel">
-                    <h4 class="text-center">{{ user.username }}
-                        {% if user.username == current_user.username %}
+                    <h4 class="text-center">{{ page_owner.username }}
+                        {% if page_owner.username == current_user.username %}
                             <small><a href="{% url 'pages:edit' request.user.username %}">Edit</a></small>
                         {% endif %}
                     </h4>
-                    {% if user.avatar %}
-                        <img src="{{ user.avatar.url }}" class="user-avatar img-fluid">
+                    {% if page_owner.avatar %}
+                        <img src="{{ page_owner.avatar.url }}" class="user-avatar img-fluid">
                     {% else %}
                         <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="user-avatar img-fluid">
                     {% endif %}
-                    {% if user.status %}
-                        <p class="status-text text-center">{{ user.status }}</p>
+                    {% if page_owner.status %}
+                        <p class="status-text text-center">{{ page_owner.status }}</p>
                     {% endif %}
                 </div>
-                {% if user.username != current_user.username %}
-                    <a class="write-message-btn text-center" href="{% url 'talks:talk' user.username 1 %}">Write a message</a>
+                {% if page_owner.username != current_user.username %}
+                    <a class="write-message-btn text-center" href="{% url 'talks:talk' page_owner.username 1 %}">Write a message</a>
                 {% endif %}
-                {% if user != current_user %}
+                {% if page_owner != current_user %}
                     <div class="friendship-status-panel">
                         {% if friendship_status == 'friend' %}
-                            <p class="friendship-status-text text-center"><small>{{ user.username }} is your friend</small></p>
-                            <a href="{% url 'pages:remove_friend' user.username %}" class="remove-friend-btn text-center">Remove</a>
+                            <p class="friendship-status-text text-center"><small>{{ page_owner.username }} is your friend</small></p>
+                            <a href="{% url 'pages:remove_friend' page_owner.username %}" class="remove-friend-btn text-center">Remove</a>
                         {% elif friendship_status == 'requested' %}
                             <p class="friendship-status-text text-center">You've requested a friendship</p>
-                            <a class="cancel-friend-request-btn text-center" href="{% url 'pages:cancel_friend_request' user.username %}">Cancel</a>
+                            <a class="cancel-friend-request-btn text-center" href="{% url 'pages:cancel_friend_request' page_owner.username %}">Cancel</a>
                         {% elif friendship_status == 'requesting' %}
-                            <p class="friendship-status-text text-center"><small>{{ user.username }} requesting your friendship</small></p>
-                            <a href="{% url 'pages:accept_friend_request' user.username %}" class="accept-friend-request-btn text-center">Accept</a>
-                            <a href="{% url 'pages:deny_friend_request' user.username %}" class="deny-friend-request-btn text-center">Deny</a>
+                            <p class="friendship-status-text text-center"><small>{{ page_owner.username }} requesting your friendship</small></p>
+                            <a href="{% url 'pages:accept_friend_request' page_owner.username %}" class="accept-friend-request-btn text-center">Accept</a>
+                            <a href="{% url 'pages:deny_friend_request' page_owner.username %}" class="deny-friend-request-btn text-center">Deny</a>
                         {% else %}
-                            <p class="friendship-status-text text-center"><small>{{ user.username }} isn't your friend</small></p>
-                            <a class="send-friend-request-btn text-center" href="{% url 'pages:send_friend_request' user.username %}">Add to friends</a>
+                            <p class="friendship-status-text text-center"><small>{{ page_owner.username }} isn't your friend</small></p>
+                            <a class="send-friend-request-btn text-center" href="{% url 'pages:send_friend_request' page_owner.username %}">Add to friends</a>
                         {% endif %}
                     </div>
                 {% endif %}
                 <div class="friends-panel">
                     <b class="friends-text">Friends</b>
                     <!--This link is used in js.-->
-                    <a href="{% url 'pages:friends' user.username %}" class="friends-list-link"></a>
+                    <a href="{% url 'pages:friends' page_owner.username %}" class="friends-list-link"></a>
                     {% for friend in friends %}
                         <div class="friend-icon">
                             <a href="{% url 'pages:page' friend.username %}">
@@ -99,22 +99,22 @@
             </div>
             <div class="middle col-6">
                 <div class="about-panel">
-                    {% if user.first_name %}
-                        <p><b>Name: </b>{{ user.first_name }} {{user.last_name}}</p>
+                    {% if page_owner.first_name %}
+                        <p><b>Name: </b>{{ page_owner.first_name }} {{ page_owner.last_name }}</p>
                     {% endif %}
-                    {% if user.birthday %}
-                        <p><b>Birthday: </b>{{ user.birthday }}</p>
+                    {% if page_owner.birthday %}
+                        <p><b>Birthday: </b>{{ page_owner.birthday }}</p>
                     {% endif %}
-                    {% if user.city %}
-                        <p><b>City: </b>{{ user.city }}</p>
+                    {% if page_owner.city %}
+                        <p><b>City: </b>{{ page_owner.city }}</p>
                     {% endif %}
                     <!--TODO: add choice form field to gender-->
-                    {% if user.gender %}
-                        <p><b>Gender: </b>{{ user.gender }}</p>
+                    {% if page_owner.gender %}
+                        <p><b>Gender: </b>{{ page_owner.gender }}</p>
                     {% endif %}
-                    {% if user.about %}
+                    {% if page_owner.about %}
                         <div class="about-block"><b>About me: </b>
-                            <p class="about-text">{{ user.about|linebreaksbr }}</p>
+                            <p class="about-text">{{ page_owner.about|linebreaksbr }}</p>
                         </div>
                     {% endif %}
                 </div>
@@ -147,10 +147,10 @@
                                         </a>
                                         <small>{{ post.date }} {{ post.time }}</small>
                                     </div>
-                                    {% if user.username == current_user.username %}
+                                    {% if page_owner.username == current_user.username %}
                                         <a class="close-icon"></a>
                                         <!--This link is used in js-->
-                                        <a class="close-icon-link" href="{% url 'pages:post_delete_confirm' user.username post.id %}"></a>
+                                        <a class="close-icon-link" href="{% url 'pages:post_delete_confirm' page_owner.username post.id %}"></a>
                                     {% endif %}
                                     {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
                             </div>
@@ -162,7 +162,7 @@
                 <div class="photo-panel">
                     <div class="photo-text"><b>Photo</b></div>
                     <!--This link is used by js-->
-                    <a href="{% url 'pages:photos' user.username %}" class="photos-list-link"></a>
+                    <a href="{% url 'pages:photos' page_owner.username %}" class="photos-list-link"></a>
                     {% for photo in photos %}
                         <img src="{{ photo.photo.photo.url }}" class="photo-avatar">
                     {% endfor %}
@@ -170,7 +170,7 @@
                 <div class="video-panel">
                     <div class="video-text"><b>Video</b></div>
                     <!--This link is used by js-->
-                    <a href="{% url 'pages:videos' user.username %}" class="videos-list-link"></a>
+                    <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
                     {% for video in videos %}
                         <!--TODO: refactor ofc-->
                         <!--Custom attr src used in js to get access to video instance-->

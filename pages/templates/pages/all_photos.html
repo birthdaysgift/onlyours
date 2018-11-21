@@ -5,8 +5,8 @@
         <img class="all-photos-photo-img" src="">
     </div>
     <div class="photo-list-window">
-        {% if user == current_user %}
-            <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' user.username %}">
+        {% if page_owner == current_user %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' page_owner.username %}">
                 {% csrf_token %}
                 {{ photo_form.non_field_errors }}
                 {{ photo_form.photo|set_attrs:"class='new-photo-input'" }}
@@ -21,9 +21,9 @@
             <div class="photo-avatar-wrapper">
                 <img class="photo-list-avatar" src="{{ photo.photo.photo.url }}">
                 <!--TODO: do this via permissions (or not?)-->
-                {% if user == current_user %}
+                {% if page_owner == current_user %}
                 <div class="delete-photo-icon">
-                    <a href="{% url 'pages:delete_photo' user.username photo.id %}" class="delete-photo-link"></a>
+                    <a href="{% url 'pages:delete_photo' page_owner.username photo.id %}" class="delete-photo-link"></a>
                 </div>
                 {% endif %}
             </div>
