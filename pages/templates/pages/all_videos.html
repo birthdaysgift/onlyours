@@ -15,7 +15,6 @@
         <a class="add-new-video"></a>
         {% for video in videos %}
         <div class="video-list-avatar" src="{{ video.video.video.url }}"></div>
-            <!--TODO: do this via permissions (or not?)-->
             {% if page_owner == curent_user %}
                 <div class="delete-video-icon">
                     <a href="{% url 'pages:delete_video' page_owner.username video.id %}" class="delete-video-link"></a>
@@ -23,7 +22,6 @@
             {% endif %}
         {% endfor %}
     </div>
-    <!--TODO: why this is doing that way-->
     <script>
         var url = "{% static 'pages/js/all_videos.js' %}";
         $.getScript(url);

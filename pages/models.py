@@ -22,7 +22,6 @@ class Photo(models.Model):
 
 
 class UserPhoto(models.Model):
-    # TODO: add date and time
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
 

@@ -199,7 +199,6 @@ class FriendsListView(View):
         page_owner = User.objects.get(username=username)
         friends = get_friends_of(page_owner)
         session_user_friends = get_friends_of(request.user)
-        # TODO: make sort in db query
         friends.sort(key=lambda e: e.username.lower())
         return render(request, "pages/all_friends.html",
                       context={"friends": friends,
@@ -225,7 +224,6 @@ class AddNewPhotoView(View):
         if form.is_valid():
             form.save()
             user = get_object_or_404(User, username=username)
-            # TODO: clarify name formatting when saving to db
             photo = get_object_or_404(
                 Photo,
                 photo=form.cleaned_data['photo'].name.strip().replace(" ", "_")
@@ -274,8 +272,7 @@ class AddNewVideoView(View):
         if form.is_valid():
             form.save()
             user = get_object_or_404(User, username=username)
-            # TODO: clarify name formatting when saving to db
-            video = get_object_or_404(
+            video = get_object_or_405(
                 Video,
                 video=form.cleaned_data['video'].name.strip().replace(' ', '_')
             )

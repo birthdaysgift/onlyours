@@ -8,7 +8,6 @@
 	<title>Onlyours</title>
 
 	<link rel="stylesheet" href="{% static 'pages/css/page.css' %}">
-    <!--TODO: why i cant include these in their html files-->
     <link rel="stylesheet" href="{% static 'pages/css/all_friends.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/delete_post.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/all_photos.css' %}">
@@ -19,7 +18,6 @@
 </head>
 <body>
 <div class="wrapper">
-    <!--TODO: refactor this, i dont know how-->
     <div class="page-detail-video-background">
         <video src="" class="page-video-img" controls></video>
     </div>
@@ -27,7 +25,6 @@
         <img src="" class="page-photo-img">
     </div>
     <div class="elephant-panel">
-        <!--TODO: bug: Elephant speeding up when left click then right click-->
         <div class="elephant"></div>
     </div>
     <div class="container">
@@ -108,7 +105,6 @@
                     {% if page_owner.city %}
                         <p><b>City: </b>{{ page_owner.city }}</p>
                     {% endif %}
-                    <!--TODO: add choice form field to gender-->
                     {% if page_owner.gender %}
                         <p><b>Gender: </b>{{ page_owner.gender }}</p>
                     {% endif %}
@@ -123,14 +119,12 @@
                     <form method="POST">
                         {% csrf_token %}
                         {{ form.non_field_errors}}
-                        <!--TODO: get rid of default form validation pop-up window-->
                         <div class="form-info-block">
                             {{ form.text|set_attrs:"class='add-post' placeholder='Add a new post...' oninvalid='this.setCustomValidity(\'\')'" }}
                             <p class="form-info-text text-right">Press Ctrl+Enter to post</p>
                         </div>
                         {{ form.text.errors}}
                     </form>
-                    <!--TODO: add links to posts-->
                     {% if posts %}
                         {% for post in posts %}
                             <div class="post">
@@ -172,7 +166,6 @@
                     <!--This link is used by js-->
                     <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
                     {% for video in videos %}
-                        <!--TODO: refactor ofc-->
                         <!--Custom attr src used in js to get access to video instance-->
                         <div src="{{ video.video.video.url }}" class="video-avatar"></div>
                     {% endfor %}

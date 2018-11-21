@@ -20,7 +20,6 @@
         {% for photo in photos %}
             <div class="photo-avatar-wrapper">
                 <img class="photo-list-avatar" src="{{ photo.photo.photo.url }}">
-                <!--TODO: do this via permissions (or not?)-->
                 {% if page_owner == user %}
                 <div class="delete-photo-icon">
                     <a href="{% url 'pages:delete_photo' page_owner.username photo.id %}" class="delete-photo-link"></a>
@@ -29,7 +28,6 @@
             </div>
         {% endfor %}
     </div>
-    <!--TODO: why this is doing that way-->
     <script>
         var url = "{% static 'pages/js/all_photos.js' %}";
         $.getScript(url);

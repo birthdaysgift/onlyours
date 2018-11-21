@@ -6,9 +6,6 @@
     <h1>Register</h1>
     <form method="POST">
         {% csrf_token %}
-        <!--TODO: a lot of different error messages-->
-        <!--TODO: disable browsers validation and do it yourself with django-->
-        <!--TODO: errors style-->
         {{ form.non_field_errors }}
         <div id="form-entries-block">
             <div class="form-group">

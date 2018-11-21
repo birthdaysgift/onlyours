@@ -8,8 +8,6 @@ from auth_custom.models import User
 class RegisterViewTest(test.TestCase):
     def setUp(self):
         super().setUp()
-        # TODO: test registration with password validators
-        # TODO: add csrf checks if needed
         self.client = test.Client()
 
     def test_get_register_page(self):
