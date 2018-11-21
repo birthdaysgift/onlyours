@@ -14,17 +14,15 @@
 </head>
 <body>
 
-<div class="wrapper">
-    <div class="container">
-        <h1 class="logo-text text-center">Onlyours <small><small>talks</small></small></h1>
-        <div class="row">
-            {% include 'talks/contacts.html' %}
-            {% include 'talks/messages.html' %}
-            <a href="{% url 'pages:page' user.username %}">My page</a>
-            <br>
-            <a href="{% url 'auth_custom:logout' %}">Logout</a>
-        </div>
+<div class="container">
+    <h1 class="logo-text text-center">Onlyours <small><small>talks</small></small></h1>
+    <div class="row">
+        {% include 'talks/contacts.html' %}
+        {% include 'talks/messages.html' %}
     </div>
+    <a href="{% url 'pages:page' user.username %}">My page</a>
+    <br>
+    <a href="{% url 'auth_custom:logout' %}">Logout</a>
 </div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
