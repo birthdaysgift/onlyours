@@ -1,0 +1,48 @@
+{% load static %}
+{% load html_attrs %}
+
+<div class="contacts-panel col-3 pl-2 pr-2">
+    {% if receiver_name == 'global' %}
+        <div class="contact-icon-selected">
+    {% else %}
+        <div class="contact-icon">
+    {% endif %}
+            <a href="" class="contact-link"></a>
+            <a href="{% url 'talks:talk' 'global' 1 %}" class="talk-link"></a>
+            <img src="{% static 'talks/img/global_avatar.jpg' %}" class="contact-avatar">
+            <b class="contact-username-text">GLOBAL</b>
+            <!--TODO: last message-->
+            <p class="last-message-text">Last message...</p>
+    {% if receiver_name == 'global' %}
+        </div>
+    {% else %}
+        </div>
+    {% endif %}
+    {% for contact in contacts %}
+        {% if contact.username == receiver_name %}
+            <div class="contact-icon-selected">
+        {% else %}
+            <div class="contact-icon">
+        {% endif %}
+                <!--This links are used in js-->
+                <a class="contact-link" href="{% url 'pages:page' contact.username %}"></a>
+                <a class="talk-link" href="{% url 'talks:talk' contact.username 1 %}"></a>
+                {% if contact.avatar %}
+                    <img src="{{ contact.avatar.url }}" class="contact-avatar">
+                {% else %}
+                    <img src="{% static 'talks/img/avatar_placeholder.png' %}" class="contact-avatar">
+                {% endif %}
+                <a href="{% url 'pages:page' contact.username %}">
+                    <b class="contact-username-text">{{ contact.username }}</b>
+                </a>
+                {% if contact in friends %}
+                    <img src="{% static 'talks/img/friends.png' %}" class="friends-icon" alt="">
+                {% endif %}
+                <p class="last-message-text">Last message...</p>
+        {% if contact.username == receiver_name %}
+            </div>
+        {% else %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

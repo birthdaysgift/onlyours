@@ -15,7 +15,7 @@ from .utils import aligned_range_of_pages
 
 class TalksView(LoginRequiredMixin, views.View):
     login_url = reverse_lazy("auth_custom:login")
-    template = "talks/talks.html"
+    template = "talks/base.html"
 
     def get(self, request, receiver_name="global", page_num=1):
         # get messages

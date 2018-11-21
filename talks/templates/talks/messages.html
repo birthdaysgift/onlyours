@@ -1,0 +1,41 @@
+{% load static %}
+{% load html_attrs %}
+
+<div class="col-9 pl-0 pr-0 ">
+    <div class="messages-header">
+        <h4 class="receiver-username-text text-center">
+            {{ receiver_name }}
+        </h4>
+    </div>
+    <div class="messages-panel">
+        {% for message in messages %}
+            {% if message.sender.username == current_user.username %}
+                <div class="message-icon message-right">
+                    <a href="{% url 'pages:page' message.sender.username %}"><b class="sender-username">{{ message.sender.username }}</b></a>
+                    <small>[{{ message.date }} {{ message.time }}]</small>
+                    <br>
+                    <p class="message-text">{{ message.text }}</p>
+                </div>
+            {% else %}
+                <div class="message-icon">
+                    <a href="{% url 'pages:page' message.sender.username %}"><b class="sender-username">{{ message.sender.username }}</b></a>
+                    <small>[{{ message.date }} {{ message.time }}]</small>
+                    <br>
+                    <p class="message-text">{{ message.text }}</p>
+                </div>
+            {% endif %}
+            <div style="clear: both;"></div>
+        {% endfor %}
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.message|set_attrs:"class='message-input' autofocus autocomplete='off' placeholder='Write a message...'" }}
+    </form>
+    <div class="pages text-right">
+        {% if pages %}
+            {% for page in pages %}
+                <a href="{% url 'talks:talk' receiver_name page  %}">{{ page }}</a>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
