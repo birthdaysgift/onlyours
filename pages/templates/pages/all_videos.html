@@ -5,14 +5,16 @@
         <video class="all-videos-video-img" src="" controls></video>
     </div>
     <div class="video-list-window">
-        <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' page_owner.username %}">
-            {% csrf_token %}
-            {{ video_form.non_field_errors }}
-            {{ video_form.video|set_attrs:"class='new-video-input'" }}
-            {{ video_form.video.errors }}
-            <input type="submit" class="new-video-submit">
-        </form>
-        <a class="add-new-video"></a>
+        {% if user == page_owner %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' page_owner.username %}">
+                {% csrf_token %}
+                {{ video_form.non_field_errors }}
+                {{ video_form.video|set_attrs:"class='new-video-input'" }}
+                {{ video_form.video.errors }}
+                <input type="submit" class="new-video-submit">
+            </form>
+            <a class="add-new-video"></a>
+        {% endif %}
         {% for video in videos %}
         <div class="video-list-avatar" src="{{ video.video.video.url }}"></div>
             {% if page_owner == curent_user %}
