@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="avatar-panel">
+    <h4 class="text-center">{{ page_owner.username }}
+        {% if page_owner.username == user.username %}
+            <small>
+                <a href="{% url 'pages:edit' request.user.username %}">
+                    Edit
+                </a>
+            </small>
+        {% endif %}
+    </h4>
+    {% if page_owner.avatar %}
+        <img src="{{ page_owner.avatar.url }}" class="user-avatar img-fluid">
+    {% else %}
+        <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="user-avatar img-fluid">
+    {% endif %}
+    {% if page_owner.status %}
+        <p class="status-text text-center">{{ page_owner.status }}</p>
+    {% endif %}
+</div>
+

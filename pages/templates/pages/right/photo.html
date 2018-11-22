@@ -1,0 +1,10 @@
+<div class="photo-panel">
+    <div class="photo-text">
+        <b>Photo</b>
+    </div>
+    <!--This link is used by js-->
+    <a href="{% url 'pages:photos' page_owner.username %}" class="photos-list-link"></a>
+    {% for photo in photos %}
+        <img src="{{ photo.photo.photo.url }}" class="photo-avatar">
+    {% endfor %}
+</div>

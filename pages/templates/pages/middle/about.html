@@ -1,0 +1,25 @@
+<div class="about-panel">
+    {% if page_owner.first_name %}
+        <p>
+            <b>Name: </b>{{ page_owner.first_name }} {{ page_owner.last_name }}
+        </p>
+    {% endif %}
+
+    {% if page_owner.birthday %}
+        <p><b>Birthday: </b>{{ page_owner.birthday }}</p>
+    {% endif %}
+
+    {% if page_owner.city %}
+        <p><b>City: </b>{{ page_owner.city }}</p>
+    {% endif %}
+
+    {% if page_owner.gender %}
+        <p><b>Gender: </b>{{ page_owner.gender }}</p>
+    {% endif %}
+
+    {% if page_owner.about %}
+        <div class="about-block"><b>About me: </b>
+            <p class="about-text">{{ page_owner.about|linebreaksbr }}</p>
+        </div>
+    {% endif %}
+</div>

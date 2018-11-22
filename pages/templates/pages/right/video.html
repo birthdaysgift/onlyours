@@ -1,0 +1,11 @@
+<div class="video-panel">
+    <div class="video-text"><b>Video</b></div>
+
+    <!--This link is used by js-->
+    <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
+
+    {% for video in videos %}
+        <!--Custom attr src used in js to get access to video instance-->
+        <div src="{{ video.video.video.url }}" class="video-avatar"></div>
+    {% endfor %}
+</div>

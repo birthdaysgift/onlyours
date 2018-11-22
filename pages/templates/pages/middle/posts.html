@@ -1,0 +1,46 @@
+{% load static %}
+{% load html_attrs %}
+
+<div class="splitter"></div>
+<div class="posts-panel">
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors}}
+        <div class="form-info-block">
+            {{ form.text|set_attrs:"class='add-post' placeholder='Add a new post...' oninvalid='this.setCustomValidity(\'\')'" }}
+            <p class="form-info-text text-right">Press Ctrl+Enter to post</p>
+        </div>
+        {{ form.text.errors}}
+    </form>
+
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+
+                <a href="{% url 'pages:page' post.sender.username %}">
+                    {% if post.sender.avatar %}
+                        <img src="{{ post.sender.avatar.url }}" class="sender-avatar">
+                    {% else %}
+                        <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="sender-avatar">
+                    {% endif %}
+                </a>
+
+                <div class="post-sender">
+                    <a href="{% url 'pages:page' post.sender.username %}">
+                        <b>{{ post.sender.username }}</b>
+                    </a>
+                    <small>{{ post.date }} {{ post.time }}</small>
+                </div>
+
+                {% if page_owner.username == user.username %}
+                    <a class="close-icon"></a>
+                    <!--This link is used in js-->
+                    <a class="close-icon-link" href="{% url 'pages:post_delete_confirm' page_owner.username post.id %}"></a>
+                {% endif %}
+
+                {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
