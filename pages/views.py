@@ -100,18 +100,16 @@ class PageView(LoginRequiredMixin, View):
             return render(request, self.template_name, context={"form": form})
 
 
-class PostDeleteConfirmView(View):
+class DeletePostView(View):
+    template_name = 'pages/ajax/delete_post.html'
+
     def get(self, request, username=None, post_id=None):
         post = Post.objects.get(id=post_id)
-        return render(request, 'pages/ajax/delete_post.html', context={"post": post})
+        return render(request, self.template_name, context={"post": post})
 
-
-class DeletePostView(View):
-    def get(self, request, username=None, post_id=None):
+    def post(self, request, username=None, post_id=None):
         Post.objects.get(id=post_id).delete()
-        return redirect(reverse('pages:page', kwargs={
-            "username": username
-        }))
+        return redirect(reverse('pages:page', kwargs={"username": username}))
 
 
 class EditView(LoginRequiredMixin, View):
@@ -272,7 +270,7 @@ class AddNewVideoView(View):
         if form.is_valid():
             form.save()
             user = get_object_or_404(User, username=username)
-            video = get_object_or_405(
+            video = get_object_or_404(
                 Video,
                 video=form.cleaned_data['video'].name.strip().replace(' ', '_')
             )

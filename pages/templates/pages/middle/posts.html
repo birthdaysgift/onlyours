@@ -36,7 +36,7 @@
                 {% if page_owner.username == user.username %}
                     <a class="close-icon"></a>
                     <!--This link is used in js-->
-                    <a class="close-icon-link" href="{% url 'pages:post_delete_confirm' page_owner.username post.id %}"></a>
+                    <a class="close-icon-link" href="{% url 'pages:delete_post' page_owner.username post.id %}"></a>
                 {% endif %}
 
                 {{ post.text|linebreaks|set_attrs:"class='post-text'" }}

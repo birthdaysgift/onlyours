@@ -19,8 +19,11 @@
                     </div>
                     {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
             </div>
-            <a class="cancel-btn text-center">Cancel</a>
-            <a href="{% url 'pages:delete_post' user.username post.id %}" class="delete-btn text-center">Delete</a>
+            <form action="{% url 'pages:delete_post' user.username post.id %}" method="POST">
+                {% csrf_token %}
+                <a class="cancel-btn text-center">Cancel</a>
+                <input type="submit" value="Delete" class="delete-btn text-center">
+            </form>
         </div>
     </div>
 <script>

@@ -3,7 +3,7 @@ from django.urls import path
 from .views import EditView, PageView, SendFriendRequestView, \
     AcceptFriendRequestView, DenyFriendRequestView, RemoveFriendView, \
     CancelFriendRequestView, FriendsListView, DeletePostView, \
-    PostDeleteConfirmView, PhotosListView, AddNewPhotoView, \
+    PhotosListView, AddNewPhotoView, \
     DeletePhotoView, VideosListView, AddNewVideoView, DeleteVideoView
 
 app_name = "pages"
@@ -11,9 +11,6 @@ app_name = "pages"
 urlpatterns = [
     path("<str:username>/", PageView.as_view(), name="page"),
     path("<str:username>/edit/", EditView.as_view(), name="edit"),
-    path("<str:username>/post_delete_confirm/<int:post_id>/",
-         PostDeleteConfirmView.as_view(),
-         name="post_delete_confirm"),
     path("<str:username>/delete_post/<int:post_id>/", DeletePostView.as_view(),
          name="delete_post"),
     path("<str:username>/send_friend_request/", SendFriendRequestView.as_view(),
