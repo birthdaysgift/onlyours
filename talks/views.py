@@ -32,7 +32,9 @@ class TalksView(LoginRequiredMixin, views.View):
                 raise Http404
         dialog_messages = dialog_messages.order_by("-date", "-time")
         paginator = Paginator(dialog_messages, 10)
-        dialog_messages = reversed(paginator.page(page_num))
+        dialog_messages = paginator.page(page_num).object_list
+        dialog_messages = list(dialog_messages)
+        dialog_messages.reverse()
 
         # get pages
         pages = aligned_range_of_pages(
