@@ -8,7 +8,7 @@
         </h4>
     </div>
     <div class="messages-panel">
-        {% for message in messages %}
+        {% for message in dialog_messages %}
             {% if message.sender.username == user.username %}
                 <div class="message-icon message-right">
                     <a href="{% url 'pages:page' message.sender.username %}"><b class="sender-username">{{ message.sender.username }}</b></a>

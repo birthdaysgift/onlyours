@@ -21,18 +21,18 @@ class TalksView(LoginRequiredMixin, views.View):
     def get(self, request, receiver_name="global", page_num=1):
         # get messages
         if receiver_name == "global":
-            messages = PublicMessage.objects.all()
+            dialog_messages = PublicMessage.objects.all()
         else:
             try:
-                messages = PrivateMessage.objects.from_dialog(
+                dialog_messages = PrivateMessage.objects.from_dialog(
                     request.user.username,
                     receiver_name
                 )
             except DialogDoesNotExist:
                 raise Http404
-        messages = messages.order_by("-date", "-time")
-        paginator = Paginator(messages, 10)
-        messages = reversed(paginator.page(page_num))
+        dialog_messages = dialog_messages.order_by("-date", "-time")
+        paginator = Paginator(dialog_messages, 10)
+        dialog_messages = reversed(paginator.page(page_num))
 
         # get pages
         pages = aligned_range_of_pages(
@@ -66,7 +66,7 @@ class TalksView(LoginRequiredMixin, views.View):
             "form": TalksForm(),
             "contacts": contacts,
             "friends": friends,
-            "messages": messages,
+            "dialog_messages": dialog_messages,
             "pages": pages,
             "receiver_name": receiver_name
         }
