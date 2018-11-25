@@ -1,0 +1,34 @@
+[
+  {
+    "model": "auth_custom.User",
+    "pk": 0,
+    "fields": {
+      "username": "user",
+      "password": "pbkdf2_sha256$100000$VQuygdTW1UEX$y5AXwvnQM7EK3JioE2e5PRi6DiT+9Zk83xfgwANPr4g="
+    }
+  },
+  {
+    "model": "auth_custom.User",
+    "pk": 1,
+    "fields": {
+      "username": "alex",
+      "password": "pbkdf2_sha256$100000$VQuygdTW1UEX$y5AXwvnQM7EK3JioE2e5PRi6DiT+9Zk83xfgwANPr4g="
+    }
+  },
+  {
+    "model": "auth_custom.User",
+    "pk": 2,
+    "fields": {
+      "username": "bob",
+      "password": "pbkdf2_sha256$100000$VQuygdTW1UEX$y5AXwvnQM7EK3JioE2e5PRi6DiT+9Zk83xfgwANPr4g="
+    }
+  },
+  {
+    "model": "auth_custom.User",
+    "pk": 3,
+    "fields": {
+      "username": "john",
+      "password": "pbkdf2_sha256$100000$VQuygdTW1UEX$y5AXwvnQM7EK3JioE2e5PRi6DiT+9Zk83xfgwANPr4g="
+    }
+  }
+]

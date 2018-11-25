@@ -1,0 +1,70 @@
+[
+  {
+    "model": "talks.PrivateMessage",
+    "pk": 1,
+    "fields": {
+      "sender": 1,
+      "receiver": 0,
+      "date": "2018-01-01",
+      "time": "00:00:00",
+      "text": "Hello, user! It's alex."
+    }
+  },
+  {
+    "model": "talks.PrivateMessage",
+    "pk": 2,
+    "fields": {
+      "sender": 0,
+      "receiver": 2,
+      "date": "2018-01-01",
+      "time": "00:00:01",
+      "text": "Hello, bob! It's, user."
+    }
+  },
+  {
+    "model": "talks.PrivateMessage",
+    "pk": 3,
+    "fields": {
+      "sender": 0,
+      "receiver": 3,
+      "date": "2018-01-01",
+      "time": "00:00:02",
+      "text": "Hello, john! It's user."
+    }
+  },
+  {
+    "model": "talks.PrivateMessage",
+    "pk": 4,
+    "fields": {
+      "sender": 3,
+      "receiver": 0,
+      "date": "2018-01-01",
+      "time": "00:00:03",
+      "text": "Hi, user! I'm john."
+    }
+  },
+
+
+
+
+  {
+    "model": "talks.PublicMessage",
+    "pk": 1,
+    "fields": {
+      "sender": 0,
+      "date": "2018-01-01",
+      "time": "00:00:04",
+      "text": "Hi, global! It's user."
+    }
+  },
+  {
+    "model": "talks.PublicMessage",
+    "pk": 2,
+    "fields": {
+      "sender": 1,
+      "date": "2018-01-01",
+      "time": "00:00:05",
+      "text": "Hi, global! It's alex."
+    }
+  }
+]

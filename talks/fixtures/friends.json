@@ -1,0 +1,18 @@
+[
+  {
+    "model": "pages.Friendship",
+    "pk": 0,
+    "fields": {
+      "user1": 0,
+      "user2": 1
+    }
+  },
+  {
+    "model": "pages.Friendship",
+    "pk": 1,
+    "fields": {
+      "user1": 1,
+      "user2": 2
+    }
+  }
+]

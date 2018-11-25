@@ -1,0 +1,26 @@
+[
+  {
+    "model": "pages.FriendshipRequest",
+    "pk": 0,
+    "fields": {
+      "from_user": 2,
+      "to_user": 0
+    }
+  },
+  {
+    "model": "pages.FriendshipRequest",
+    "pk": 1,
+    "fields": {
+      "from_user": 0,
+      "to_user": 2
+    }
+  },
+  {
+    "model": "pages.FriendshipRequest",
+    "pk": 2,
+    "fields": {
+      "from_user": 1,
+      "to_user": 2
+    }
+  }
+]
