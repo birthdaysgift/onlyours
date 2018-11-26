@@ -9,7 +9,7 @@ def watch(app_name, file_name):
     less_path = join(app_path, "less", file_name + ".less")
     css_path = join(app_path, "css", file_name + ".css")
 
-    print(f"Less watcher has been started on {app_name}:{file_name}.")
+    print(f"Less watcher has been started on {app_name}:{file_name}.less")
 
     time_tmp = getmtime(less_path)
     time = time_tmp
