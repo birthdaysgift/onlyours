@@ -36,7 +36,7 @@
     border-top: 1px solid rgb(@border_tone, @border_tone, @border_tone);
     border-bottom: 1px solid rgb(@border_tone, @border_tone, @border_tone);
     border-radius: 5px 0px 0px 5px;
-    border-right: 3px solid white;
+    border-right-width: 0px;
 }
 // ======================
 
@@ -49,7 +49,7 @@
     display: flex;
     flex-wrap: wrap;
     position: absolute;
-    left: -53px;
+    left: -55px;
     top: 56px;
     width: 55px;
     padding-top: 10px;
@@ -179,6 +179,7 @@
             .message-text {
                 display: inline-block;
                 margin-bottom: 0px;
+                word-break: break-word;
             }
         }
 

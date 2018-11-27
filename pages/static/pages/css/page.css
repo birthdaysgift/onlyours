@@ -55,10 +55,52 @@
   user-select: none;
   margin-bottom: 10px;
 }
-.left {
+.container {
+  position: relative;
+}
+.container .nav-panel {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  left: -55px;
+  width: 55px;
+  padding-top: 10px;
+  border: 1px solid #ebebeb;
+  border-right: 0px solid white;
+  border-radius: 5px 0px 0px 5px;
+  z-index: 1;
+}
+.container .nav-panel .nav-icon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  background-image: url('../img/nav-icons.png');
+  background-size: 300% 200%;
+}
+.container .nav-panel .home-icon {
+  background-position: 0px 0px;
+}
+.container .nav-panel .home-icon:hover {
+  background-position: 0px -40px;
+}
+.container .nav-panel .talks-icon {
+  background-position: -40px 0px;
+}
+.container .nav-panel .talks-icon:hover {
+  background-position: -40px -40px;
+}
+.container .nav-panel .logout-icon {
+  background-position: -80px 0px;
+}
+.container .nav-panel .logout-icon:hover {
+  background-position: -80px -40px;
+}
+.container .left {
   border-left: 1px solid #ebebeb;
 }
-.left .avatar-panel {
+.container .left .avatar-panel {
   margin-bottom: 15px;
   padding: 0px 10px 15px 10px;
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
@@ -66,11 +108,11 @@
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
-.left .avatar-panel .status-text {
+.container .left .avatar-panel .status-text {
   margin-top: 7px;
   margin-bottom: 0px;
 }
-.left .avatar-panel .user-avatar {
+.container .left .avatar-panel .user-avatar {
   width: 200px;
   height: 200px;
   object-fit: cover;
@@ -79,7 +121,7 @@
   display: block;
   margin: 0 auto;
 }
-.left .write-message-btn {
+.container .left .write-message-btn {
   height: 30px;
   width: 100%;
   color: black;
@@ -92,20 +134,20 @@
   margin-bottom: 15px;
   display: inline-block;
 }
-.left .write-message-btn:hover {
+.container .left .write-message-btn:hover {
   border-color: #6464ff;
 }
-.left .friendship-status-panel {
+.container .left .friendship-status-panel {
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   margin-bottom: 15px;
 }
-.left .friendship-status-panel .friendship-status-text {
+.container .left .friendship-status-panel .friendship-status-text {
   margin-bottom: 5px;
 }
-.left .friendship-status-panel .send-friend-request-btn {
+.container .left .friendship-status-panel .send-friend-request-btn {
   height: 30px;
   width: 100%;
   color: black;
@@ -120,59 +162,13 @@
   box-shadow: 0px 0px 1px #00c800;
   margin-bottom: 0px;
 }
-.left .friendship-status-panel .send-friend-request-btn:hover {
+.container .left .friendship-status-panel .send-friend-request-btn:hover {
   border-color: #6464ff;
 }
-.left .friendship-status-panel .send-friend-request-btn:hover {
+.container .left .friendship-status-panel .send-friend-request-btn:hover {
   border-color: #00c800;
 }
-.left .friendship-status-panel .remove-friend-btn {
-  height: 30px;
-  width: 100%;
-  color: black;
-  text-decoration: none;
-  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
-  /*rgba(160, 160, 255, 0.1)*/
-  border: 1px solid #ebebeb;
-  border-radius: 5px 5px;
-  box-shadow: 0px 0px 1px #0000ff;
-  margin-bottom: 15px;
-  display: inline-block;
-  box-shadow: 0px 0px 1px #00c800;
-  margin-bottom: 0px;
-  box-shadow: 0px 0px 1px #ff0000;
-}
-.left .friendship-status-panel .remove-friend-btn:hover {
-  border-color: #6464ff;
-}
-.left .friendship-status-panel .remove-friend-btn:hover {
-  border-color: #00c800;
-}
-.left .friendship-status-panel .remove-friend-btn:hover {
-  border-color: #ff8282;
-}
-.left .friendship-status-panel .accept-friend-request-btn {
-  height: 30px;
-  width: 100%;
-  color: black;
-  text-decoration: none;
-  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
-  /*rgba(160, 160, 255, 0.1)*/
-  border: 1px solid #ebebeb;
-  border-radius: 5px 5px;
-  box-shadow: 0px 0px 1px #0000ff;
-  margin-bottom: 15px;
-  display: inline-block;
-  box-shadow: 0px 0px 1px #00c800;
-  margin-bottom: 0px;
-}
-.left .friendship-status-panel .accept-friend-request-btn:hover {
-  border-color: #6464ff;
-}
-.left .friendship-status-panel .accept-friend-request-btn:hover {
-  border-color: #00c800;
-}
-.left .friendship-status-panel .deny-friend-request-btn {
+.container .left .friendship-status-panel .remove-friend-btn {
   height: 30px;
   width: 100%;
   color: black;
@@ -188,16 +184,62 @@
   margin-bottom: 0px;
   box-shadow: 0px 0px 1px #ff0000;
 }
-.left .friendship-status-panel .deny-friend-request-btn:hover {
+.container .left .friendship-status-panel .remove-friend-btn:hover {
   border-color: #6464ff;
 }
-.left .friendship-status-panel .deny-friend-request-btn:hover {
+.container .left .friendship-status-panel .remove-friend-btn:hover {
   border-color: #00c800;
 }
-.left .friendship-status-panel .deny-friend-request-btn:hover {
+.container .left .friendship-status-panel .remove-friend-btn:hover {
   border-color: #ff8282;
 }
-.left .friendship-status-panel .cancel-friend-request-btn {
+.container .left .friendship-status-panel .accept-friend-request-btn {
+  height: 30px;
+  width: 100%;
+  color: black;
+  text-decoration: none;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  /*rgba(160, 160, 255, 0.1)*/
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  box-shadow: 0px 0px 1px #0000ff;
+  margin-bottom: 15px;
+  display: inline-block;
+  box-shadow: 0px 0px 1px #00c800;
+  margin-bottom: 0px;
+}
+.container .left .friendship-status-panel .accept-friend-request-btn:hover {
+  border-color: #6464ff;
+}
+.container .left .friendship-status-panel .accept-friend-request-btn:hover {
+  border-color: #00c800;
+}
+.container .left .friendship-status-panel .deny-friend-request-btn {
+  height: 30px;
+  width: 100%;
+  color: black;
+  text-decoration: none;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  /*rgba(160, 160, 255, 0.1)*/
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  box-shadow: 0px 0px 1px #0000ff;
+  margin-bottom: 15px;
+  display: inline-block;
+  box-shadow: 0px 0px 1px #00c800;
+  margin-bottom: 0px;
+  box-shadow: 0px 0px 1px #ff0000;
+}
+.container .left .friendship-status-panel .deny-friend-request-btn:hover {
+  border-color: #6464ff;
+}
+.container .left .friendship-status-panel .deny-friend-request-btn:hover {
+  border-color: #00c800;
+}
+.container .left .friendship-status-panel .deny-friend-request-btn:hover {
+  border-color: #ff8282;
+}
+.container .left .friendship-status-panel .cancel-friend-request-btn {
   height: 30px;
   width: 100%;
   color: black;
@@ -214,19 +256,19 @@
   box-shadow: 0px 0px 1px #ff0000;
   box-shadow: 0px 0px 1px 1px #ffff00;
 }
-.left .friendship-status-panel .cancel-friend-request-btn:hover {
+.container .left .friendship-status-panel .cancel-friend-request-btn:hover {
   border-color: #6464ff;
 }
-.left .friendship-status-panel .cancel-friend-request-btn:hover {
+.container .left .friendship-status-panel .cancel-friend-request-btn:hover {
   border-color: #00c800;
 }
-.left .friendship-status-panel .cancel-friend-request-btn:hover {
+.container .left .friendship-status-panel .cancel-friend-request-btn:hover {
   border-color: #ff8282;
 }
-.left .friendship-status-panel .cancel-friend-request-btn:hover {
+.container .left .friendship-status-panel .cancel-friend-request-btn:hover {
   border-color: #ffe228;
 }
-.left .friends-panel {
+.container .left .friends-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
   border: 1px solid #ebebeb;
@@ -234,23 +276,23 @@
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
 }
-.left .friends-panel .friends-text {
+.container .left .friends-panel .friends-text {
   display: block;
   margin-bottom: 5px;
   cursor: pointer;
   color: #007bff;
 }
-.left .friends-panel .friends-text:hover {
+.container .left .friends-panel .friends-text:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-.left .friends-panel .friend-icon {
+.container .left .friends-panel .friend-icon {
   width: 70px;
   display: inline-block;
   margin-right: 5px;
   margin-bottom: 5px;
 }
-.left .friends-panel .friend-icon .friend-avatar {
+.container .left .friends-panel .friend-icon .friend-avatar {
   display: inline-block;
   width: 70px;
   height: 70px;
@@ -258,11 +300,11 @@
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
-.middle {
+.container .middle {
   border-left: 1px solid #ebebeb;
   border-right: 1px solid #ebebeb;
 }
-.middle .about-panel {
+.container .middle .about-panel {
   margin-bottom: 15px;
   padding: 10px 10px 10px 10px;
   border: 1px solid #ebebeb;
@@ -270,29 +312,29 @@
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
 }
-.middle .about-panel .about-block {
+.container .middle .about-panel .about-block {
   text-align: justify;
   word-wraps: normal;
 }
-.middle .about-panel .about-block .about-text {
+.container .middle .about-panel .about-block .about-text {
   margin-bottom: 0px;
 }
-.middle .splitter {
+.container .middle .splitter {
   margin-bottom: 15px;
   border-bottom: 1px solid #ebebeb;
   background-color: blue;
 }
-.middle .posts-panel {
+.container .middle .posts-panel {
   position: relative;
 }
-.middle .posts-panel .form-info-block {
+.container .middle .posts-panel .form-info-block {
   height: 65px;
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   margin-bottom: 15px;
   padding: 0px 0px;
 }
-.middle .posts-panel .form-info-block .add-post {
+.container .middle .posts-panel .form-info-block .add-post {
   width: 100%;
   height: 65px;
   resize: none;
@@ -304,13 +346,13 @@
   border-color: #ccc;
   padding: 10px 10px;
 }
-.middle .posts-panel .form-info-block .add-post:invalid {
+.container .middle .posts-panel .form-info-block .add-post:invalid {
   box-shadow: none;
 }
-.middle .posts-panel .form-info-block .add-post:focus {
+.container .middle .posts-panel .form-info-block .add-post:focus {
   border-color: #aaaaaa;
 }
-.middle .posts-panel .form-info-block .form-info-text {
+.container .middle .posts-panel .form-info-block .form-info-text {
   margin: 0px 0px;
   padding: 0px 0px;
   font-size: 12px;
@@ -319,7 +361,7 @@
   padding-right: 5px;
   display: none;
 }
-.middle .posts-panel .post {
+.container .middle .posts-panel .post {
   min-height: 90px;
   margin-bottom: 15px;
   padding: 10px 10px;
@@ -331,15 +373,15 @@
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
 }
-.middle .posts-panel .post .post-sender {
+.container .middle .posts-panel .post .post-sender {
   margin-bottom: 0px;
   margin-top: 0px;
   padding: 0px 0px;
 }
-.middle .posts-panel .post .post-text {
+.container .middle .posts-panel .post .post-text {
   margin-bottom: 0px;
 }
-.middle .posts-panel .post .sender-avatar {
+.container .middle .posts-panel .post .sender-avatar {
   float: left;
   width: 67px;
   height: 67px;
@@ -348,7 +390,7 @@
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
-.middle .posts-panel .post .close-icon {
+.container .middle .posts-panel .post .close-icon {
   width: 10px;
   height: 10px;
   display: inline-block;
@@ -360,14 +402,14 @@
   background-size: 200% 100%;
   background-position: 0px 0px;
 }
-.middle .posts-panel .post .close-icon:hover {
+.container .middle .posts-panel .post .close-icon:hover {
   cursor: pointer;
   background-position: 50px 0px;
 }
-.right {
+.container .right {
   border-right: 1px solid #ebebeb;
 }
-.right .photo-panel {
+.container .right .photo-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
   border: 1px solid #ebebeb;
@@ -375,17 +417,17 @@
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
 }
-.right .photo-panel .photo-text {
+.container .right .photo-panel .photo-text {
   display: block;
   margin-bottom: 5px;
   cursor: pointer;
   color: #007bff;
 }
-.right .photo-panel .photo-text:hover {
+.container .right .photo-panel .photo-text:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-.right .photo-panel .photo-avatar {
+.container .right .photo-panel .photo-avatar {
   padding: 0px 0px;
   display: inline-block;
   width: 70px;
@@ -397,7 +439,7 @@
   object-fit: cover;
   cursor: pointer;
 }
-.right .video-panel {
+.container .right .video-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
   border: 1px solid #ebebeb;
@@ -405,17 +447,17 @@
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
 }
-.right .video-panel .video-text {
+.container .right .video-panel .video-text {
   display: block;
   margin-bottom: 5px;
   cursor: pointer;
   color: #007bff;
 }
-.right .video-panel .video-text:hover {
+.container .right .video-panel .video-text:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-.right .video-panel .video-avatar {
+.container .right .video-panel .video-avatar {
   display: inline-block;
   width: 70px;
   height: 70px;
@@ -424,7 +466,7 @@
   border-radius: 5px 5px;
   cursor: pointer;
 }
-.right .audio-panel {
+.container .right .audio-panel {
   margin-bottom: 15px;
   padding: 5px 0px 5px 12px;
   border: 1px solid #ebebeb;
@@ -432,11 +474,11 @@
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   /*rgba(160, 160, 255, 0.1)*/
 }
-.right .audio-panel .audio-text {
+.container .right .audio-panel .audio-text {
   display: block;
   margin-bottom: 5px;
 }
-.right .audio-panel .play-icon {
+.container .right .audio-panel .play-icon {
   display: inline-block;
   width: 20px;
   height: 20px;

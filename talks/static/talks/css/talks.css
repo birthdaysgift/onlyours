@@ -5,7 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   position: absolute;
-  left: -53px;
+  left: -55px;
   top: 56px;
   width: 55px;
   padding-top: 10px;
@@ -14,7 +14,7 @@
   border-top: 1px solid #ebebeb;
   border-bottom: 1px solid #ebebeb;
   border-radius: 5px 0px 0px 5px;
-  border-right: 3px solid white;
+  border-right-width: 0px;
 }
 .nav-panel .nav-icon {
   display: flex;
@@ -165,6 +165,7 @@
 .row .messages-panel .message-icon .message-text {
   display: inline-block;
   margin-bottom: 0px;
+  word-break: break-word;
 }
 .row .messages-panel .message-right {
   float: right;
