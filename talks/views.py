@@ -70,6 +70,7 @@ class TalksView(LoginRequiredMixin, views.View):
             "friends": friends,
             "dialog_messages": dialog_messages,
             "pages": pages,
+            "current_page": page_num,
             "receiver_name": receiver_name
         }
         return render(request, self.template, context=context)

@@ -34,7 +34,11 @@
     <div class="pages text-right">
         {% if pages %}
             {% for page in pages %}
-                <a href="{% url 'talks:talk' receiver_name page  %}">{{ page }}</a>
+                {% if page == current_page %}
+                    <span>{{ page }}</span>
+                {% else %}
+                    <a href="{% url 'talks:talk' receiver_name page  %}">{{ page }}</a>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </div>
