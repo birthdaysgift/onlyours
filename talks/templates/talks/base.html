@@ -13,16 +13,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-
 <div class="container">
+    {% include 'talks/navigation.html' %}
     <h1 class="logo-text text-center">Onlyours <small><small>talks</small></small></h1>
     <div class="row">
         {% include 'talks/contacts.html' %}
         {% include 'talks/messages.html' %}
     </div>
-    <a href="{% url 'pages:page' user.username %}">My page</a>
-    <br>
-    <a href="{% url 'auth_custom:logout' %}">Logout</a>
 </div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

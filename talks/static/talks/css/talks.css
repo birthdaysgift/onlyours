@@ -1,3 +1,42 @@
+.container {
+  position: relative;
+}
+.nav-panel {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  left: -53px;
+  top: 56px;
+  width: 55px;
+  padding-top: 10px;
+  z-index: 1;
+  border-left: 1px solid #ebebeb;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 0px 0px 5px;
+  border-right: 3px solid white;
+}
+.nav-panel .nav-icon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  background-size: 300% 200%;
+  background-image: url('../img/nav-icons.png');
+}
+.nav-panel .icon-home {
+  background-position: 0px 0px;
+}
+.nav-panel .icon-home:hover {
+  background-position: 0px 40px;
+}
+.nav-panel .icon-logout {
+  background-position: -80px 0px;
+}
+.nav-panel .icon-logout:hover {
+  background-position: -80px 40px;
+}
 .logo-text {
   -ms-user-select: none;
   -moz-user-select: none;
@@ -11,7 +50,7 @@
   overflow-y: scroll;
   padding: 10px 10px;
   border: 1px solid #ebebeb;
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 0px 0px 0px 5px;
   height: 750px;
 }
 .row .contacts-panel .contact-icon {
