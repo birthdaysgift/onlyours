@@ -37,13 +37,19 @@
                 {% if contact in friends %}
                     <img src="{% static 'talks/img/friends.png' %}" class="friends-icon" alt="">
                 {% endif %}
-                <p class="last-message-text">
+                <div class="last-message-text">
+                    {% if contact.last_message.sender == user %}
+                        <div class="message-direction-img to-contact"></div>
+                    {% else %}
+                        <div class="message-direction-img from-contact"></div>
+                    {% endif %}
+
                     {% if contact.last_message.text|length > 20 %}
                         {{ contact.last_message.text|slice:'0:20' }}...
                     {% else %}
                         {{ contact.last_message.text }}
                     {% endif %}
-                </p>
+                </div>
         {% if contact.username == receiver_name %}
             </div>
         {% else %}

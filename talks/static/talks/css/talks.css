@@ -82,8 +82,22 @@
   text-decoration: underline;
   color: #0056b3;
 }
+.row .contacts-panel .contact-icon .message-direction-img {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  background-image: url('../img/arrows.png');
+  background-size: 200% 100%;
+}
+.row .contacts-panel .contact-icon .to-contact {
+  background-position: 0px 0px;
+}
+.row .contacts-panel .contact-icon .from-contact {
+  background-position: 12px 0px;
+}
 .row .contacts-panel .contact-icon .last-message-text {
   margin-top: 10px;
+  color: grey;
 }
 .row .contacts-panel .contact-icon .friends-icon {
   width: 17px;
@@ -123,8 +137,22 @@
   text-decoration: underline;
   color: #0056b3;
 }
+.row .contacts-panel .contact-icon-selected .message-direction-img {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  background-image: url('../img/arrows.png');
+  background-size: 200% 100%;
+}
+.row .contacts-panel .contact-icon-selected .to-contact {
+  background-position: 0px 0px;
+}
+.row .contacts-panel .contact-icon-selected .from-contact {
+  background-position: 12px 0px;
+}
 .row .contacts-panel .contact-icon-selected .last-message-text {
   margin-top: 10px;
+  color: grey;
 }
 .row .contacts-panel .contact-icon-selected .friends-icon {
   width: 17px;
