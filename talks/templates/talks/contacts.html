@@ -38,8 +38,8 @@
                     <img src="{% static 'talks/img/friends.png' %}" class="friends-icon" alt="">
                 {% endif %}
                 <p class="last-message-text">
-                    {% if contact.last_message.sender == user %}
-                        {{ contact.last_message.text }}
+                    {% if contact.last_message.text|length > 20 %}
+                        {{ contact.last_message.text|slice:'0:20' }}...
                     {% else %}
                         {{ contact.last_message.text }}
                     {% endif %}
