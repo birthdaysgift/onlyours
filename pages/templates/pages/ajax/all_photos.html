@@ -17,12 +17,12 @@
                 <a class="add-new-photo"></a>
             </div>
         {% endif %}
-        {% for photo in photos %}
+        {% for user_photo in user_photos %}
             <div class="photo-avatar-wrapper">
-                <img class="photo-list-avatar" src="{{ photo.photo.photo.url }}">
+                <img class="photo-list-avatar" src="{{ user_photo.photo.file.url }}">
                 {% if page_owner == user %}
                 <div class="delete-photo-icon">
-                    <a href="{% url 'pages:delete_photo' page_owner.username photo.id %}" class="delete-photo-link"></a>
+                    <a href="{% url 'pages:delete_photo' page_owner.username user_photo.id %}" class="delete-photo-link"></a>
                 </div>
                 {% endif %}
             </div>

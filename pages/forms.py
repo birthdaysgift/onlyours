@@ -25,10 +25,10 @@ class AddPostForm(forms.Form):
 class AddPhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ("photo", )
+        fields = ("file", )
 
 
 class AddVideoForm(forms.ModelForm):
     class Meta:
         model = Video
-        fields = ("video", )
+        fields = ("file", )

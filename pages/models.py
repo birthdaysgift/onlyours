@@ -15,10 +15,10 @@ class Post(models.Model):
 
 
 class Photo(models.Model):
-    photo = models.ImageField()
+    file = models.ImageField()
 
     def __str__(self):
-        return self.photo.name
+        return self.file.name
 
 
 class UserPhoto(models.Model):
@@ -26,14 +26,14 @@ class UserPhoto(models.Model):
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.username}: {self.photo.photo.name}"
+        return f"{self.user.username}: {self.photo.file.name}"
 
 
 class Video(models.Model):
-    video = models.FileField()
+    file = models.FileField()
 
     def __str__(self):
-        return self.video.name
+        return self.file.name
 
 
 class UserVideo(models.Model):
@@ -41,7 +41,7 @@ class UserVideo(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.username}: {self.video.video.name}"
+        return f"{self.user.username}: {self.video.file.name}"
 
 
 class Friendship(models.Model):

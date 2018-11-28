@@ -40,13 +40,13 @@ class PageView(LoginRequiredMixin, View):
         posts = posts.select_related('sender')
         posts = posts.order_by("-date", "-time")
 
-        # get photos
-        photos = UserPhoto.objects.filter(user=page_owner)
-        photos = photos.select_related("user", "photo")[:6]
+        # get user_photos
+        user_photos = UserPhoto.objects.filter(user=page_owner)
+        user_photos = user_photos.select_related("user", "photo")[:6]
 
-        # get videos
-        videos = UserVideo.objects.filter(user=page_owner)
-        videos = videos.select_related("user", "video")[:6]
+        # get user_videos
+        user_videos = UserVideo.objects.filter(user=page_owner)
+        user_videos = user_videos.select_related("user", "video")[:6]
 
         # get friends
         friends = get_friends_of(page_owner)
@@ -79,9 +79,9 @@ class PageView(LoginRequiredMixin, View):
             "page_owner": page_owner,
             "posts": posts,
             "friends": friends,
-            "photos": photos,
+            "user_photos": user_photos,
             "friendship_status": friendship_status,
-            "videos": videos
+            "user_videos": user_videos
         }
         return render(request, self.template_name, context=context)
 
@@ -206,9 +206,10 @@ class FriendsListView(View):
 class PhotosListView(View):
     def get(self, request, username=None):
         page_owner = get_object_or_404(User, username=username)
-        photos = UserPhoto.objects.filter(user=page_owner).select_related("photo")
+        user_photos = UserPhoto.objects.filter(user=page_owner)
+        user_photos = user_photos.select_related('photo')
         return render(request, "pages/ajax/all_photos.html", context={
-            "photos": photos,
+            "user_photos": user_photos,
             "page_owner": page_owner,
             "photo_form": AddPhotoForm()
         })
@@ -249,9 +250,10 @@ class DeletePhotoView(View):
 class VideosListView(View):
     def get(self, request, username=None):
         page_owner = get_object_or_404(User, username=username)
-        videos = UserVideo.objects.filter(user=page_owner).select_related("video")
+        user_videos = UserVideo.objects.filter(user=page_owner)
+        user_videos = user_videos.select_related("video")
         return render(request, "pages/ajax/all_videos.html", context={
-            "videos": videos,
+            "user_videos": user_videos,
             "page_owner": page_owner,
             "video_form": AddVideoForm()
         })

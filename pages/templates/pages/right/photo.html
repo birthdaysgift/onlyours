@@ -4,7 +4,7 @@
     </div>
     <!--This link is used by js-->
     <a href="{% url 'pages:photos' page_owner.username %}" class="photos-list-link"></a>
-    {% for photo in photos %}
-        <img src="{{ photo.photo.photo.url }}" class="photo-avatar">
+    {% for user_photo in user_photos %}
+        <img src="{{ user_photo.photo.file.url }}" class="photo-avatar">
     {% endfor %}
 </div>

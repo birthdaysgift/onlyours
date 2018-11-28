@@ -15,11 +15,11 @@
             </form>
             <a class="add-new-video"></a>
         {% endif %}
-        {% for video in videos %}
-        <div class="video-list-avatar" src="{{ video.video.video.url }}"></div>
+        {% for user_video in user_videos %}
+        <div class="video-list-avatar" src="{{ user_video.video.file.url }}"></div>
             {% if page_owner == curent_user %}
                 <div class="delete-video-icon">
-                    <a href="{% url 'pages:delete_video' page_owner.username video.id %}" class="delete-video-link"></a>
+                    <a href="{% url 'pages:delete_video' page_owner.username user_video.id %}" class="delete-video-link"></a>
                 </div>
             {% endif %}
         {% endfor %}

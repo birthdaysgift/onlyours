@@ -4,8 +4,8 @@
     <!--This link is used by js-->
     <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
 
-    {% for video in videos %}
+    {% for user_video in user_videos %}
         <!--Custom attr src used in js to get access to video instance-->
-        <div src="{{ video.video.video.url }}" class="video-avatar"></div>
+        <div src="{{ user_video.video.file.url }}" class="video-avatar"></div>
     {% endfor %}
 </div>
