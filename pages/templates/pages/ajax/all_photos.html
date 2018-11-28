@@ -9,8 +9,8 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' page_owner.username %}">
                 {% csrf_token %}
                 {{ photo_form.non_field_errors }}
-                {{ photo_form.photo|set_attrs:"class='new-photo-input'" }}
-                {{ photo_form.photo.errors }}
+                {{ photo_form.file|set_attrs:"class='new-photo-input'" }}
+                {{ photo_form.file.errors }}
                 <input type="submit" class="new-photo-submit">
             </form>
             <div class="photo-avatar-wrapper">

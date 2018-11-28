@@ -225,7 +225,7 @@ class AddNewPhotoView(View):
             user = get_object_or_404(User, username=username)
             photo = get_object_or_404(
                 Photo,
-                photo=form.cleaned_data['photo'].name.strip().replace(" ", "_")
+                file=form.cleaned_data['file'].name.strip().replace(" ", "_")
             )
             UserPhoto(user=user, photo=photo).save()
             return redirect(reverse("pages:page", kwargs={
@@ -274,7 +274,7 @@ class AddNewVideoView(View):
             user = get_object_or_404(User, username=username)
             video = get_object_or_404(
                 Video,
-                video=form.cleaned_data['video'].name.strip().replace(' ', '_')
+                file=form.cleaned_data['file'].name.strip().replace(' ', '_')
             )
             UserVideo(user=user, video=video).save()
             return redirect(reverse("pages:page", kwargs={

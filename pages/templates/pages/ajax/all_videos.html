@@ -9,8 +9,8 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' page_owner.username %}">
                 {% csrf_token %}
                 {{ video_form.non_field_errors }}
-                {{ video_form.video|set_attrs:"class='new-video-input'" }}
-                {{ video_form.video.errors }}
+                {{ video_form.file|set_attrs:"class='new-video-input'" }}
+                {{ video_form.file.errors }}
                 <input type="submit" class="new-video-submit">
             </form>
             <a class="add-new-video"></a>
