@@ -24,6 +24,8 @@ class Photo(models.Model):
 class UserPhoto(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username}: {self.photo.file.name}"
@@ -39,6 +41,8 @@ class Video(models.Model):
 class UserVideo(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username}: {self.video.file.name}"
