@@ -1,0 +1,39 @@
+@radius: 5px;
+@border_tone: 235;
+
+.main_bg() {
+    background-image: linear-gradient(to bottom, rgba(160, 160, 255,0.1), rgb(255,255,255));
+}
+.main_border() {
+    border: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-radius: @radius @radius;
+}
+.selected_border() {
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: @radius @radius;
+}
+.contacts_panel_border() {
+    border: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-radius: 0px 0px 0px 5px;
+}
+.messages_header_border() {
+    border-top: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-right: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-bottom: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-radius: 0px 5px 0px 0px;
+}
+.messages_panel_border() {
+    border-radius: 0px 5px 5px 0px;
+    border: 0px solid rgb(@border_tone, @border_tone, @border_tone);
+}
+.message_input_border() {
+    border: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-radius: 0px 5px 5px 0px;
+}
+.nav_panel_border() {
+    border-left: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-top: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-bottom: 1px solid rgb(@border_tone, @border_tone, @border_tone);
+    border-radius: 5px 0px 0px 5px;
+    border-right-width: 0px;
+}

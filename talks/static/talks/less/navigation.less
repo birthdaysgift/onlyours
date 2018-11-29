@@ -1,0 +1,36 @@
+.nav-panel {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: -55px;
+    top: 56px;
+    width: 55px;
+    padding-top: 10px;
+    .nav_panel_border();
+
+    .nav-icon {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        background-size: 300% 200%;
+        background-image: url('../img/nav-icons.png');
+    }
+
+    .icon-home {
+        background-position: 0px 0px;
+
+        &:hover {
+            background-position: 0px 40px;
+        }
+    }
+
+    .icon-logout {
+        background-position: -80px 0px;
+
+        &:hover {
+            background-position: -80px 40px;
+        }
+    }
+}

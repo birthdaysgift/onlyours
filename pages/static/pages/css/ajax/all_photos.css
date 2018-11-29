@@ -52,7 +52,7 @@
   border-radius: 5px 5px;
   object-fit: cover;
   cursor: pointer;
-  background-image: url('../img/plus-icon.png');
+  background-image: url('../../img/plus-icon.png');
   background-size: 200% 100%;
   background-position: 0px 0px;
 }
@@ -72,7 +72,7 @@
   width: 10px;
   height: 10px;
   display: inline-block;
-  background-image: url('../img/close-icon.png');
+  background-image: url('../../img/close-icon.png');
   background-size: 200% 100%;
   position: absolute;
   top: 10px;

@@ -51,7 +51,7 @@
   width: 10px;
   height: 10px;
   display: inline-block;
-  background-image: url('../img/close-icon.png');
+  background-image: url('../../img/close-icon.png');
   background-size: 200% 100%;
   position: relative;
   top: -90px;
@@ -76,7 +76,7 @@
   margin-bottom: 5px;
   display: inline-block;
   cursor: pointer;
-  background-image: url('../img/plus-icon.png');
+  background-image: url('../../img/plus-icon.png');
   background-size: 200% 100%;
   background-position: 0px 0px;
   margin-right: 5px;

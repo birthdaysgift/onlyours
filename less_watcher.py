@@ -1,4 +1,4 @@
-from os.path import abspath, dirname, getmtime, join
+from os.path import abspath, dirname, getmtime, join, normpath
 from subprocess import run
 from threading import Thread
 from time import asctime, sleep
@@ -6,6 +6,7 @@ from time import asctime, sleep
 
 def watch(app_name, file_name):
     app_path = join(dirname(abspath(__file__)), app_name, "static", app_name)
+    file_name = normpath(file_name)
     less_path = join(app_path, "less", file_name + ".less")
     css_path = join(app_path, "css", file_name + ".css")
 
@@ -28,8 +29,6 @@ def watch(app_name, file_name):
                 print("|>_<|")
                 print("Something went wrong...")
             print(asctime())
-            print(f"App name: {app_name}")
-            print(f"File name: {file_name}")
             print(f"LESS path: {less_path}")
             print(f"CSS path: {css_path}")
             print("")
@@ -37,8 +36,8 @@ def watch(app_name, file_name):
 
 
 Thread(target=watch, args=("pages", "page")).start()
-Thread(target=watch, args=("pages", "delete_post")).start()
-Thread(target=watch, args=("pages", "all_friends")).start()
-Thread(target=watch, args=("pages", "all_photos")).start()
-Thread(target=watch, args=("pages", "all_videos")).start()
+Thread(target=watch, args=("pages", "ajax/delete_post")).start()
+Thread(target=watch, args=("pages", "ajax/all_friends")).start()
+Thread(target=watch, args=("pages", "ajax/all_photos")).start()
+Thread(target=watch, args=("pages", "ajax/all_videos")).start()
 Thread(target=watch, args=("talks", "talks")).start()

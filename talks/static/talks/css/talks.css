@@ -1,7 +1,7 @@
 .container {
   position: relative;
 }
-.nav-panel {
+.container .nav-panel {
   display: flex;
   flex-wrap: wrap;
   position: absolute;
@@ -15,7 +15,7 @@
   border-radius: 5px 0px 0px 5px;
   border-right-width: 0px;
 }
-.nav-panel .nav-icon {
+.container .nav-panel .nav-icon {
   display: flex;
   width: 40px;
   height: 40px;
@@ -24,35 +24,35 @@
   background-size: 300% 200%;
   background-image: url('../img/nav-icons.png');
 }
-.nav-panel .icon-home {
+.container .nav-panel .icon-home {
   background-position: 0px 0px;
 }
-.nav-panel .icon-home:hover {
+.container .nav-panel .icon-home:hover {
   background-position: 0px 40px;
 }
-.nav-panel .icon-logout {
+.container .nav-panel .icon-logout {
   background-position: -80px 0px;
 }
-.nav-panel .icon-logout:hover {
+.container .nav-panel .icon-logout:hover {
   background-position: -80px 40px;
 }
-.logo-text {
+.container .logo-text {
   -ms-user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
 }
-.row {
+.container .row {
   height: 750px;
 }
-.row .contacts-panel {
+.container .row .contacts-panel {
   overflow-y: scroll;
   padding: 10px 10px;
   border: 1px solid #ebebeb;
   border-radius: 0px 0px 0px 5px;
   height: 750px;
 }
-.row .contacts-panel .contact-icon {
+.container .row .contacts-panel .contact-icon {
   margin-bottom: 10px;
   width: 100%;
   height: 72px;
@@ -62,10 +62,10 @@
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
   position: relative;
 }
-.row .contacts-panel .contact-icon:hover {
+.container .row .contacts-panel .contact-icon:hover {
   border: 1px solid #c8c8c8;
 }
-.row .contacts-panel .contact-icon .contact-avatar {
+.container .row .contacts-panel .contact-icon .contact-avatar {
   display: inline-block;
   float: left;
   width: 70px;
@@ -75,40 +75,40 @@
   margin-right: 10px;
   object-fit: cover;
 }
-.row .contacts-panel .contact-icon .contact-username-text {
+.container .row .contacts-panel .contact-icon .contact-username-text {
   color: #1E7BFF;
 }
-.row .contacts-panel .contact-icon .contact-username-text:hover {
+.container .row .contacts-panel .contact-icon .contact-username-text:hover {
   text-decoration: underline;
   color: #0056b3;
 }
-.row .contacts-panel .contact-icon .message-direction-img {
+.container .row .contacts-panel .contact-icon .message-direction-img {
   width: 12px;
   height: 12px;
   display: inline-block;
   background-image: url('../img/arrows.png');
   background-size: 200% 100%;
 }
-.row .contacts-panel .contact-icon .to-contact {
+.container .row .contacts-panel .contact-icon .to-contact {
   background-position: 0px 0px;
 }
-.row .contacts-panel .contact-icon .from-contact {
+.container .row .contacts-panel .contact-icon .from-contact {
   background-position: 12px 0px;
 }
-.row .contacts-panel .contact-icon .last-message-text {
+.container .row .contacts-panel .contact-icon .last-message-text {
   margin-top: 10px;
   color: grey;
   height: 25px;
   overflow: hidden;
 }
-.row .contacts-panel .contact-icon .friends-icon {
+.container .row .contacts-panel .contact-icon .friends-icon {
   width: 17px;
   height: 13px;
   position: absolute;
   right: 10px;
   top: 5px;
 }
-.row .contacts-panel .contact-icon-selected {
+.container .row .contacts-panel .contact-icon-selected {
   margin-bottom: 10px;
   width: 100%;
   height: 72px;
@@ -119,10 +119,10 @@
   border: 1px solid #aaaaaa;
   border-radius: 5px 5px;
 }
-.row .contacts-panel .contact-icon-selected:hover {
+.container .row .contacts-panel .contact-icon-selected:hover {
   border: 1px solid #c8c8c8;
 }
-.row .contacts-panel .contact-icon-selected .contact-avatar {
+.container .row .contacts-panel .contact-icon-selected .contact-avatar {
   display: inline-block;
   float: left;
   width: 70px;
@@ -132,40 +132,40 @@
   margin-right: 10px;
   object-fit: cover;
 }
-.row .contacts-panel .contact-icon-selected .contact-username-text {
+.container .row .contacts-panel .contact-icon-selected .contact-username-text {
   color: #1E7BFF;
 }
-.row .contacts-panel .contact-icon-selected .contact-username-text:hover {
+.container .row .contacts-panel .contact-icon-selected .contact-username-text:hover {
   text-decoration: underline;
   color: #0056b3;
 }
-.row .contacts-panel .contact-icon-selected .message-direction-img {
+.container .row .contacts-panel .contact-icon-selected .message-direction-img {
   width: 12px;
   height: 12px;
   display: inline-block;
   background-image: url('../img/arrows.png');
   background-size: 200% 100%;
 }
-.row .contacts-panel .contact-icon-selected .to-contact {
+.container .row .contacts-panel .contact-icon-selected .to-contact {
   background-position: 0px 0px;
 }
-.row .contacts-panel .contact-icon-selected .from-contact {
+.container .row .contacts-panel .contact-icon-selected .from-contact {
   background-position: 12px 0px;
 }
-.row .contacts-panel .contact-icon-selected .last-message-text {
+.container .row .contacts-panel .contact-icon-selected .last-message-text {
   margin-top: 10px;
   color: grey;
   height: 25px;
   overflow: hidden;
 }
-.row .contacts-panel .contact-icon-selected .friends-icon {
+.container .row .contacts-panel .contact-icon-selected .friends-icon {
   width: 17px;
   height: 13px;
   position: absolute;
   right: 10px;
   top: 5px;
 }
-.row .messages-header {
+.container .row .messages-header {
   width: 100%;
   height: 52px;
   border-top: 1px solid #ebebeb;
@@ -174,17 +174,17 @@
   border-radius: 0px 5px 0px 0px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-.row .messages-header .receiver-username-text {
+.container .row .messages-header .receiver-username-text {
   padding-top: 7px;
 }
-.row .messages-panel {
+.container .row .messages-panel {
   height: 663px;
   overflow-y: scroll;
   padding: 10px 10px 10px 10px;
   border-radius: 0px 5px 5px 0px;
   border: 0px solid #ebebeb;
 }
-.row .messages-panel .message-icon {
+.container .row .messages-panel .message-icon {
   margin-bottom: 10px;
   padding: 0px 10px 5px 10px;
   display: inline-block;
@@ -193,15 +193,15 @@
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-.row .messages-panel .message-icon .message-text {
+.container .row .messages-panel .message-icon .message-text {
   display: inline-block;
   margin-bottom: 0px;
   word-break: break-word;
 }
-.row .messages-panel .message-right {
+.container .row .messages-panel .message-right {
   float: right;
 }
-.row .message-input {
+.container .row .message-input {
   width: 100%;
   height: 35px;
   font-size: 14px;
@@ -210,9 +210,9 @@
   border-radius: 0px 5px 5px 0px;
   background-image: linear-gradient(to bottom, rgba(160, 160, 255, 0.1), #ffffff);
 }
-.row .message-input:focus {
+.container .row .message-input:focus {
   border: 1px solid #c8c8c8;
 }
-.row .message-input:invalid {
+.container .row .message-input:invalid {
   box-shadow: none;
 }

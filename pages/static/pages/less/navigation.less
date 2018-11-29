@@ -1,0 +1,46 @@
+.nav-panel {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: -55px;
+    width: 55px;
+    padding-top: 10px;
+    border: 1px solid rgb(235, 235, 235);
+    border-right: 0px solid white;
+    border-radius: 5px 0px 0px 5px;
+
+    .nav-icon {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        background-image: url('../img/nav-icons.png');
+        background-size: 300% 200%;
+
+    }
+
+    .home-icon {
+        background-position: 0px 0px;
+
+        &:hover {
+            background-position: 0px -40px;
+        }
+    }
+
+    .talks-icon {
+        background-position: -40px 0px;
+
+        &:hover {
+            background-position: -40px -40px;
+        }
+    }
+
+    .logout-icon {
+        background-position: -80px 0px;
+
+        &:hover {
+            background-position: -80px -40px;
+        }
+    }
+}
