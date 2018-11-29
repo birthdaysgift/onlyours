@@ -16,7 +16,8 @@ from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
 def get_friends_of(user, order_by=None):
     user_friend_pairs = Friendship.objects.filter(
         Q(user1=user) | Q(user2=user)
-    ).select_related("user1", "user2")
+    )
+    user_friend_pairs = user_friend_pairs.select_related("user1", "user2")
     if order_by:
         user_friend_pairs = user_friend_pairs.order_by(order_by)
     friends = []
@@ -110,7 +111,8 @@ class DeletePostView(View):
 
     def post(self, request, username=None, post_id=None):
         Post.objects.get(id=post_id).delete()
-        return redirect(reverse('pages:page', kwargs={"username": username}))
+        url = reverse('pages:page', kwargs={"username": username})
+        return redirect(url)
 
 
 class EditView(LoginRequiredMixin, View):
@@ -118,21 +120,19 @@ class EditView(LoginRequiredMixin, View):
 
     def get(self, request, username=None):
         if username != request.user.username:
-            return redirect(reverse_lazy(
-                "pages:edit",
-                kwargs={"username": request.user.username}
-            ))
-        return render(request, self.template_name, context={
-            "form": EditPageForm(instance=request.user)
-        })
+            kwargs = {"username": request.user.username}
+            url = reverse('pages:edit', kwargs=kwargs)
+            return redirect(url)
+        form = EditPageForm(instance=request.user)
+        return render(request, self.template_name, context={"form": form})
 
     def post(self, request, username=None):
         form = EditPageForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect(reverse_lazy("pages:page", kwargs={
-                "username": request.user.username
-            }))
+            kwargs = {"username": request.user.username}
+            url = reverse('pages:page', kwargs=kwargs)
+            return redirect(url)
         return render(request, self.template_name, context={"form": form})
 
 
@@ -140,9 +140,8 @@ class SendFriendRequestView(View):
     def get(self, request, username=None):
         user = get_object_or_404(User, username=username)
         FriendshipRequest(from_user=request.user, to_user=user).save()
-        return redirect(reverse("pages:page", kwargs={
-            "username": username
-        }))
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class CancelFriendRequestView(View):
@@ -151,9 +150,8 @@ class CancelFriendRequestView(View):
         FriendshipRequest.objects.get(
             from_user=request.user, to_user=user
         ).delete()
-        return redirect(reverse("pages:page", kwargs={
-            "username": username
-        }))
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class AcceptFriendRequestView(View):
@@ -165,9 +163,8 @@ class AcceptFriendRequestView(View):
         if friendship_request.exists():
             friendship_request.delete()
             Friendship(user1=request.user, user2=user).save()
-            return redirect(reverse("pages:page", kwargs={
-                "username": username
-            }))
+            url = reverse('pages:page', kwargs={'username': username})
+            return redirect(url)
 
 
 class DenyFriendRequestView(View):
@@ -176,9 +173,8 @@ class DenyFriendRequestView(View):
         FriendshipRequest.objects.get(
             from_user=user, to_user=request.user
         ).delete()
-        return redirect(reverse("pages:page", kwargs={
-            "username": username
-        }))
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class RemoveFriendView(View):
@@ -188,32 +184,38 @@ class RemoveFriendView(View):
             Q(user1=user, user2=request.user) |
             Q(user1=request.user, user2=user)
         ).delete()
-        return redirect(reverse("pages:page", kwargs={
-            "username": username
-        }))
+        url = reverse("pages:page", kwargs={"username": username})
+        return redirect(url)
 
 
 class FriendsListView(View):
+    template_name = "pages/ajax/all_friends.html"
+
     def get(self, request, username=None):
         page_owner = User.objects.get(username=username)
         friends = get_friends_of(page_owner)
         session_user_friends = get_friends_of(request.user)
         friends.sort(key=lambda e: e.username.lower())
-        return render(request, "pages/ajax/all_friends.html",
-                      context={"friends": friends,
-                               "session_user_friends": session_user_friends})
+        context = {
+            "friends": friends,
+            "session_user_friends": session_user_friends
+        }
+        return render(request, self.template_name, context=context)
 
 
 class PhotosListView(View):
+    template_name = "pages/ajax/all_photos.html"
+
     def get(self, request, username=None):
         page_owner = get_object_or_404(User, username=username)
         user_photos = UserPhoto.objects.filter(user=page_owner)
         user_photos = user_photos.select_related('photo')
-        return render(request, "pages/ajax/all_photos.html", context={
+        context = {
             "user_photos": user_photos,
             "page_owner": page_owner,
             "photo_form": AddPhotoForm()
-        })
+        }
+        return render(request, self.template_name, context=context)
 
 
 class AddNewPhotoView(View):
@@ -223,30 +225,24 @@ class AddNewPhotoView(View):
         form = AddPhotoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            user = get_object_or_404(User, username=username)
+
             filename = get_valid_filename(form.cleaned_data['file'].name)
-            photo = get_object_or_404(
-                Photo,
-                file=filename
-            )
+            photo = get_object_or_404(Photo, file=filename)
+
+            user = get_object_or_404(User, username=username)
             UserPhoto(user=user, photo=photo).save()
-            return redirect(reverse("pages:page", kwargs={
-                "username": username
-            }))
+
+            url = reverse('pages:page', kwargs={'username': username})
+            return redirect(url)
         else:
-            return render(request, self.template_name, context={
-                "form": form
-            })
+            return render(request, self.template_name, context={"form": form})
 
 
 class DeletePhotoView(View):
     def get(self, request, username=None, userphoto_id=None):
         UserPhoto.objects.get(id=userphoto_id).delete()
-        return redirect(reverse("pages:page", kwargs={"username": username}))
-
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
+        url = reverse("pages:page", kwargs={"username": username})
+        return redirect(url)
 
 
 class VideosListView(View):
@@ -254,42 +250,41 @@ class VideosListView(View):
         page_owner = get_object_or_404(User, username=username)
         user_videos = UserVideo.objects.filter(user=page_owner)
         user_videos = user_videos.select_related("video")
-        return render(request, "pages/ajax/all_videos.html", context={
+        context = {
             "user_videos": user_videos,
             "page_owner": page_owner,
             "video_form": AddVideoForm()
-        })
+        }
+        return render(request, "pages/ajax/all_videos.html", context=context)
 
 
 class AddNewVideoView(View):
     template_name = "pages/ajax/add_video.html"
 
     def get(self, request, username=None):
-        return render(request, self.template_name, context={
-            "form": AddVideoForm()
-        })
+        form = AddVideoForm()
+        return render(request, self.template_name, context={'form': form})
 
     def post(self, request, username=None):
         form = AddVideoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            user = get_object_or_404(User, username=username)
+
             filename = get_valid_filename(form.cleaned_data['file'].name)
-            video = get_object_or_404(
-                Video,
-                file=filename
-            )
+            video = get_object_or_404(Video, file=filename)
+
+            user = get_object_or_404(User, username=username)
             UserVideo(user=user, video=video).save()
-            return redirect(reverse("pages:page", kwargs={
-                "username": username
-            }))
+
+            kwargs = {'username': username}
+            url = reverse('pages:page', kwargs=kwargs)
+            return redirect(url)
         else:
-            return render(request, self.template_name, context={
-                "form": form
-            })
+            return render(request, self.template_name, context={"form": form})
 
 
 class DeleteVideoView(View):
     def get(self, request, username=None, uservideo=None):
         UserVideo.objects.get(id=uservideo).delete()
-        return redirect(reverse("pages:page", kwargs={"username": username}))
+        url = reverse("pages:page", kwargs={"username": username})
+        return redirect(url)
