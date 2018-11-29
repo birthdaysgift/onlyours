@@ -16,12 +16,13 @@
             <a class="add-new-video"></a>
         {% endif %}
         {% for user_video in user_videos %}
-        <div class="video-list-avatar" src="{{ user_video.video.file.url }}"></div>
-            {% if page_owner == curent_user %}
-                <div class="delete-video-icon">
-                    <a href="{% url 'pages:delete_video' page_owner.username user_video.id %}" class="delete-video-link"></a>
-                </div>
-            {% endif %}
+            <!--Custom attr video used in js to get access to video instance-->
+            <img class="video-list-avatar" src="{{ user_video.video.thumbnail.url }}" video="{{ user_video.video.file.url }}">
+                {% if page_owner == curent_user %}
+                    <div class="delete-video-icon">
+                        <a href="{% url 'pages:delete_video' page_owner.username user_video.id %}" class="delete-video-link"></a>
+                    </div>
+                {% endif %}
         {% endfor %}
     </div>
     <script>

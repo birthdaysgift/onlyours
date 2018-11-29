@@ -33,6 +33,7 @@ class UserPhoto(models.Model):
 
 class Video(models.Model):
     file = models.FileField()
+    thumbnail = models.ImageField(default='')
 
     def __str__(self):
         return self.file.name

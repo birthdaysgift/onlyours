@@ -86,7 +86,7 @@ $(".video-text").click(function(event) {
 
 $(".video-avatar").click(function(event) {
     $(".page-detail-video-background").css("display", "flex");
-    var src = $(event.target).attr("src");
+    var src = $(event.target).attr("video");
     $(".page-video-img").attr("src", src);
 });
 

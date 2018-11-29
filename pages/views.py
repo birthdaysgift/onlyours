@@ -1,4 +1,6 @@
 import random
+import os
+import subprocess
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
@@ -8,9 +10,26 @@ from django.utils.text import get_valid_filename
 from django.views import View
 
 from auth_custom.models import User
+from Onlyours.settings import MEDIA_ROOT
 from .forms import EditPageForm, AddPostForm, AddPhotoForm, AddVideoForm
 from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
     UserVideo, Video
+
+
+def create_video_thumbnail(filename):
+    ffmpeg = r'"D:\Program Files\ffmpeg-4.0.2-win64-static\bin\ffmpeg.exe"'
+    video = os.path.join(MEDIA_ROOT, filename)
+    time = 0.1
+    size = '100x100'
+    image_name = 'thumb_' + filename.split('.')[0] + '.jpg'
+    image = os.path.join(MEDIA_ROOT, image_name)
+
+    cmd = f'{ffmpeg} -i {video} -ss 3 -f image2 -vframes 1 -y -s 100x100 {image}'
+    result = subprocess.run(cmd, shell=True)
+    if result.returncode == 0:
+        video = Video.objects.get(file=filename)
+        video.thumbnail = image_name
+        video.save()
 
 
 def get_friends_of(user, order_by=None):
@@ -271,8 +290,8 @@ class AddNewVideoView(View):
             form.save()
 
             filename = get_valid_filename(form.cleaned_data['file'].name)
+            create_video_thumbnail(filename)
             video = get_object_or_404(Video, file=filename)
-
             user = get_object_or_404(User, username=username)
             UserVideo(user=user, video=video).save()
 

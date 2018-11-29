@@ -5,7 +5,7 @@
     <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
 
     {% for user_video in user_videos %}
-        <!--Custom attr src used in js to get access to video instance-->
-        <div src="{{ user_video.video.file.url }}" class="video-avatar"></div>
+        <!--Custom attr video used in js to get access to video instance-->
+        <img src="{{ user_video.video.thumbnail.url }}" video="{{ user_video.video.file.url }}" class="video-avatar">
     {% endfor %}
 </div>

@@ -22,7 +22,7 @@ $(".new-video-submit").click(function(event) {
 
 $(".video-list-avatar").click(function(event){
     event.stopPropagation();
-    var src = $(event.target).attr("src");
+    var src = $(event.target).attr("video");
     $(".all-videos-video-img").attr("src", src);
     $(".all-videos-detail-video-background").css("display", "flex");
 });
