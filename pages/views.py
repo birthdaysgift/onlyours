@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils.text import get_valid_filename
 from django.views import View
 
 from auth_custom.models import User
@@ -223,9 +224,10 @@ class AddNewPhotoView(View):
         if form.is_valid():
             form.save()
             user = get_object_or_404(User, username=username)
+            filename = get_valid_filename(form.cleaned_data['file'].name)
             photo = get_object_or_404(
                 Photo,
-                file=form.cleaned_data['file'].name.strip().replace(" ", "_")
+                file=filename
             )
             UserPhoto(user=user, photo=photo).save()
             return redirect(reverse("pages:page", kwargs={
@@ -272,9 +274,10 @@ class AddNewVideoView(View):
         if form.is_valid():
             form.save()
             user = get_object_or_404(User, username=username)
+            filename = get_valid_filename(form.cleaned_data['file'].name)
             video = get_object_or_404(
                 Video,
-                file=form.cleaned_data['file'].name.strip().replace(' ', '_')
+                file=filename
             )
             UserVideo(user=user, video=video).save()
             return redirect(reverse("pages:page", kwargs={
