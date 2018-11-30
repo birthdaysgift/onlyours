@@ -1,11 +1,5 @@
-$(".wrapper > .all-videos-background").click(function(event) {
+$(".all-videos-background").click(function(event) {
     $(".all-videos-background").remove();
-});
-
-$(".all-videos-detail-video-background").click(function(event){
-    event.stopPropagation();
-    $(".all-videos-detail-video-background").css("display", "none");
-    $(".all-videos-video-img").get(0).pause();
 });
 
 $(".add-new-video").click(function(event) {
@@ -22,9 +16,13 @@ $(".new-video-submit").click(function(event) {
 
 $(".video-list-avatar").click(function(event){
     event.stopPropagation();
-    var src = $(event.target).attr("video");
-    $(".all-videos-video-img").attr("src", src);
-    $(".all-videos-detail-video-background").css("display", "flex");
+    var url = $(event.target.previousElementSibling).attr('href');
+    $.get({
+        url: url,
+        success: function(htmlData) {
+            $('.all-videos-background').prepend(htmlData);
+        }
+    });
 });
 
 $(".delete-video-icon").click(function(event){

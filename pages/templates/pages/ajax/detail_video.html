@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="detail-video-background">
+    <video src="{{ video.file.url }}" class="detail-video" controls></video>
+
+    <script>
+        var url = "{% static 'pages/js/detail_video.js' %}";
+        $.getScript(url);
+    </script>
+</div>

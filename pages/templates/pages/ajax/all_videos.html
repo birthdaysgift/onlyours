@@ -1,9 +1,6 @@
 {% load html_attrs %}
 {% load static %}
 <div class="all-videos-background">
-    <div class="all-videos-detail-video-background">
-        <video class="all-videos-video-img" src="" controls></video>
-    </div>
     <div class="video-list-window">
         {% if user == page_owner %}
             <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' page_owner.username %}">
@@ -16,13 +13,14 @@
             <a class="add-new-video"></a>
         {% endif %}
         {% for user_video in user_videos %}
-            <!--Custom attr video used in js to get access to video instance-->
-            <img class="video-list-avatar" src="{{ user_video.video.thumbnail.url }}" video="{{ user_video.video.file.url }}">
-                {% if page_owner == curent_user %}
-                    <div class="delete-video-icon">
-                        <a href="{% url 'pages:delete_video' page_owner.username user_video.id %}" class="delete-video-link"></a>
-                    </div>
-                {% endif %}
+            <!--This link is used in js-->
+            <a href="{% url 'pages:detail_video' page_owner.username user_video.video.id %}"></a>
+            <img class="video-list-avatar" src="{{ user_video.video.thumbnail.url }}">
+            {% if page_owner == curent_user %}
+                <div class="delete-video-icon">
+                    <a href="{% url 'pages:delete_video' page_owner.username user_video.id %}" class="delete-video-link"></a>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
     <script>

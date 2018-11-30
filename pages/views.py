@@ -272,6 +272,14 @@ class DeletePhotoView(View):
         return redirect(url)
 
 
+class DetailVideoView(View):
+    template_name = 'pages/ajax/detail_video.html'
+
+    def get(self, request, username=None, video_id=None):
+        video = get_object_or_404(Video, id=video_id)
+        return render(request, self.template_name, context={'video': video})
+
+
 class VideosListView(View):
     def get(self, request, username=None):
         page_owner = get_object_or_404(User, username=username)

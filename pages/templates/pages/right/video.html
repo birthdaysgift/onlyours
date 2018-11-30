@@ -1,11 +1,12 @@
 <div class="video-panel">
-    <div class="video-text"><b>Video</b></div>
-
+    <div class="video-text">
+        <b>Video</b>
+    </div>
     <!--This link is used by js-->
     <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
-
     {% for user_video in user_videos %}
-        <!--Custom attr video used in js to get access to video instance-->
-        <img src="{{ user_video.video.thumbnail.url }}" video="{{ user_video.video.file.url }}" class="video-avatar">
+        <!--This link is used by js-->
+        <a href="{% url 'pages:detail_video' page_owner.username user_video.video.id %}"></a>
+        <img src="{{ user_video.video.thumbnail.url }}" class="video-avatar">
     {% endfor %}
 </div>
