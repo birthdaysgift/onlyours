@@ -16,6 +16,7 @@ class Post(models.Model):
 
 class Photo(models.Model):
     file = models.ImageField()
+    thumbnail = models.ImageField(default='')
 
     def __str__(self):
         return self.file.name

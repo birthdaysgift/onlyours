@@ -9,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from django.utils.text import get_valid_filename
 from django.views import View
 
+import PIL
+
 from auth_custom.models import User
 from Onlyours.settings import MEDIA_ROOT
 from .forms import EditPageForm, AddPostForm, AddPhotoForm, AddVideoForm
@@ -30,6 +32,18 @@ def create_video_thumbnail(filename):
         video = Video.objects.get(file=filename)
         video.thumbnail = image_name
         video.save()
+
+
+def create_photo_thumbnail(filename):
+    photo_path = os.path.join(MEDIA_ROOT, filename)
+    img = PIL.Image.open(photo_path)
+    img.thumbnail((150, 150))
+    thumb_name = 'thumb_' + filename.split('.')[0] + '.jpg'
+    thumb_path = os.path.join(MEDIA_ROOT, thumb_name)
+    img.save(thumb_path, 'jpeg')
+    photo = Photo.objects.get(file=filename)
+    photo.thumbnail = thumb_name
+    photo.save()
 
 
 def get_friends_of(user, order_by=None):
@@ -254,6 +268,7 @@ class AddNewPhotoView(View):
             form.save()
 
             filename = get_valid_filename(form.cleaned_data['file'].name)
+            create_photo_thumbnail(filename)
             photo = get_object_or_404(Photo, file=filename)
 
             user = get_object_or_404(User, username=username)
