@@ -1,23 +1,31 @@
-from os.path import abspath, dirname, getmtime, join, normpath
+from os import path
 from subprocess import run
 from threading import Thread
 from time import asctime, sleep
 
 
-def watch(app_name, file_name):
-    app_path = join(dirname(abspath(__file__)), app_name, "static", app_name)
-    file_name = normpath(file_name)
-    less_path = join(app_path, "less", file_name + ".less")
-    css_path = join(app_path, "css", file_name + ".css")
+def watch(app, watch, compile):
+    app_path = path.join(
+        path.dirname(path.abspath(__file__)),
+        app,
+        "static",
+        app
+    )
+    watch = path.normpath(watch)
+    watch_path = path.join(app_path, 'less', watch + '.less')
+    less_path = path.join(app_path, "less", compile + ".less")
+    css_path = path.join(app_path, "css", compile + ".css")
 
-    print(f"Less watcher has been started on {app_name}:{file_name}.less")
+    print(f"Less watcher has been started on {app}:{watch}.less"
+          f"Compile to: {compile}")
 
-    time_tmp = getmtime(less_path)
+    time_tmp = path.getmtime(watch_path)
     time = time_tmp
     while True:
         try:
-            time = getmtime(less_path)
+            time = path.getmtime(watch_path)
         except FileNotFoundError:
+            sleep(0.5)
             continue
         if time_tmp != time:
             time_tmp = time
@@ -32,12 +40,34 @@ def watch(app_name, file_name):
             print(f"LESS path: {less_path}")
             print(f"CSS path: {css_path}")
             print("")
-        sleep(1)
+        sleep(0.5)
 
 
-Thread(target=watch, args=("pages", "page")).start()
-Thread(target=watch, args=("pages", "ajax/delete_post")).start()
-Thread(target=watch, args=("pages", "ajax/all_friends")).start()
-Thread(target=watch, args=("pages", "ajax/all_photos")).start()
-Thread(target=watch, args=("pages", "ajax/all_videos")).start()
-Thread(target=watch, args=("talks", "talks")).start()
+Thread(target=watch, args=('pages', 'page', 'page')).start()
+
+Thread(target=watch, args=('pages', 'ajax/delete_post', 'delete_post')).start()
+Thread(target=watch, args=('pages', 'ajax/all_photos', 'ajax/all_photos')).start()
+Thread(target=watch, args=('pages', 'ajax/all_friends', 'ajax/all_friends')).start()
+Thread(target=watch, args=('pages', 'ajax/all_videos', 'ajax/all_videos')).start()
+
+
+Thread(target=watch, args=('pages', 'elephant', 'page')).start()
+Thread(target=watch, args=('pages', 'mixins', 'page')).start()
+Thread(target=watch, args=('pages', 'navigation', 'page')).start()
+
+Thread(target=watch, args=('pages', 'left/avatar', 'page')).start()
+Thread(target=watch, args=('pages', 'left/buttons', 'page')).start()
+Thread(target=watch, args=('pages', 'left/friends', 'page')).start()
+
+Thread(target=watch, args=('pages', 'middle/about', 'page')).start()
+Thread(target=watch, args=('pages', 'middle/posts', 'page')).start()
+
+Thread(target=watch, args=('pages', 'right/audio', 'page')).start()
+Thread(target=watch, args=('pages', 'right/photo', 'page')).start()
+Thread(target=watch, args=('pages', 'right/video', 'page')).start()
+
+Thread(target=watch, args=('talks', 'talks', 'talks')).start()
+Thread(target=watch, args=('talks', 'contacts', 'talks')).start()
+Thread(target=watch, args=('talks', 'messages', 'talks')).start()
+Thread(target=watch, args=('talks', 'mixins', 'talks')).start()
+Thread(target=watch, args=('talks', 'navigation', 'talks')).start()
