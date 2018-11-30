@@ -22,4 +22,3 @@ class PagesConfig(AppConfig):
             sender=models.UserVideo
         )
         post_delete.connect(signals.delete_video, sender=models.Video)
-        post_delete.connect(signals.delete_video_thumbnail, sender=models.Video)

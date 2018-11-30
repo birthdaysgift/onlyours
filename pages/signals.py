@@ -41,9 +41,6 @@ def delete_video(sender, **kwargs):
     except FileNotFoundError:
         pass
 
-
-def delete_video_thumbnail(sender, **kwargs):
-    deleted_video = kwargs['instance']
     try:
         os.remove(os.path.join(MEDIA_ROOT, deleted_video.thumbnail.name))
     except FileNotFoundError:
