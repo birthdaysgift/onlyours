@@ -222,6 +222,14 @@ class FriendsListView(View):
         return render(request, self.template_name, context=context)
 
 
+class DetailPhotoView(View):
+    template_name = 'pages/ajax/detail_photo.html'
+
+    def get(self, request, username=None, photo_id=None):
+        photo = get_object_or_404(Photo, id=photo_id)
+        return render(request, self.template_name, context={'photo': photo})
+
+
 class PhotosListView(View):
     template_name = "pages/ajax/all_photos.html"
 

@@ -1,9 +1,6 @@
 {% load html_attrs %}
 {% load static %}
 <div class="all-photos-background">
-    <div class="all-photos-detail-photo-background">
-        <img class="all-photos-photo-img" src="">
-    </div>
     <div class="photo-list-window">
         {% if page_owner == user %}
             <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' page_owner.username %}">
@@ -19,11 +16,13 @@
         {% endif %}
         {% for user_photo in user_photos %}
             <div class="photo-avatar-wrapper">
+                <!--This link is used in js-->
+                <a href="{% url 'pages:detail_photo' page_owner.username user_photo.photo.id %}"></a>
                 <img class="photo-list-avatar" src="{{ user_photo.photo.file.url }}">
                 {% if page_owner == user %}
-                <div class="delete-photo-icon">
-                    <a href="{% url 'pages:delete_photo' page_owner.username user_photo.id %}" class="delete-photo-link"></a>
-                </div>
+                    <div class="delete-photo-icon">
+                        <a href="{% url 'pages:delete_photo' page_owner.username user_photo.id %}" class="delete-photo-link"></a>
+                    </div>
                 {% endif %}
             </div>
         {% endfor %}

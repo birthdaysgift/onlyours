@@ -63,13 +63,15 @@ $(".photo-text").click(function(event) {
 });
 
 $(".photo-avatar").click(function(event) {
-    $(".page-detail-photo-background").css("display", "flex");
-    var src = $(event.target).attr("src");
-    $(".page-photo-img").attr("src", src);
-});
-
-$(".page-detail-photo-background").click(function(event) {
-    $(".page-detail-photo-background").css("display", "none");
+    var url = $(event.target.previousElementSibling).attr('href');
+    console.log(url);
+    $.get({
+        url:url,
+        dataType: 'html',
+        success: function(htmlData) {
+            $('.wrapper').prepend(htmlData);
+        }
+    });
 });
 
 $(".video-text").click(function(event) {
@@ -84,13 +86,4 @@ $(".video-text").click(function(event) {
     });
 });
 
-$(".video-avatar").click(function(event) {
-    $(".page-detail-video-background").css("display", "flex");
-    var src = $(event.target).attr("video");
-    $(".page-video-img").attr("src", src);
-});
 
-$(".page-detail-video-background").click(function(event) {
-    $(".page-detail-video-background").css("display", "none");
-    $(".page-video-img").get(0).pause();
-});

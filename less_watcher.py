@@ -47,6 +47,7 @@ Thread(target=watch, args=('pages', 'page', 'page')).start()
 
 Thread(target=watch, args=('pages', 'ajax/delete_post', 'delete_post')).start()
 Thread(target=watch, args=('pages', 'ajax/all_photos', 'ajax/all_photos')).start()
+Thread(target=watch, args=('pages', 'ajax/detail_photo', 'ajax/detail_photo')).start()
 Thread(target=watch, args=('pages', 'ajax/all_friends', 'ajax/all_friends')).start()
 Thread(target=watch, args=('pages', 'ajax/all_videos', 'ajax/all_videos')).start()
 

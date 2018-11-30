@@ -8,22 +8,6 @@
   align-items: center;
   position: fixed;
 }
-.all-photos-background .all-photos-detail-photo-background {
-  background-color: rgba(100, 100, 100, 0.3);
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-}
-.all-photos-background .all-photos-detail-photo-background .all-photos-photo-img {
-  max-width: 800px;
-  max-height: 800px;
-  background-size: 100% 100%;
-  border-radius: 5px 5px;
-}
 .all-photos-background .photo-list-window {
   padding: 20px 5px 20px 20px;
   max-height: 800px;

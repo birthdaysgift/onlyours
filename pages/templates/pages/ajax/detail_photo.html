@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="detail-photo-background">
+    <img src="{{ photo.file.url }}" alt="" class="detail-photo">
+
+    <script>
+        var url = "{% static 'pages/js/detail_photo.js' %}";
+        $.getScript(url);
+    </script>
+</div>
+

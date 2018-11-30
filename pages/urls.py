@@ -3,7 +3,7 @@ from django.urls import path
 from .views import EditView, PageView, SendFriendRequestView, \
     AcceptFriendRequestView, DenyFriendRequestView, RemoveFriendView, \
     CancelFriendRequestView, FriendsListView, DeletePostView, \
-    PhotosListView, AddNewPhotoView, \
+    PhotosListView, AddNewPhotoView, DetailPhotoView,\
     DeletePhotoView, VideosListView, AddNewVideoView, DeleteVideoView
 
 app_name = "pages"
@@ -24,6 +24,8 @@ urlpatterns = [
     path("<str:username>/remove_friend/", RemoveFriendView.as_view(),
          name="remove_friend"),
     path("<str:username>/friends/", FriendsListView.as_view(), name="friends"),
+    path('<str:username>/photos/<int:photo_id>/', DetailPhotoView.as_view(),
+         name='detail_photo'),
     path("<str:username>/photos/", PhotosListView.as_view(), name="photos"),
     path("<str:username>/add_new_photo/", AddNewPhotoView.as_view(),
          name="add_new_photo"),

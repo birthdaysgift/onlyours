@@ -5,6 +5,8 @@
     <!--This link is used by js-->
     <a href="{% url 'pages:photos' page_owner.username %}" class="photos-list-link"></a>
     {% for user_photo in user_photos %}
+        <!--This link is used by js-->
+        <a href="{% url 'pages:detail_photo' page_owner.username user_photo.photo.id %}"></a>
         <img src="{{ user_photo.photo.file.url }}" class="photo-avatar">
     {% endfor %}
 </div>
