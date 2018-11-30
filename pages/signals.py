@@ -1,6 +1,6 @@
 import os
 
-from Onlyours import settings
+from Onlyours.settings import MEDIA_ROOT
 from .models import Photo, Video
 
 
@@ -10,7 +10,7 @@ def delete_unused_photo(sender, **kwargs):
         photo = Photo.objects.get(file=deleted_userphoto.photo.file)
         photo.delete()
         try:
-            os.remove(os.path.join(settings.MEDIA_ROOT, photo.file.name))
+            os.remove(os.path.join(MEDIA_ROOT, photo.file.name))
         except FileNotFoundError:
             pass
 
@@ -21,7 +21,7 @@ def delete_unused_video(sender, **kwargs):
         video = Video.objects.get(file=deleted_uservideo.video.file)
         video.delete()
         try:
-            os.remove(os.path.join(settings.MEDIA_ROOT, video.file.name))
+            os.remove(os.path.join(MEDIA_ROOT, video.file.name))
         except FileNotFoundError:
             pass
 
@@ -29,7 +29,7 @@ def delete_unused_video(sender, **kwargs):
 def delete_photo(sender, **kwargs):
     deleted_photo = kwargs["instance"]
     try:
-        os.remove(os.path.join(settings.MEDIA_ROOT, deleted_photo.file.name))
+        os.remove(os.path.join(MEDIA_ROOT, deleted_photo.file.name))
     except FileNotFoundError:
         pass
 
@@ -37,6 +37,14 @@ def delete_photo(sender, **kwargs):
 def delete_video(sender, **kwargs):
     deleted_video = kwargs["instance"]
     try:
-        os.remove(os.path.join(settings.MEDIA_ROOT, deleted_video.file.name))
+        os.remove(os.path.join(MEDIA_ROOT, deleted_video.file.name))
+    except FileNotFoundError:
+        pass
+
+
+def delete_video_thumbnail(sender, **kwargs):
+    deleted_video = kwargs['instance']
+    try:
+        os.remove(os.path.join(MEDIA_ROOT, deleted_video.thumbnail.name))
     except FileNotFoundError:
         pass
