@@ -1,8 +1,22 @@
+@import '../mixins.less';
+
 .avatar-panel {
     margin-bottom: 15px;
     padding: 0px 10px 15px 10px;
     .main_bg();
     .main_border();
+
+    .edit-page-icon {
+        display: inline-block;
+        width: 19px;
+        height: 19px;
+        background-image: url('../img/pencil.png');
+        background-size: 200% 100%;
+
+        &:hover {
+            background-position: 19px 0px;
+        }
+    }
 
     .status-text {
         margin-top: 7px;

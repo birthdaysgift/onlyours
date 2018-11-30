@@ -107,6 +107,16 @@
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
+.container .left .avatar-panel .edit-page-icon {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  background-image: url('../img/pencil.png');
+  background-size: 200% 100%;
+}
+.container .left .avatar-panel .edit-page-icon:hover {
+  background-position: 19px 0px;
+}
 .container .left .avatar-panel .status-text {
   margin-top: 7px;
   margin-bottom: 0px;
