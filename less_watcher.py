@@ -53,7 +53,7 @@ Thread(target=watch, args=('pages', 'ajax/all_videos', 'ajax/all_videos')).start
 Thread(target=watch, args=('pages', 'ajax/detail_video', 'ajax/detail_video')).start()
 
 
-Thread(target=watch, args=('pages', 'elephant', 'page')).start()
+Thread(target=watch, args=('pages', 'elephant', 'elephant')).start()
 Thread(target=watch, args=('pages', 'mixins', 'page')).start()
 Thread(target=watch, args=('pages', 'navigation', 'page')).start()
 
