@@ -47,7 +47,7 @@
     .post {
         min-height: 90px;
         margin-bottom: 15px;
-        padding: 10px 10px;
+        padding: 10px 10px 0px 10px;
         text-align: justify;
         text-wraps: normal;
         position: relative;
@@ -89,6 +89,67 @@
             &:hover {
                 cursor: pointer;
                 background-position: 50px 0px;
+            }
+        }
+
+        .likes-panel {
+            display: inline-block;
+            border-top: 1px solid rgb(235, 235, 235);
+            width: 100%;
+            height: 35px;
+            position: relative;
+            padding-top: 5px;
+            margin-top: 5px;
+
+            .like {
+                display: inline-block;
+                height: 15px;
+                float: right;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                .like-icon {
+                    display: inline-block;
+                    width: 15px;
+                    height: 100%;
+                    background-image: url('../img/likes.png');
+                    background-size: 200% 300%;
+                    background-position: 0px 0px;
+
+                    &:hover {
+                        background-position: 0px -15px;
+                    }
+                }
+
+                .like-value {
+                    display: inline-block;
+                    color: grey;
+                    height: 100%;
+                    vertical-align: 1px;
+                    margin-left: 3px;
+                    margin-right: 5px;
+                    font-size: 13px;
+                }
+            }
+
+            .dislike {
+                .like();
+
+                .dislike-icon {
+                    .like.like-icon();
+
+                    background-position: 15px 0px;
+
+                    &:hover {
+                        background-position: 15px -15px;
+                    }
+                }
+
+                .dislike-value {
+                    .like.like-value();
+                }
             }
         }
     }

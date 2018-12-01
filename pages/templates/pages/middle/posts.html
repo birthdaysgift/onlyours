@@ -40,6 +40,18 @@
                 {% endif %}
 
                 {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
+                {% spaceless %}
+                    <div class="likes-panel">
+                        <div class="dislike">
+                            <div class="dislike-icon"></div>
+                            <div class="dislike-value"></div>
+                        </div>
+                        <div class="like">
+                            <div class="like-icon"></div>
+                            <div class="like-value"></div>
+                        </div>
+                    </div>
+                {% endspaceless %}
             </div>
         {% endfor %}
     {% endif %}

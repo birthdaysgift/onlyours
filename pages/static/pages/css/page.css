@@ -341,7 +341,7 @@
 .container .middle .posts-panel .post {
   min-height: 90px;
   margin-bottom: 15px;
-  padding: 10px 10px;
+  padding: 10px 10px 0px 10px;
   text-align: justify;
   text-wraps: normal;
   position: relative;
@@ -382,6 +382,95 @@
 .container .middle .posts-panel .post .close-icon:hover {
   cursor: pointer;
   background-position: 50px 0px;
+}
+.container .middle .posts-panel .post .likes-panel {
+  display: inline-block;
+  border-top: 1px solid #ebebeb;
+  width: 100%;
+  height: 35px;
+  position: relative;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+.container .middle .posts-panel .post .likes-panel .like {
+  display: inline-block;
+  height: 15px;
+  float: right;
+}
+.container .middle .posts-panel .post .likes-panel .like:hover {
+  cursor: pointer;
+}
+.container .middle .posts-panel .post .likes-panel .like .like-icon {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  background-image: url('../img/likes.png');
+  background-size: 200% 300%;
+  background-position: 0px 0px;
+}
+.container .middle .posts-panel .post .likes-panel .like .like-icon:hover {
+  background-position: 0px -15px;
+}
+.container .middle .posts-panel .post .likes-panel .like .like-value {
+  display: inline-block;
+  color: grey;
+  height: 100%;
+  vertical-align: 1px;
+  margin-left: 3px;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike {
+  display: inline-block;
+  height: 15px;
+  float: right;
+}
+.container .middle .posts-panel .post .likes-panel .dislike:hover {
+  cursor: pointer;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .like-icon {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  background-image: url('../img/likes.png');
+  background-size: 200% 300%;
+  background-position: 0px 0px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .like-icon:hover {
+  background-position: 0px -15px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .like-value {
+  display: inline-block;
+  color: grey;
+  height: 100%;
+  vertical-align: 1px;
+  margin-left: 3px;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .dislike-icon {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  background-image: url('../img/likes.png');
+  background-size: 200% 300%;
+  background-position: 0px 0px;
+  background-position: 15px 0px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .dislike-icon:hover {
+  background-position: 0px -15px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .dislike-icon:hover {
+  background-position: 15px -15px;
+}
+.container .middle .posts-panel .post .likes-panel .dislike .dislike-value {
+  display: inline-block;
+  color: grey;
+  height: 100%;
+  vertical-align: 1px;
+  margin-left: 3px;
+  margin-right: 5px;
+  font-size: 13px;
 }
 .container .right {
   border-right: 1px solid #ebebeb;
