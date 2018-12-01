@@ -14,22 +14,6 @@ from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
     UserVideo, Video
 
 
-def get_friends_of(user, order_by=None):
-    user_friend_pairs = Friendship.objects.filter(
-        Q(user1=user) | Q(user2=user)
-    )
-    user_friend_pairs = user_friend_pairs.select_related("user1", "user2")
-    if order_by:
-        user_friend_pairs = user_friend_pairs.order_by(order_by)
-    friends = []
-    for pair in user_friend_pairs:
-        if pair.user1 == user:
-            friends.append(pair.user2)
-        else:
-            friends.append(pair.user1)
-    return friends
-
-
 class PageView(LoginRequiredMixin, View):
     login_url = reverse_lazy("auth_custom:login")
     template_name = "pages/base.html"
@@ -52,7 +36,7 @@ class PageView(LoginRequiredMixin, View):
         user_videos = user_videos.select_related("user", "video")[:6]
 
         # get friends
-        friends = get_friends_of(page_owner)
+        friends = Friendship.objects.get_friends_of(page_owner)
         max_friends = 6  # max friends on friends-panel in page.html
         if len(friends) < max_friends:
             friends = random.sample(friends, len(friends))
@@ -194,8 +178,8 @@ class FriendsListView(View):
 
     def get(self, request, username=None):
         page_owner = User.objects.get(username=username)
-        friends = get_friends_of(page_owner)
-        session_user_friends = get_friends_of(request.user)
+        friends = Friendship.objects.get_friends_of(page_owner)
+        session_user_friends = Friendship.objects.get_friends_of(request.user)
         friends.sort(key=lambda e: e.username.lower())
         context = {
             "friends": friends,

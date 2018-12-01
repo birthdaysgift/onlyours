@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from django.db import models
+from django.db.models import Q
 import PIL
 
 from auth_custom.models import User
@@ -91,7 +92,27 @@ class UserVideo(models.Model):
         return f"{self.user.username}: {self.video.file.name}"
 
 
+class FriendshipManager(models.Manager):
+
+    def get_friends_of(self, user, order_by=None):
+        user_friend_pairs = self.all().filter(
+            Q(user1=user) | Q(user2=user)
+        )
+        user_friend_pairs = user_friend_pairs.select_related("user1", "user2")
+        if order_by:
+            user_friend_pairs = user_friend_pairs.order_by(order_by)
+        friends = []
+        for pair in user_friend_pairs:
+            if pair.user1 == user:
+                friends.append(pair.user2)
+            else:
+                friends.append(pair.user1)
+        return friends
+
+
 class Friendship(models.Model):
+    objects = FriendshipManager()
+
     user1 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user1")
     user2 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
