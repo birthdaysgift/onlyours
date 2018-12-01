@@ -44,11 +44,19 @@
                     <div class="likes-panel">
                         <div class="dislike">
                             <div class="dislike-icon"></div>
-                            <div class="dislike-value"></div>
+                            <div class="dislike-value">
+                                {% if post.dislikes %}
+                                    {{ post.dislikes|length }}
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="like">
                             <div class="like-icon"></div>
-                            <div class="like-value"></div>
+                            <div class="like-value">
+                                {% if post.likes %}
+                                    {{ post.likes|length }}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 {% endspaceless %}

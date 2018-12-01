@@ -11,7 +11,7 @@ from django.views import View
 from auth_custom.models import User
 from .forms import EditPageForm, AddPostForm, AddPhotoForm, AddVideoForm
 from .models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
-    UserVideo, Video
+    UserVideo, Video, PostLike, PostDislike
 
 
 class PageView(LoginRequiredMixin, View):
@@ -22,10 +22,17 @@ class PageView(LoginRequiredMixin, View):
         # get page owner
         page_owner = get_object_or_404(User, username=username)
 
-        # get posts
+        # get posts and likes/dislikes for them
         posts = Post.objects.filter(receiver=page_owner)
         posts = posts.select_related('sender')
         posts = posts.order_by("-date", "-time")
+        for post in posts:
+            likes = PostLike.objects.filter(post=post)
+            likes = likes.select_related('user')
+            dislikes = PostDislike.objects.filter(post=post)
+            dislikes = dislikes.select_related('user')
+            setattr(post, 'likes', likes)
+            setattr(post, 'dislikes', dislikes)
 
         # get user_photos
         user_photos = UserPhoto.objects.filter(user=page_owner)

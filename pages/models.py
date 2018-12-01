@@ -19,6 +19,16 @@ class Post(models.Model):
     text = models.TextField()
 
 
+class PostLike(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+class PostDislike(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
 class Photo(models.Model):
     file = models.ImageField()
     thumbnail = models.ImageField(default='')
