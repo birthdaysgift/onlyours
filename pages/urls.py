@@ -5,7 +5,7 @@ from .views import EditView, PageView, SendFriendRequestView, \
     CancelFriendRequestView, FriendsListView, DeletePostView, \
     PhotosListView, AddNewPhotoView, DetailPhotoView,\
     DeletePhotoView, VideosListView, AddNewVideoView, DetailVideoView, \
-    DeleteVideoView
+    DeleteVideoView, LikePostView, DislikePostView
 
 app_name = "pages"
 
@@ -14,6 +14,10 @@ urlpatterns = [
     path("<str:username>/edit/", EditView.as_view(), name="edit"),
     path("<str:username>/delete_post/<int:post_id>/", DeletePostView.as_view(),
          name="delete_post"),
+    path('<str:username>/like_post/<int:post_id>/', LikePostView.as_view(),
+         name='like_post'),
+    path('<str:username>/dislike_post/<int:post_id>/', DislikePostView.as_view(),
+         name='dislike_post'),
     path("<str:username>/send_friend_request/", SendFriendRequestView.as_view(),
          name="send_friend_request"),
     path("<str:username>/reset_friend_request/",

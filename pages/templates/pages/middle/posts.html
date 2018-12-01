@@ -43,7 +43,13 @@
                 {% spaceless %}
                     <div class="likes-panel">
                         <div class="dislike">
-                            <div class="dislike-icon"></div>
+                            <!--This link is used in js-->
+                            <a href="{% url 'pages:dislike_post' user.username post.id %}" class="dislike-link"></a>
+                            {% if post.is_disliked %}
+                                <div class="dislike-icon dislike-selected"></div>
+                            {% else %}
+                                <div class="dislike-icon"></div>
+                            {% endif %}
                             <div class="dislike-value">
                                 {% if post.dislikes %}
                                     {{ post.dislikes|length }}
@@ -51,7 +57,13 @@
                             </div>
                         </div>
                         <div class="like">
-                            <div class="like-icon"></div>
+                            <!--This link is used in js-->
+                            <a href="{% url 'pages:like_post' user.username post.id %}" class="like-link"></a>
+                            {% if post.is_liked %}
+                                <div class="like-icon like-selected"></div>
+                            {% else %}
+                                <div class="like-icon"></div>
+                            {% endif %}
                             <div class="like-value">
                                 {% if post.likes %}
                                     {{ post.likes|length }}

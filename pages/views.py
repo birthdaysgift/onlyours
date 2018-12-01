@@ -2,6 +2,7 @@ import random
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.text import get_valid_filename
@@ -33,6 +34,14 @@ class PageView(LoginRequiredMixin, View):
             dislikes = dislikes.select_related('user')
             setattr(post, 'likes', likes)
             setattr(post, 'dislikes', dislikes)
+            is_liked = PostLike.objects.filter(
+                post=post, user=request.user
+            ).exists()
+            is_disliked = PostDislike.objects.filter(
+                post=post, user=request.user
+            ).exists()
+            setattr(post, 'is_liked', is_liked)
+            setattr(post, 'is_disliked', is_disliked)
 
         # get user_photos
         user_photos = UserPhoto.objects.filter(user=page_owner)
@@ -105,6 +114,36 @@ class DeletePostView(View):
         Post.objects.get(id=post_id).delete()
         url = reverse('pages:page', kwargs={"username": username})
         return redirect(url)
+
+
+class LikePostView(View):
+    def get(self, request, username=None, post_id=None):
+        if request.is_ajax():
+            post = Post.objects.get(id=post_id)
+            like = PostLike.objects.filter(user=request.user, post=post)
+            dislike = PostDislike.objects.filter(user=request.user, post=post)
+            if like.exists():
+                like[0].delete()
+            else:
+                if dislike.exists():
+                    dislike[0].delete()
+                PostLike(user=request.user, post=post).save()
+            return HttpResponse()
+
+
+class DislikePostView(View):
+    def get(self, request, username=None, post_id=None):
+        if request.is_ajax():
+            post = Post.objects.get(id=post_id)
+            like = PostLike.objects.filter(user=request.user, post=post)
+            dislike = PostDislike.objects.filter(user=request.user, post=post)
+            if dislike.exists():
+                dislike[0].delete()
+            else:
+                if like.exists():
+                    like[0].delete()
+                PostDislike(user=request.user, post=post).save()
+            return HttpResponse()
 
 
 class EditView(LoginRequiredMixin, View):
