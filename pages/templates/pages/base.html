@@ -8,6 +8,7 @@
 	<title>Onlyours</title>
 
 
+    <link rel="stylesheet" href="{% static 'pages/css/elephant.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/page.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/ajax/all_friends.css' %}">
     <link rel="stylesheet" href="{% static 'pages/css/ajax/delete_post.css' %}">
@@ -21,9 +22,7 @@
 </head>
 <body>
 <div class="wrapper">
-    <div class="elephant-panel">
-        <div class="elephant"></div>
-    </div>
+    {% include 'pages/elephant.html' %}
     <div class="container">
         <h1 class="title-text text-center">Onlyours <small><small>pages</small></small></h1>
         {% include 'pages/navigation.html' %}
