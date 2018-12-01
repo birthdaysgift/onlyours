@@ -18,15 +18,24 @@ class Post(models.Model):
                                  default=0, related_name="post_receiver")
     text = models.TextField()
 
+    def __str__(self):
+        return f'{self.sender} -> {self.receiver} :: {self.text[:30]}'
+
 
 class PostLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.user} :: [{self.post}]'
+
 
 class PostDislike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user} :: [{self.post}]'
 
 
 class Photo(models.Model):
@@ -128,12 +137,18 @@ class Friendship(models.Model):
     user2 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user2")
 
+    def __str__(self):
+        return f'{self.user1} <-> {self.user2}'
+
 
 class FriendshipRequest(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE,
                                   related_name="from_user")
     to_user = models.ForeignKey(User, on_delete=models.CASCADE,
                                 related_name="to_user")
+
+    def __str__(self):
+        return f'{self.from_user} -> {self.to_user}'
 
     class Meta:
         unique_together = ("from_user", "to_user")
