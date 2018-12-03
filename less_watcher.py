@@ -43,6 +43,9 @@ def watch(app, watch, compile):
         sleep(0.5)
 
 
+Thread(target=watch, args=('auth_custom', 'login', 'login')).start()
+Thread(target=watch, args=('auth_custom', 'register', 'register')).start()
+
 Thread(target=watch, args=('pages', 'page', 'page')).start()
 
 Thread(target=watch, args=('pages', 'ajax/delete_post', 'delete_post')).start()

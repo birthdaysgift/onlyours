@@ -1,11 +1,122 @@
-html, body, .wrapper, .container {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
-
-#form-entries-block {
-    margin: 20px 0 25px 0;
+body {
+  display: flex;
+  justify-content: center;
 }
-
-a {
-    cursor: pointer;
+.container {
+  display: flex;
+  justify-content: center;
+  height: 350px;
+}
+.logo-site,
+.logo-register {
+  display: flex;
+  justify-content: right;
+  padding-right: 15px;
+}
+.logo-register {
+  color: #777;
+  font-size: 24px;
+}
+.logo > .errorlist {
+  max-width: 250px;
+  list-style-type: none;
+  font-size: 14px;
+  margin: 0px 10px 0px 0px;
+  text-align: right;
+  color: #da2121;
+  padding: 2px 0px;
+  border-bottom: 1px solid #ffb4b4;
+}
+.logo > ul:first-of-type {
+  border-top: 1px solid #ffb4b4;
+  margin-top: 20px;
+}
+li {
+  word-break: normal;
+}
+.register-form {
+  display: inline-block;
+  width: 350px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  border-left: 1px solid #ebebeb;
+}
+.register-form .label {
+  display: inline-block;
+  padding: 0px 10px 5px 10px;
+  position: relative;
+  z-index: -1;
+  bottom: -13px;
+  color: #777;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+}
+.register-form .input-info-block {
+  width: 100%;
+  height: 42px;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+}
+.register-form .input-info-block .input {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px;
+  padding-left: 10px;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+}
+.register-form .input-info-block .input:invalid {
+  box-shadow: none;
+}
+.register-form .input-info-block .input:focus {
+  border-color: #aaaaaa;
+}
+.register-form .input-info-block .username-info-text,
+.register-form .input-info-block .password-info-text,
+.register-form .input-info-block .confirm-info-text {
+  display: none;
+  font-size: 12px;
+  color: #777;
+  padding-left: 5px;
+}
+.register-form .input-info-block .username-info-text {
+  display: block;
+}
+.register-form .username-info {
+  height: 62px;
+}
+.register-form .register-button {
+  margin-top: 10px;
+  padding: 4px 10px;
+  float: right;
+  display: inline-block;
+  background-color: white;
+  color: #444;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  box-shadow: 0px 0px 1px #008A9B;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+}
+.register-form .register-button:hover {
+  box-shadow: 0px 0px 3px #008A9B;
+}
+.register-form .login-button {
+  margin-top: 10px;
+  padding: 4px 15px;
+  color: grey;
+  cursor: pointer;
+  float: right;
+  display: inline-block;
+}
+.register-form .login-button:hover {
+  text-decoration: underline;
 }

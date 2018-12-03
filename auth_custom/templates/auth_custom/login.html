@@ -1,30 +1,52 @@
-{% extends 'auth_custom/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load html_attrs %}
 
-{% load html_attrs %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block content %}
-    <h1>Login</h1>
-    {% for message in status_messages %}
-        <div class="alert alert-{{ message.level_tag }}">
-            <strong>Success:</strong> {{ message.message }}
-        </div>
-    {% endfor %}
-    <form method="POST">
-        {% csrf_token %}
+    <link rel="stylesheet" href="{% static 'auth_custom/css/login.css' %}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Onlyours</title>
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <h1 class="logo-site">Onlyours</h1>
+        <div class="logo-login">Login</div>
         {{ form.non_field_errors }}
+        {{ form.username.errors }}
+        {{ form.password.errors }}
+    </div>
+    <form method="POST" class="login-form">
+        {% csrf_token %}
         <div id="form-entries-block">
             <div class="form-group">
-                {{ form.username.label_tag }}
-                {{ form.username|set_attrs:"class='form-control' autofocus autocomplete='off'" }}
-                {{ form.username.errors }}
+                {{ form.username.label_tag|set_attrs:"class='label username-label'" }}
+                <div class="input-info-block username-info">
+                    {{ form.username|set_attrs:"class='input username-input'autofocus autocomplete='off'" }}
+                </div>
             </div>
             <div class="form-group">
-                {{ form.password.label_tag }}
-                {{ form.password|set_attrs:"class='form-control' autocomplete='off'" }}
-                {{ form.password.errors }}
+                {{ form.password.label_tag|set_attrs:"class='label password-label'" }}
+                <div class="input-info-block password-info">
+                    {{ form.password|set_attrs:"class='input password-input' autocomplete='off'" }}
+                </div>
             </div>
-            <button type="submit" class="btn btn-default">Login</button>
+            <button type="submit" class="login-button">Login</button>
+            <a class="register-button" href="{% url 'auth_custom:register' %}">Register</a>
         </div>
     </form>
-    <div class="text-right"><a href="{% url 'auth_custom:register' %}">Register</a></div>
-{% endblock content %}
+</div>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="{% static 'auth_custom/js/login.js' %}"></script>
+</body>
+</html>
