@@ -64,12 +64,15 @@ $('.confirm-input').focusout(function(event) {
     })
 })
 
+function toCenterVertical(CssSelector) {
+    var size = ($(window).height() - $(CssSelector).height())/2;
+    $(CssSelector).css('margin-top', size + 'px');
+};
+
 $(document).ready(function(event) {
-    var size = ($(window).height() - $('.container').height())/2;
-    $('.container').css('margin-top', size + 'px');
+    toCenterVertical('.container');
 })
 
 $(window).resize(function(event) {
-    var size = ($(window).height() - $('.container').height())/2;
-    $('.container').css('margin-top', size + 'px');
+    toCenterVertical('.container');
 })

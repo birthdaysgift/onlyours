@@ -25,31 +25,23 @@
     </div>
     <form method="POST" class="register-form">
         {% csrf_token %}
-        <div id="form-entries-block">
-            <div class="form-group">
-                {{ form.username.label_tag|set_attrs:"class='label username-label'" }}
-                <div class="input-info-block username-info">
-                    {{ form.username|set_attrs:"class='input username-input'autofocus autocomplete='off'" }}
-                    <p class="username-info-text">Only letters, numbers, and @/./+/-/_ characters.</p>
-                </div>
-            </div>
-            <div class="form-group">
-                {{ form.password1.label_tag|set_attrs:"class='label password-label'" }}
-                <div class="input-info-block password-info">
-                    {{ form.password1|set_attrs:"class='input password-input' autocomplete='off'" }}
-                    <p class="password-info-text">At least 8 characters.</p>
-                </div>
-            </div>
-            <div class="form-group">
-                {{ form.password2.label_tag|set_attrs:"class='label confitm-label'" }}
-                <div class="input-info-block confirm-info">
-                    {{ form.password2|set_attrs:"class='input confirm-input' autocomplete='off'" }}
-                    <p class="confirm-info-text">Confirm password.</p>
-                </div>
-            </div>
-            <button type="submit" class="button register-button">Register</button>
-            <a class="button login-button" href="{% url 'auth_custom:login' %}">Login</a>
+        {{ form.username.label_tag|set_attrs:"class='label username-label'" }}
+        <div class="input-info-block username-info">
+            {{ form.username|set_attrs:"class='input username-input'autofocus autocomplete='off'" }}
+            <p class="username-info-text">Only letters, numbers, and @/./+/-/_ characters.</p>
         </div>
+        {{ form.password1.label_tag|set_attrs:"class='label password-label'" }}
+        <div class="input-info-block password-info">
+            {{ form.password1|set_attrs:"class='input password-input' autocomplete='off'" }}
+            <p class="password-info-text">At least 8 characters.</p>
+        </div>
+        {{ form.password2.label_tag|set_attrs:"class='label confirm-label'" }}
+        <div class="input-info-block confirm-info">
+            {{ form.password2|set_attrs:"class='input confirm-input' autocomplete='off'" }}
+            <p class="confirm-info-text">Confirm password.</p>
+        </div>
+        <button type="submit" class="button register-button">Register</button>
+        <a class="button login-button" href="{% url 'auth_custom:login' %}">Login</a>
     </form>
 </div>
 

@@ -24,22 +24,16 @@
     </div>
     <form method="POST" class="login-form">
         {% csrf_token %}
-        <div id="form-entries-block">
-            <div class="form-group">
-                {{ form.username.label_tag|set_attrs:"class='label username-label'" }}
-                <div class="input-info-block username-info">
-                    {{ form.username|set_attrs:"class='input username-input'autofocus autocomplete='off'" }}
-                </div>
-            </div>
-            <div class="form-group">
-                {{ form.password.label_tag|set_attrs:"class='label password-label'" }}
-                <div class="input-info-block password-info">
-                    {{ form.password|set_attrs:"class='input password-input' autocomplete='off'" }}
-                </div>
-            </div>
-            <button type="submit" class="login-button">Login</button>
-            <a class="register-button" href="{% url 'auth_custom:register' %}">Register</a>
+        {{ form.username.label_tag|set_attrs:"class='label username-label'" }}
+        <div class="input-info-block username-info">
+            {{ form.username|set_attrs:"class='input username-input'autofocus autocomplete='off'" }}
         </div>
+        {{ form.password.label_tag|set_attrs:"class='label password-label'" }}
+        <div class="input-info-block password-info">
+            {{ form.password|set_attrs:"class='input password-input' autocomplete='off'" }}
+        </div>
+        <button type="submit" class="login-button">Login</button>
+        <a class="register-button" href="{% url 'auth_custom:register' %}">Register</a>
     </form>
 </div>
 

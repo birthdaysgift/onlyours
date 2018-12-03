@@ -1,49 +1,40 @@
-html,
-body {
-  height: 100%;
-}
-body {
-  display: flex;
-  justify-content: center;
-}
 .container {
   display: flex;
   justify-content: center;
   height: 255px;
 }
-.logo-site,
-.logo-login {
+.container .logo .logo-site,
+.container .logo .logo-login {
   display: flex;
   justify-content: right;
   padding-right: 15px;
 }
-.logo-login {
+.container .logo .logo-login {
   color: #777;
   font-size: 24px;
 }
-.logo > .errorlist {
+.container .logo .errorlist {
   max-width: 250px;
   list-style-type: none;
   font-size: 14px;
-  margin-right: 10px;
+  margin-right: 15px;
   text-align: right;
   color: #da2121;
-  margin-top: 20px;
   padding: 2px 0px;
-  border-top: 1px solid #ffb4b4;
   border-bottom: 1px solid #ffb4b4;
 }
-li {
-  word-break: normal;
+.container .logo ul:first-of-type {
+  border-top: 1px solid #ffb4b4;
+  margin-top: 20px;
 }
-.login-form {
+.container .login-form {
   display: inline-block;
   width: 350px;
   padding-left: 20px;
   padding-bottom: 10px;
   border-left: 1px solid #ebebeb;
 }
-.login-form .label {
+.container .login-form .label {
   display: inline-block;
   padding: 0px 10px 5px 10px;
   position: relative;
@@ -54,37 +45,37 @@ li {
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
-.login-form .input-info-block {
+.container .login-form .input-info-block {
   width: 100%;
   height: 42px;
+  margin-bottom: 15px;
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
 }
-.login-form .input-info-block .input {
+.container .login-form .input-info-block .input {
   width: 100%;
   height: 40px;
   display: flex;
-  margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 5px 5px;
   padding-left: 10px;
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
 }
-.login-form .input-info-block .input:invalid {
+.container .login-form .input-info-block .input:invalid {
   box-shadow: none;
 }
-.login-form .input-info-block .input:focus {
+.container .login-form .input-info-block .input:focus {
   border-color: #aaaaaa;
 }
-.login-form .input-info-block .username-info-text,
-.login-form .input-info-block .password-info-text {
+.container .login-form .input-info-block .username-info-text,
+.container .login-form .input-info-block .password-info-text {
   display: none;
   font-size: 12px;
   color: #777;
   padding-left: 5px;
 }
-.login-form .login-button {
+.container .login-form .login-button {
   margin-top: 10px;
   padding: 4px 10px;
   float: right;
@@ -97,10 +88,10 @@ li {
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
 }
-.login-form .login-button:hover {
+.container .login-form .login-button:hover {
   box-shadow: 0px 0px 3px #008A9B;
 }
-.login-form .register-button {
+.container .login-form .register-button {
   float: right;
   margin-right: 15px;
   margin-top: 15px;
