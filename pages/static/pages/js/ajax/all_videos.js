@@ -2,7 +2,50 @@ $(".all-videos-background").click(function(event) {
     $(".all-videos-background").remove();
 });
 
-$(".add-new-video").click(function(event) {
+$('.video-list-window').click(function(event) {
+    event.stopPropagation();
+})
+
+$('.add-icon').click(function(event) {
+    if ($('.youtube-icon').css('display') === 'none') {
+        $('.youtube-icon').animate({
+            right: '30px',
+        }, {
+            duration: 200,
+            start: function(event) {
+                $('.youtube-icon').css('display', 'inline-block');
+            }
+        })
+        $('.upload-icon').animate({
+            right: '70px',
+        }, {
+            duration: 200,
+            start: function(event) {
+                $('.upload-icon').css('display', 'inline-block');
+            }
+        })
+    } else {
+        $('.youtube-icon').animate({
+            right: '0px',
+        }, {
+            duration: 200,
+            complete: function(event) {
+                $('.youtube-icon').css('display', 'none');
+            }
+        })
+        $('.upload-icon').animate({
+            right: '0px',
+        }, {
+            duration: 200,
+            complete: function(event) {
+                $('.upload-icon').css('display', 'none');
+            }
+        })
+    }
+})
+
+$(".upload-icon").click(function(event) {
+
     $(".new-video-input").click(function(event){
         event.stopPropagation();
     });

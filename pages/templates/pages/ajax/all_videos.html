@@ -2,26 +2,35 @@
 {% load static %}
 <div class="all-videos-background">
     <div class="video-list-window">
-        {% if user == page_owner %}
-            <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' page_owner.username %}">
-                {% csrf_token %}
-                {{ video_form.non_field_errors }}
-                {{ video_form.file|set_attrs:"class='new-video-input'" }}
-                {{ video_form.file.errors }}
-                <input type="submit" class="new-video-submit">
-            </form>
-            <a class="add-new-video"></a>
-        {% endif %}
-        {% for user_video in user_videos %}
-            <!--This link is used in js-->
-            <a href="{% url 'pages:detail_video' page_owner.username user_video.video.id %}"></a>
-            <img class="video-list-avatar" src="{{ user_video.video.thumbnail.url }}">
-            {% if page_owner == curent_user %}
-                <div class="delete-video-icon">
-                    <a href="{% url 'pages:delete_video' page_owner.username user_video.id %}" class="delete-video-link"></a>
-                </div>
+        <div class="video-list-header">
+            <h4>Video</h4>
+            {% if user == page_owner %}
+                <div class="add-icon"></div>
+                <div class="youtube-icon"></div>
+                <div class="upload-icon"></div>
             {% endif %}
-        {% endfor %}
+        </div>
+        <div class="video-list-content">
+            {% if user == page_owner %}
+                <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_video' page_owner.username %}">
+                    {% csrf_token %}
+                    {{ video_form.non_field_errors }}
+                    {{ video_form.file|set_attrs:"class='new-video-input' hidden" }}
+                    {{ video_form.file.errors }}
+                    <input type="submit" class="new-video-submit" hidden>
+                </form>
+            {% endif %}
+            {% for user_video in user_videos %}
+                <div class="video-avatar-wrapper">
+                    <!--This link is used in js-->
+                    <a href="{% url 'pages:detail_video' page_owner.username user_video.video.id %}"></a>
+                    <img class="video-list-avatar" src="{{ user_video.video.thumbnail.url }}">
+                    {% if user == page_owner %}
+                        <div class="delete-icon"></div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
     <script>
         var url = "{% static 'pages/js/ajax/all_videos.js' %}";
