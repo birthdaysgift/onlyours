@@ -30,8 +30,8 @@
   display: flex;
   flex-wrap: wrap;
   position: absolute;
-  left: -55px;
-  width: 55px;
+  left: -35px;
+  width: 35px;
   padding-top: 10px;
   border: 1px solid #ebebeb;
   border-right: 0px solid white;
@@ -39,8 +39,8 @@
 }
 .container .nav-panel .nav-icon {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   margin: 0 auto;
   margin-bottom: 10px;
   background-image: url('../img/nav-icons.png');
@@ -50,19 +50,19 @@
   background-position: 0px 0px;
 }
 .container .nav-panel .home-icon:hover {
-  background-position: 0px -40px;
+  background-position: 0px -25px;
 }
 .container .nav-panel .talks-icon {
-  background-position: -40px 0px;
+  background-position: -25px 0px;
 }
 .container .nav-panel .talks-icon:hover {
-  background-position: -40px -40px;
+  background-position: -25px -25px;
 }
 .container .nav-panel .logout-icon {
-  background-position: -80px 0px;
+  background-position: -50px 0px;
 }
 .container .nav-panel .logout-icon:hover {
-  background-position: -80px -40px;
+  background-position: -50px -25px;
 }
 .container .left {
   border-left: 1px solid #ebebeb;
