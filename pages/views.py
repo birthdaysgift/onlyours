@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -107,11 +108,17 @@ class DeletePostView(View):
     template_name = 'pages/ajax/delete_post.html'
 
     def get(self, request, username=None, post_id=None):
-        post = Post.objects.get(id=post_id)
-        return render(request, self.template_name, context={"post": post})
+        page_owner = get_object_or_404(User, username=username)
+        if request.is_ajax() and request.user == page_owner:
+            post = Post.objects.get(id=post_id)
+            return render(request, self.template_name, context={"post": post})
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
     def post(self, request, username=None, post_id=None):
-        Post.objects.get(id=post_id).delete()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner:
+            Post.objects.get(id=post_id).delete()
         url = reverse('pages:page', kwargs={"username": username})
         return redirect(url)
 
@@ -150,71 +157,95 @@ class EditView(LoginRequiredMixin, View):
     template_name = "pages/edit.html"
 
     def get(self, request, username=None):
-        if username != request.user.username:
-            kwargs = {"username": request.user.username}
-            url = reverse('pages:edit', kwargs=kwargs)
-            return redirect(url)
-        form = EditPageForm(instance=request.user)
-        return render(request, self.template_name, context={"form": form})
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner:
+            form = EditPageForm(instance=request.user)
+            return render(request, self.template_name, context={"form": form})
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
     def post(self, request, username=None):
         form = EditPageForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            kwargs = {"username": request.user.username}
-            url = reverse('pages:page', kwargs=kwargs)
-            return redirect(url)
-        return render(request, self.template_name, context={"form": form})
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner:
+            if form.is_valid():
+                form.save()
+                kwargs = {"username": request.user.username}
+                url = reverse('pages:page', kwargs=kwargs)
+                return redirect(url)
+            return render(request, self.template_name, context={"form": form})
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class SendFriendRequestView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        FriendshipRequest(from_user=request.user, to_user=user).save()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user != page_owner:
+            try:
+                FriendshipRequest(
+                    from_user=request.user, to_user=page_owner
+                ).save()
+            # it is raised when such FriendshipRequest already exists
+            except IntegrityError:
+                pass
         url = reverse('pages:page', kwargs={'username': username})
         return redirect(url)
 
 
 class CancelFriendRequestView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        FriendshipRequest.objects.get(
-            from_user=request.user, to_user=user
-        ).delete()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user != page_owner:
+            try:
+                FriendshipRequest.objects.get(
+                    from_user=request.user, to_user=page_owner
+                ).delete()
+            except FriendshipRequest.DoesNotExist:
+                pass
         url = reverse('pages:page', kwargs={'username': username})
         return redirect(url)
 
 
 class AcceptFriendRequestView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        friendship_request = FriendshipRequest.objects.filter(
-            from_user=user, to_user=request.user
-        )
-        if friendship_request.exists():
-            friendship_request.delete()
-            Friendship(user1=request.user, user2=user).save()
-            url = reverse('pages:page', kwargs={'username': username})
-            return redirect(url)
+        page_owner = get_object_or_404(User, username=username)
+        if request.user != page_owner:
+            friendship_request = FriendshipRequest.objects.filter(
+                from_user=page_owner, to_user=request.user
+            )
+            if friendship_request.exists():
+                friendship_request.delete()
+                Friendship(user1=request.user, user2=page_owner).save()
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class DenyFriendRequestView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        FriendshipRequest.objects.get(
-            from_user=user, to_user=request.user
-        ).delete()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user != page_owner:
+            try:
+                FriendshipRequest.objects.get(
+                    from_user=page_owner, to_user=request.user
+                ).delete()
+            except FriendshipRequest.DoesNotExist:
+                pass
         url = reverse('pages:page', kwargs={'username': username})
         return redirect(url)
 
 
 class RemoveFriendView(View):
     def get(self, request, username=None):
-        user = get_object_or_404(User, username=username)
-        Friendship.objects.get(
-            Q(user1=user, user2=request.user) |
-            Q(user1=request.user, user2=user)
-        ).delete()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner:
+            try:
+                Friendship.objects.get(
+                    Q(user1=page_owner, user2=request.user) |
+                    Q(user1=request.user, user2=page_owner)
+                ).delete()
+            except FriendshipRequest.DoesNotExist:
+                pass
         url = reverse("pages:page", kwargs={"username": username})
         return redirect(url)
 
@@ -223,38 +254,47 @@ class FriendsListView(View):
     template_name = "pages/ajax/all_friends.html"
 
     def get(self, request, username=None):
-        page_owner = User.objects.get(username=username)
-        friends = Friendship.objects.get_friends_of(page_owner)
-        session_user_friends = Friendship.objects.get_friends_of(request.user)
-        friends.sort(key=lambda e: e.username.lower())
-        context = {
-            "friends": friends,
-            "session_user_friends": session_user_friends
-        }
-        return render(request, self.template_name, context=context)
+        if request.is_ajax():
+            page_owner = User.objects.get(username=username)
+            friends = Friendship.objects.get_friends_of(page_owner)
+            session_user_friends = Friendship.objects.get_friends_of(request.user)
+            friends.sort(key=lambda e: e.username.lower())
+            context = {
+                "friends": friends,
+                "session_user_friends": session_user_friends
+            }
+            return render(request, self.template_name, context=context)
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class DetailPhotoView(View):
     template_name = 'pages/ajax/detail_photo.html'
 
     def get(self, request, username=None, photo_id=None):
-        photo = get_object_or_404(Photo, id=photo_id)
-        return render(request, self.template_name, context={'photo': photo})
+        if request.is_ajax():
+            photo = get_object_or_404(Photo, id=photo_id)
+            return render(request, self.template_name, context={'photo': photo})
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class PhotosListView(View):
     template_name = "pages/ajax/all_photos.html"
 
     def get(self, request, username=None):
-        page_owner = get_object_or_404(User, username=username)
-        user_photos = UserPhoto.objects.filter(user=page_owner)
-        user_photos = user_photos.select_related('photo')
-        context = {
-            "user_photos": user_photos,
-            "page_owner": page_owner,
-            "photo_form": AddPhotoForm()
-        }
-        return render(request, self.template_name, context=context)
+        if request.is_ajax():
+            page_owner = get_object_or_404(User, username=username)
+            user_photos = UserPhoto.objects.filter(user=page_owner)
+            user_photos = user_photos.select_related('photo')
+            context = {
+                "user_photos": user_photos,
+                "page_owner": page_owner,
+                "photo_form": AddPhotoForm()
+            }
+            return render(request, self.template_name, context=context)
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class AddNewPhotoView(View):
@@ -262,7 +302,8 @@ class AddNewPhotoView(View):
 
     def post(self, request, username=None):
         form = AddPhotoForm(request.POST, request.FILES)
-        if form.is_valid():
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner and form.is_valid():
             form.save()
 
             filename = get_valid_filename(form.cleaned_data['file'].name)
@@ -270,16 +311,18 @@ class AddNewPhotoView(View):
 
             user = get_object_or_404(User, username=username)
             UserPhoto(user=user, photo=photo).save()
-
-            url = reverse('pages:page', kwargs={'username': username})
-            return redirect(url)
-        else:
-            return render(request, self.template_name, context={"form": form})
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class DeletePhotoView(View):
     def get(self, request, username=None, userphoto_id=None):
-        UserPhoto.objects.get(id=userphoto_id).delete()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner:
+            try:
+                UserPhoto.objects.get(id=userphoto_id).delete()
+            except UserPhoto.DoesNotExist:
+                pass
         url = reverse("pages:page", kwargs={"username": username})
         return redirect(url)
 
@@ -288,33 +331,36 @@ class DetailVideoView(View):
     template_name = 'pages/ajax/detail_video.html'
 
     def get(self, request, username=None, video_id=None):
-        video = get_object_or_404(Video, id=video_id)
-        return render(request, self.template_name, context={'video': video})
+        if request.is_ajax():
+            video = get_object_or_404(Video, id=video_id)
+            return render(request, self.template_name, context={'video': video})
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class VideosListView(View):
     def get(self, request, username=None):
-        page_owner = get_object_or_404(User, username=username)
-        user_videos = UserVideo.objects.filter(user=page_owner)
-        user_videos = user_videos.select_related("video")
-        context = {
-            "user_videos": user_videos,
-            "page_owner": page_owner,
-            "video_form": AddVideoForm()
-        }
-        return render(request, "pages/ajax/all_videos.html", context=context)
+        if request.is_ajax():
+            page_owner = get_object_or_404(User, username=username)
+            user_videos = UserVideo.objects.filter(user=page_owner)
+            user_videos = user_videos.select_related("video")
+            context = {
+                "user_videos": user_videos,
+                "page_owner": page_owner,
+                "video_form": AddVideoForm()
+            }
+            return render(request, "pages/ajax/all_videos.html", context=context)
+        url = reverse('pages:page', kwargs={'username': username})
+        return redirect(url)
 
 
 class AddNewVideoView(View):
     template_name = "pages/ajax/add_video.html"
 
-    def get(self, request, username=None):
-        form = AddVideoForm()
-        return render(request, self.template_name, context={'form': form})
-
     def post(self, request, username=None):
+        page_owner = get_object_or_404(User, username=username)
         form = AddVideoForm(request.POST, request.FILES)
-        if form.is_valid():
+        if request.user == page_owner and form.is_valid():
             form.save()
 
             filename = get_valid_filename(form.cleaned_data['file'].name)
@@ -323,14 +369,17 @@ class AddNewVideoView(View):
             UserVideo(user=user, video=video).save()
 
             kwargs = {'username': username}
-            url = reverse('pages:page', kwargs=kwargs)
-            return redirect(url)
-        else:
-            return render(request, self.template_name, context={"form": form})
+        url = reverse('pages:page', kwargs=kwargs)
+        return redirect(url)
 
 
 class DeleteVideoView(View):
     def get(self, request, username=None, uservideo=None):
-        UserVideo.objects.get(id=uservideo).delete()
+        page_owner = get_object_or_404(User, username=username)
+        if request.user == page_owner:
+            try:
+                UserVideo.objects.get(id=uservideo).delete()
+            except UserVideo.DoesNotExist:
+                pass
         url = reverse("pages:page", kwargs={"username": username})
         return redirect(url)
