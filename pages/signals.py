@@ -14,6 +14,11 @@ def delete_unused_photo(sender, **kwargs):
         except FileNotFoundError:
             pass
 
+        try:
+            os.remove(os.path.join(MEDIA_ROOT, photo.thumbnail.name))
+        except FileNotFoundError:
+            pass
+
 
 def delete_unused_video(sender, **kwargs):
     deleted_uservideo = kwargs["instance"]
@@ -24,29 +29,7 @@ def delete_unused_video(sender, **kwargs):
             os.remove(os.path.join(MEDIA_ROOT, video.file.name))
         except FileNotFoundError:
             pass
-
-
-def delete_photo(sender, **kwargs):
-    deleted_photo = kwargs["instance"]
-    try:
-        os.remove(os.path.join(MEDIA_ROOT, deleted_photo.file.name))
-    except FileNotFoundError:
-        pass
-
-    try:
-        os.remove(os.path.join(MEDIA_ROOT, deleted_photo.thumbnail.name))
-    except FileNotFoundError:
-        pass
-
-
-def delete_video(sender, **kwargs):
-    deleted_video = kwargs["instance"]
-    try:
-        os.remove(os.path.join(MEDIA_ROOT, deleted_video.file.name))
-    except FileNotFoundError:
-        pass
-
-    try:
-        os.remove(os.path.join(MEDIA_ROOT, deleted_video.thumbnail.name))
-    except FileNotFoundError:
-        pass
+        try:
+            os.remove(os.path.join(MEDIA_ROOT, video.thumbnail.name))
+        except FileNotFoundError:
+            pass
