@@ -68,29 +68,6 @@ $(".video-list-avatar").click(function(event){
     });
 });
 
-$(".delete-video-icon").click(function(event){
-    event.stopPropagation();
-    var url = $(event.target).find(".delete-video-link").attr("href");
-    $.get({
-        async: true,
-        url: url,
-        success: function(event) {
-            window.location.reload(true);
-        }
-    });
-    $(".video-text").click(function(event) {
-        var url = $(".videos-list-link").attr("href");
-        $.get({
-            async: true,
-            url: url,
-            dataType: "html",
-            success: function(htmlData) {
-                $(".wrapper").prepend(htmlData);
-            }
-        });
-    });
-});
-
 $(".new-video-input").change(function(event) {
     $(".new-video-submit").trigger("click");
 });
