@@ -41,6 +41,8 @@ class PostDislike(models.Model):
 class Photo(models.Model):
     file = models.ImageField()
     thumbnail = models.ImageField(default='')
+    date = models.DateField(auto_now_add=True)
+    time = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.file.name
@@ -75,6 +77,8 @@ class UserPhoto(models.Model):
 class Video(models.Model):
     file = models.FileField()
     thumbnail = models.ImageField(default='')
+    date = models.DateField(auto_now_add=True)
+    time = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.file.name
