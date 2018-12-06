@@ -1,11 +1,39 @@
 {% load static %}
 
 <div class="detail-photo-background">
-    <img src="{{ photo.file.url }}" alt="" class="detail-photo">
-
-    <script>
-        var url = "{% static 'pages/js/ajax/detail_photo.js' %}";
-        $.getScript(url);
-    </script>
+    <div class="detail-photo-window">
+        <img src="{{ photo.file.url }}" alt="" class="detail-photo">
+        <div class="photo-info-block">
+            <div class="col1">
+                <div class="photo-user">Posted by&nbsp;<a href="">Username</a></div>
+                <div class="photo-datetime">6.12.18 08:10:15</div>
+            </div>
+            <div class="col2">
+                {% spaceless %}
+                    <div class="photo-likes">
+                        <div class="like">
+                            <!--This link is used in js-->
+                            <a href="" class="like-link"></a>
+                            <div class="like-icon"></div>
+                            <div class="like-value">
+                                10
+                            </div>
+                        </div>
+                        <div class="dislike">
+                            <!--This link is used in js-->
+                            <a href="" class="dislike-link"></a>
+                            <div class="dislike-icon"></div>
+                            <div class="dislike-value">
+                                5
+                            </div>
+                        </div>
+                    </div>
+                {% endspaceless %}
+            </div>
+        </div>
+    </div>
 </div>
-
+<script>
+    var url = "{% static 'pages/js/ajax/detail_photo.js' %}";
+    $.getScript(url);
+</script>

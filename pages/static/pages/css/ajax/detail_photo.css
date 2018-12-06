@@ -8,8 +8,96 @@
   justify-content: center;
   z-index: 1;
 }
-.detail-photo-background .detail-photo {
+.detail-photo-background .detail-photo-window {
+  min-width: 570px;
+  background-color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+.detail-photo-background .detail-photo-window .detail-photo {
   max-width: 800px;
   max-height: 800px;
-  border-radius: 5px 5px;
+  border-radius: 5px 5px 0px 0px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ebebeb;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col1 {
+  margin-top: 5px;
+  min-width: 0px;
+  display: flex;
+  flex-direction: column;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col1 .photo-datetime,
+.detail-photo-background .detail-photo-window .photo-info-block .col1 .photo-user {
+  display: flex;
+  height: 30px;
+  padding-left: 10px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col1 .photo-datetime {
+  color: grey;
+  font-size: 14px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes {
+  display: flex;
+  justify-content: center;
+  margin-right: 10px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike {
+  display: flex;
+  height: 15px;
+  align-items: center;
+  cursor: pointer;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .like-icon,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .like-icon,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .dislike-icon,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .dislike-icon {
+  height: 15px;
+  width: 15px;
+  display: flex;
+  background-image: url('../../img/likes.png');
+  background-size: 200% 300%;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .like-icon,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .like-icon {
+  background-position: 0px 0px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .like-icon:hover,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .like-icon:hover {
+  background-position: 0px -15px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .like-icon.like-selected,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .like-icon.like-selected {
+  background-position: 0px -30px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .dislike-icon,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .dislike-icon {
+  background-position: -15px 0px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .dislike-icon:hover,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .dislike-icon:hover {
+  background-position: -15px -15px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .dislike-icon.dislike-selected,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .dislike-icon.dislike-selected {
+  background-position: 15px -30px;
+}
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .like-value,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .like-value,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .like .dislike-value,
+.detail-photo-background .detail-photo-window .photo-info-block .col2 .photo-likes .dislike .dislike-value {
+  color: grey;
+  display: flex;
+  font-size: 13px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
