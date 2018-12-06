@@ -2,30 +2,33 @@
 {% load static %}
 <div class="all-photos-background">
     <div class="photo-list-window">
-        {% if page_owner == user %}
-            <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' page_owner.username %}">
-                {% csrf_token %}
-                {{ photo_form.non_field_errors }}
-                {{ photo_form.file|set_attrs:"class='new-photo-input'" }}
-                {{ photo_form.file.errors }}
-                <input type="submit" class="new-photo-submit">
-            </form>
-            <div class="photo-avatar-wrapper">
-                <a class="add-new-photo"></a>
-            </div>
-        {% endif %}
-        {% for user_photo in user_photos %}
-            <div class="photo-avatar-wrapper">
-                <!--This link is used in js-->
-                <a href="{% url 'pages:detail_photo' page_owner.username user_photo.photo.id %}"></a>
-                <img class="photo-list-avatar" src="{{ user_photo.photo.file.url }}">
-                {% if page_owner == user %}
-                    <div class="delete-photo-icon">
-                        <a href="{% url 'pages:delete_photo' page_owner.username user_photo.id %}" class="delete-photo-link"></a>
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
+        <div class="photo-list-header">
+            <h4>Photo</h4>
+            {% if user == page_owner %}
+                <div class="add-icon"></div>
+            {% endif %}
+        </div>
+        <div class="photo-list-content">
+            {% if user == page_owner %}
+                <form method="POST" enctype="multipart/form-data" action="{% url 'pages:add_new_photo' page_owner.username %}">
+                    {% csrf_token %}
+                    {{ photo_form.non_field_errors }}
+                    {{ photo_form.file|set_attrs:"class='new-photo-input' hidden" }}
+                    {{ photo_form.file.errors }}
+                    <input type="submit" class="new-photo-submit" hidden>
+                </form>
+            {% endif %}
+            {% for user_photo in user_photos %}
+                <div class="photo-avatar-wrapper">
+                    <!--This link is used in js-->
+                    <a href="{% url 'pages:detail_photo' page_owner.username user_photo.photo.id %}"></a>
+                    <img class="photo-list-avatar" src="{{ user_photo.photo.file.url }}">
+                    {% if user == page_owner %}
+                        <a class="delete-icon" href="{% url 'pages:delete_photo' page_owner.username user_photo.id %}"></a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
     <script>
         var url = "{% static 'pages/js/ajax/all_photos.js' %}";

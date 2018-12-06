@@ -11,73 +11,82 @@
     position: fixed;
 
     .photo-list-window {
-        padding: 20px 5px 20px 20px;
-        max-height: 800px;
-        max-width: 1085px;
+        max-width: 842px;
         background-color: white;
-        overflow-y: auto;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-        flex-direction: row;
+        .main_border();
 
-        .photo-avatar-wrapper {
-            width: 203px;
-            height: 203px;
-            margin-bottom: 5px;
-            display: inline-block;
-            margin-right: 5px;
+        .photo-list-header {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            font-size: 25px;
             position: relative;
+            .main_bg();
+            .main_border();
+            border-radius: 5px 5px 0px 0px;
 
-            .add-new-photo {
+            .add-icon {
                 display: inline-block;
-                width: 100%;
-                height: 100%;
-                .main_border();
-                object-fit: cover;
-                cursor: pointer;
-                background-image: url('../../img/plus-icon.png');
-                background-size: 200% 100%;
-                background-position: 0px 0px;
-
-                &:hover {
-                    cursor: pointer;
-                    background-position: 603px 0px;
-                }
-            }
-
-            .photo-list-avatar {
-                width: 100%;
-                height: 100%;
-                .main_border();
-                object-fit: cover;
-                cursor: pointer;
-            }
-
-            .delete-photo-icon {
-                width: 10px;
-                height: 10px;
-                display: inline-block;
-                background-image: url('../../img/close-icon.png');
+                width: 15px;
+                height: 15px;
                 background-size: 200% 100%;
                 position: absolute;
-                top: 10px;
-                right: 12px;
                 cursor: pointer;
+                background-image: url('../../img/add-icon.png');
+                right: 10px;
+                top: 11px;
+                z-index: 1;
 
                 &:hover {
-                    background-position: 50px 0px;
+                    background-position: -15px 0px;
                 }
             }
         }
 
-        .new-photo-input {
-            display: none;
-        }
+        .photo-list-content {
+            max-height: 750px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            overflow-y: scroll;
+            padding-top: 5px;
 
-        .new-photo-submit {
-            display: none;
+            .photo-avatar-wrapper {
+                display: flex;
+                width: 200px;
+                height: 200px;
+                margin-left: 5px;
+                margin-bottom: 5px;
+                position: relative;
+
+                .photo-list-avatar {
+                    width: 100%;
+                    height: 100%
+                    .main_border();
+                    object-fit: cover;
+                    display: flex;
+                    cursor: pointer;
+                }
+
+                .delete-icon {
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    background-image: url('../../img/close-icon.png');
+                    background-size: 200% 100%;
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    cursor: pointer;
+                    margin: 0px 0px;
+
+                    &:hover {
+                        background-position: 50px 0px;
+                    }
+                }
+            }
         }
     }
 }
