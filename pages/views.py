@@ -271,10 +271,11 @@ class FriendsListView(View):
 class DetailPhotoView(View):
     template_name = 'pages/ajax/detail_photo.html'
 
-    def get(self, request, username=None, photo_id=None):
+    def get(self, request, username=None, userphoto_id=None):
         if request.is_ajax():
-            photo = get_object_or_404(Photo, id=photo_id)
-            return render(request, self.template_name, context={'photo': photo})
+            userphoto = get_object_or_404(UserPhoto, id=userphoto_id)
+            context = {'userphoto': userphoto}
+            return render(request, self.template_name, context=context)
         url = reverse('pages:page', kwargs={'username': username})
         return redirect(url)
 

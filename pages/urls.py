@@ -29,7 +29,7 @@ urlpatterns = [
     path("<str:username>/remove_friend/", RemoveFriendView.as_view(),
          name="remove_friend"),
     path("<str:username>/friends/", FriendsListView.as_view(), name="friends"),
-    path('<str:username>/photos/<int:photo_id>/', DetailPhotoView.as_view(),
+    path('<str:username>/photos/<int:userphoto_id>/', DetailPhotoView.as_view(),
          name='detail_photo'),
     path("<str:username>/photos/", PhotosListView.as_view(), name="photos"),
     path("<str:username>/add_new_photo/", AddNewPhotoView.as_view(),
