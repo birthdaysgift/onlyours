@@ -40,7 +40,6 @@
   background-image: url('../../img/add-icon.png');
   right: 10px;
   top: 11px;
-  z-index: 1;
 }
 .all-videos-background .video-list-window .video-list-header .add-icon:hover {
   background-position: -15px 0px;
