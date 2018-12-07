@@ -5,7 +5,7 @@
         <img src="{{ userphoto.photo.file.url }}" alt="" class="detail-photo">
         <div class="photo-info-block">
             <div class="col1">
-                <div class="photo-user">Posted by&nbsp;<a href="">{{ userphoto.user.username }}</a></div>
+                <div class="photo-user">Posted by&nbsp;<a href="{% url 'pages:page' user.username %}">{{ userphoto.user.username }}</a></div>
                 <div class="photo-datetime">{{ userphoto.time }} {{ userphoto.date }}</div>
             </div>
             <div class="col2">
