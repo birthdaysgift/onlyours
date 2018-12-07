@@ -11,10 +11,10 @@ from ..models import UserVideo, Video
 class DetailVideoView(View):
     template_name = 'pages/ajax/detail_video.html'
 
-    def get(self, request, username=None, video_id=None):
+    def get(self, request, username=None, uservideo_id=None):
         if request.is_ajax():
-            video = get_object_or_404(Video, id=video_id)
-            return render(request, self.template_name, context={'video': video})
+            uservideo = get_object_or_404(UserVideo, id=uservideo_id)
+            return render(request, self.template_name, context={'uservideo': uservideo})
         url = reverse('pages:page', kwargs={'username': username})
         return redirect(url)
 
@@ -55,11 +55,11 @@ class AddVideoView(View):
 
 
 class DeleteVideoView(View):
-    def get(self, request, username=None, uservideo=None):
+    def get(self, request, username=None, uservideo_id=None):
         page_owner = get_object_or_404(User, username=username)
         if request.user == page_owner:
             try:
-                UserVideo.objects.get(id=uservideo).delete()
+                UserVideo.objects.get(id=uservideo_id).delete()
             except UserVideo.DoesNotExist:
                 pass
         url = reverse("pages:page", kwargs={"username": username})

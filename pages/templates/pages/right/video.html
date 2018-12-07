@@ -6,7 +6,7 @@
     <a href="{% url 'pages:videos' page_owner.username %}" class="videos-list-link"></a>
     {% for user_video in user_videos %}
         <!--This link is used by js-->
-        <a href="{% url 'pages:detail_video' page_owner.username user_video.video.id %}"></a>
+        <a href="{% url 'pages:detail_video' page_owner.username user_video.id %}"></a>
         <img src="{{ user_video.video.thumbnail.url }}" class="video-avatar">
     {% endfor %}
 </div>
