@@ -22,6 +22,8 @@ photos = [
     path('add/', vphotos.AddPhotoView.as_view(), name='add_photo'),
     path('<int:userphoto_id>/', vphotos.DetailPhotoView.as_view(), name='detail_photo'),
     path('<int:userphoto_id>/delete/', vphotos.DeletePhotoView.as_view(), name='delete_photo'),
+    path('<int:userphoto_id>/like/', vphotos.LikePhotoView.as_view(), name='like_photo'),
+    path('<int:userphoto_id>/dislike/', vphotos.DislikePhotoView.as_view(), name='dislike_photo'),
 ]
 
 videos = [

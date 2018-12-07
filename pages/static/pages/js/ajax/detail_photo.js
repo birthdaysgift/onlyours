@@ -70,6 +70,10 @@ function clearDislike(elem) {
 }
 
 $('.like').click(function(event) {
+    var url = $(event.currentTarget).find('.like-link').attr('href');
+    $.get({
+        url: url
+    });
     var likeIcon = $(event.currentTarget).find('.like-icon');
     var dislike = $(event.currentTarget).siblings('.dislike');
     if (likeIcon.hasClass('like-selected')) {
@@ -81,6 +85,10 @@ $('.like').click(function(event) {
 });
 
 $('.dislike').click(function(event) {
+    var url = $(event.currentTarget).find('.dislike-link').attr('href');
+    $.get({
+        url: url
+    });
     var dislikeIcon = $(event.currentTarget).find('.dislike-icon');
     var like = $(event.currentTarget).siblings('.like');
     if (dislikeIcon.hasClass('dislike-selected')) {

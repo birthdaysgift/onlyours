@@ -72,6 +72,22 @@ class UserPhoto(models.Model):
         return f"{self.user.username}: {self.photo.file.name}"
 
 
+class PhotoLike(models.Model):
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{user} :: {userphoto}'
+
+
+class PhotoDislike(models.Model):
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{user} :: {userphoto}'
+
+
 class Video(models.Model):
     file = models.FileField()
     thumbnail = models.ImageField(default='')
