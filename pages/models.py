@@ -127,6 +127,22 @@ class UserVideo(models.Model):
         return f"{self.user.username}: {self.video.file.name}"
 
 
+class VideoLike(models.Model):
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    uservideo = models.ForeignKey(UserVideo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user} :: {self.uservideo}'
+
+
+class VideoDislike(models.Model):
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    uservideo = models.ForeignKey(UserVideo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user} :: {self.uservideo}'
+
+
 class FriendshipManager(models.Manager):
 
     def get_friends_of(self, user, order_by=None):
