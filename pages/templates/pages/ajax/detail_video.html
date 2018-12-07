@@ -1,9 +1,35 @@
 {% load static %}
 
 <div class="detail-video-background">
-    <video src="{{ video.file.url }}" class="detail-video" controls></video>
-    <script>
-        var url = "{% static 'pages/js/ajax/detail_video.js' %}";
-        $.getScript(url);
-    </script>
+    <div class="detail-video-window">
+        <video src="{{ video.file.url }}" class="detail-video" controls></video>
+        <div class="video-info-block">
+            <div class="col1">
+                <div class="video-user">Posted by&nbsp;<a href="">username</a></div>
+                <div class="video-datetime">Time date</div>
+            </div>
+            <div class="col2">
+                {% spaceless %}
+                    <div class="video-likes">
+                        <div class="like">
+                            <!--This link is used by js-->
+                            <a href="{% url 'pages:like_video' uservideo.id %}"></a>
+                            <div class="like-icon"></div>
+                            <div class="like-value">5</div>
+                        </div>
+                        <div class="dislike">
+                            <!--This link is used by js-->
+                            <a href="{% url 'pages:dislike_video' uservideo.id %}"></a>
+                            <div class="dislike-icon"></div>
+                            <div class="dislike-value">10</div>
+                        </div>
+                    </div>
+                {% endspaceless %}
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    var url = "{% static 'pages/js/ajax/detail_video.js' %}";
+    $.getScript(url);
+</script>

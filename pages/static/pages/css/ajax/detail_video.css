@@ -8,8 +8,100 @@
   justify-content: center;
   z-index: 1;
 }
-.detail-video-background .detail-video {
+.detail-video-background .detail-video-window {
+  min-width: 570px;
+  background-color: white;
+  border-radius: 5px 5px 0px 0px;
+  display: flex;
+  flex-direction: column;
+}
+.detail-video-background .detail-video-window .detail-video {
+  display: flex;
+  width: 100%;
   max-width: 800px;
   max-height: 800px;
-  border-radius: 5px 5px;
+  border-radius: 5px 5px 0px 0px;
+}
+.detail-video-background .detail-video-window .video-info-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ebebeb;
+}
+.detail-video-background .detail-video-window .video-info-block .col1 {
+  margin-top: 5px;
+  min-width: 0px;
+  display: flex;
+  flex-direction: column;
+}
+.detail-video-background .detail-video-window .video-info-block .col1 .video-datetime,
+.detail-video-background .detail-video-window .video-info-block .col1 .video-user {
+  display: flex;
+  height: 30px;
+  padding-left: 10px;
+}
+.detail-video-background .detail-video-window .video-info-block .col1 .video-datetime {
+  color: grey;
+  font-size: 14px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes {
+  display: flex;
+  justify-content: center;
+  margin-right: 10px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike {
+  display: flex;
+  height: 15px;
+  align-items: center;
+  cursor: pointer;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .like-icon,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .like-icon,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .dislike-icon,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .dislike-icon {
+  height: 15px;
+  width: 15px;
+  display: flex;
+  background-image: url('../../img/likes.png');
+  background-size: 200% 300%;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .like-icon,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .like-icon {
+  background-position: 0px 0px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .like-icon:hover,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .like-icon:hover {
+  background-position: 0px -15px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .like-icon.like-selected,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .like-icon.like-selected {
+  background-position: 0px -30px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .dislike-icon,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .dislike-icon {
+  background-position: -15px 0px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .dislike-icon:hover,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .dislike-icon:hover {
+  background-position: -15px -15px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .dislike-icon.dislike-selected,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .dislike-icon.dislike-selected {
+  background-position: 15px -30px;
+}
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .like-value,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .like-value,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .like .dislike-value,
+.detail-video-background .detail-video-window .video-info-block .col2 .video-likes .dislike .dislike-value {
+  color: grey;
+  display: flex;
+  font-size: 13px;
+  margin-left: 3px;
+  margin-right: 3px;
 }

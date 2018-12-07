@@ -8,9 +8,110 @@
     justify-content: center;
     z-index: 1;
 
-    .detail-video {
-        max-width: 800px;
-        max-height: 800px;
-        border-radius: 5px 5px;
+    .detail-video-window {
+        min-width: 570px;
+        background-color: white;
+        border-radius: 5px 5px 0px 0px;
+        display: flex;
+        flex-direction: column;
+
+        .detail-video {
+            display: flex;
+            width: 100%;
+
+            max-width: 800px;
+            max-height: 800px;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .video-info-block {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgb(235, 235, 235);
+
+            .col1 {
+                margin-top: 5px;
+                min-width: 0px;
+                display: flex;
+                flex-direction: column;
+
+                .video-datetime,
+                .video-user {
+                    display: flex;
+                    height: 30px;
+                    padding-left: 10px;
+                }
+
+                .video-datetime {
+                    color: grey;
+                    font-size: 14px;
+                }
+            }
+
+            .col2 {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                .video-likes {
+                    display: flex;
+                    justify-content: center;
+                    margin-right: 10px;
+
+                    .like,
+                    .dislike {
+                        display: flex;
+                        height: 15px;
+                        align-items: center;
+                        cursor: pointer;
+
+                        .like-icon,
+                        .dislike-icon {
+                            height: 15px;
+                            width: 15px;
+                            display: flex;
+                            background-image: url('../../img/likes.png');
+                            background-size: 200% 300%;
+                        }
+
+                        .like-icon {
+                            background-position: 0px 0px;
+
+                            &:hover {
+                                background-position: 0px -15px;
+                            }
+                        }
+
+                        .like-icon.like-selected {
+                            background-position: 0px -30px;
+                        }
+
+                        .dislike-icon {
+                            background-position: -15px 0px;
+
+                            &:hover {
+                                background-position: -15px -15px;
+                            }
+                        }
+
+                        .dislike-icon.dislike-selected {
+                            background-position: 15px -30px;
+                        }
+
+
+                        .like-value,
+                        .dislike-value {
+                            color: grey;
+                            display: flex;
+                            font-size: 13px;
+                            margin-left: 3px;
+                            margin-right: 3px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
