@@ -23,7 +23,7 @@
             {% for user_video in user_videos %}
                 <div class="video-avatar-wrapper">
                     <!--This link is used in js-->
-                    <a href="{% url 'pages:detail_video' page_owner.username user_video.video.id %}"></a>
+                    <a href="{% url 'pages:detail_video' page_owner.username user_video.id %}"></a>
                     <img class="video-list-avatar" src="{{ user_video.video.thumbnail.url }}">
                     {% if user == page_owner %}
                         <a class="delete-icon" href="{% url 'pages:delete_video' user.username user_video.id %}"></a>
