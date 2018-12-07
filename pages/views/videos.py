@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import get_valid_filename
@@ -5,7 +6,7 @@ from django.views import View
 
 from auth_custom.models import User
 from ..forms import AddVideoForm
-from ..models import UserVideo, Video
+from ..models import UserVideo, Video, VideoDislike, VideoLike
 
 
 class DetailVideoView(View):
@@ -14,7 +15,20 @@ class DetailVideoView(View):
     def get(self, request, username=None, uservideo_id=None):
         if request.is_ajax():
             uservideo = get_object_or_404(UserVideo, id=uservideo_id)
-            return render(request, self.template_name, context={'uservideo': uservideo})
+            likes = VideoLike.objects.filter(uservideo=uservideo)
+            dislikes = VideoDislike.objects.filter(uservideo=uservideo)
+            setattr(uservideo, 'likes', likes)
+            setattr(uservideo, 'dislikes', dislikes)
+            is_liked = VideoLike.objects.filter(
+                uservideo=uservideo, user=request.user
+            ).exists()
+            is_disliked = VideoDislike.objects.filter(
+                uservideo=uservideo, user=request.user
+            ).exists()
+            setattr(uservideo, 'is_liked', is_liked)
+            setattr(uservideo, 'is_disliked', is_disliked)
+            context = {'uservideo': uservideo}
+            return render(request, self.template_name, context=context)
         url = reverse('pages:page', kwargs={'username': username})
         return redirect(url)
 
@@ -64,3 +78,33 @@ class DeleteVideoView(View):
                 pass
         url = reverse("pages:page", kwargs={"username": username})
         return redirect(url)
+
+
+class LikeVideoView(View):
+    def get(self, request, username=None, uservideo_id=None):
+        if request.is_ajax():
+            uservideo = get_object_or_404(UserVideo, id=uservideo_id)
+            like = VideoLike.objects.filter(user=request.user, uservideo=uservideo)
+            dislike = VideoDislike.objects.filter(user=request.user, uservideo=uservideo)
+            if like.exists():
+                like[0].delete()
+            else:
+                if dislike.exists():
+                    dislike[0].delete()
+                VideoLike(user=request.user, uservideo=uservideo).save()
+            return HttpResponse()
+
+
+class DislikeVideoView(View):
+    def get(self, request, username=None, uservideo_id=None):
+        if request.is_ajax():
+            uservideo = get_object_or_404(UserVideo, id=uservideo_id)
+            like = VideoLike.objects.filter(user=request.user, uservideo=uservideo)
+            dislike = VideoDislike.objects.filter(user=request.user, uservideo=uservideo)
+            if dislike.exists():
+                dislike[0].delete()
+            else:
+                if like.exists():
+                    like[0].delete()
+                VideoDislike(user=request.user, uservideo=uservideo).save()
+            return HttpResponse()

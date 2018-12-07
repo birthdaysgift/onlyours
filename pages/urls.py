@@ -31,6 +31,8 @@ videos = [
     path('add/', vvideos.AddVideoView.as_view(), name='add_video'),
     path('<int:uservideo_id>/', vvideos.DetailVideoView.as_view(), name='detail_video'),
     path('<int:uservideo_id>/delete/', vvideos.DeleteVideoView.as_view(), name='delete_video'),
+    path('<int:uservideo_id>/like/', vvideos.LikeVideoView.as_view(), name='like_video'),
+    path('<int:uservideo_id>/dislike/', vvideos.DislikeVideoView.as_view(), name='dislike_video')
 ]
 
 posts = [

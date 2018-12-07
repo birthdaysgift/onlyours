@@ -71,6 +71,7 @@ function clearDislike(elem) {
 
 $('.like').click(function(event) {
     var url = $(event.currentTarget).find('.like-link').attr('href');
+    console.log(url);
     $.get({
         url: url
     });
