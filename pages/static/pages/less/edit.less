@@ -1,0 +1,133 @@
+@import 'mixins.less';
+
+.container {
+    display: flex;
+    justify-content: center;
+
+    .logo {
+
+        .logo-site,
+        .logo-edit {
+            display: flex;
+            justify-content: right;
+            padding-right: 15px;
+        }
+
+        .logo-edit {
+            color: #777;
+            font-size: 24px;
+        }
+
+        .errorlist {
+            max-width: 250px;
+            list-style-type: none;
+            font-size: 14px;
+            margin-right: 15px;
+            text-align: right;
+            color: #da2121;
+            padding: 2px 0px;
+            border-bottom: 1px solid #ffb4b4;
+        }
+
+        ul:first-of-type {
+            border-top: 1px solid #ffb4b4;
+            margin-top: 20px;
+        }
+    }
+
+    .edit-form {
+        display: inline-block;
+        width: 350px;
+        height: 960px;
+        padding-left: 20px;
+        padding-bottom: 10px;
+        margin: 20px 0px;
+        border-left: 1px solid rgb(235, 235, 235);
+
+        .label {
+            display: inline-block;
+            padding: 0px 10px 5px 10px;
+            position: relative;
+            z-index: -1;
+            bottom: -13px;
+            color: #777;
+            .main_bg();
+            .main_border();
+        }
+
+        .input-info-block {
+            width: 100%;
+            height: 42px;
+            margin-bottom: 15px;
+            .main_bg();
+            .main_border();
+
+            .input {
+                width: 100%;
+                height: 40px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 5px 5px;
+                padding-left: 10px;
+                .main_bg();
+
+                &:invalid {
+                    box-shadow: none;
+                }
+
+                &:focus {
+                    border-color: rgb(170, 170, 170);
+                }
+            }
+
+
+            .status-info-text,
+            .firstname-info-text,
+            .lastname-info-text,
+            .birthday-info-text,
+            .city-info-text,
+            .about-info-text {
+                display: none;
+                font-size: 12px;
+                color: #777;
+                padding-left: 5px;
+            }
+        }
+
+        .gender-info {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            label {
+                display: flex;
+            }
+
+        }
+
+        .about-info {
+            height: 200px;
+            .about-input {
+                height: 200px;
+                resize: none;
+            }
+        }
+
+        .save-button {
+            margin-top: 10px;
+            padding: 4px 10px;
+            float: right;
+            display: inline-block;
+            background-color: white;
+            color: #444;
+            box-shadow: 0px 0px 1px #008A9B;
+            cursor: pointer;
+            .main_border();
+            .main_bg();
+
+            &:hover {
+                box-shadow: 0px 0px 3px #008A9B;
+            }
+        }
+    }
+}

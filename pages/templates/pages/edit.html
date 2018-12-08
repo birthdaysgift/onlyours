@@ -1,37 +1,73 @@
 <!DOCTYPE html>
-{% load html_attrs %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Onlyours</title>
+    {% load html_attrs %}
     {% load static %}
 
-    <link rel="stylesheet" href="{% static 'pages/edit_page.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/edit.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container">
-            <h1 class="title-text text-center">Onlyours <small><small>pages</small></small></h1>
-            <h4>{{ user.username }}</h4>
-            <form enctype="multipart/form-data" method="POST">
-                {% csrf_token %}
-                {% for field in form %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {{ field.errors }}
-                </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-default">Save</button>
-            </form>
-        </div>
+<div class="container">
+    <div class="logo">
+        <h1 class="logo-site">Onlyours</h1>
+        <div class="logo-edit">Edit</div>
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            {{ field.errors }}
+        {% endfor %}
     </div>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <form method="POST", class="edit-form">
+        {% csrf_token %}
+        {{ form.avatar.label_tag }}
+        {{ form.avatar }}
+        {{ form.status.label_tag|set_attrs:"class='label status-label'" }}
+        <div class="input-info-block status-info">
+            {{ form.status|set_attrs:"class='input status-input' autocomplete='off'" }}
+            <p class="status-info-text"></p>
+        </div>
+        {{ form.first_name.label_tag|set_attrs:"class='label firstname-label'" }}
+        <div class="input-info-block firstname-info">
+            {{ form.first_name|set_attrs:"class='input firstname-input' autocomplete='off'" }}
+            <p class="firstname-info-text"></p>
+        </div>
+        {{ form.last_name.label_tag|set_attrs:"class='label lastname-label'" }}
+        <div class="input-info-block lastname-info">
+            {{ form.last_name|set_attrs:"class='input lastname-input' autocomplete='off'" }}
+            <p class="lastname-info-text"></p>
+        </div>
+        {{ form.birthday.label_tag|set_attrs:"class='label birthday-label'" }}
+        <div class="input-info-block birthday-info">
+            {{ form.birthday|set_attrs:"class='input birthday-input' autocomplete='off'" }}
+            <p class="birthday-info-text"></p>
+        </div>
+        {{ form.gender.label_tag|set_attrs:"class='label gender-label'" }}
+        <div class="input-info-block gender-info">
+            {% for gender_type in form.gender %}
+                {{ gender_type }}
+            {% endfor %}
+            <p class="gender-info-text"></p>
+        </div>
+        {{ form.city.label_tag|set_attrs:"class='label city-label'" }}
+        <div class="input-info-block city-info">
+            {{ form.city|set_attrs:"class='input city-input' autocomplete='off'" }}
+            <p class="city-info-text"></p>
+        </div>
+        {{ form.about.label_tag|set_attrs:"class='label about-label'" }}
+        <div class="input-info-block about-info">
+            {{ form.about|set_attrs:"class='input about-input' autocomplete='off'" }}
+            <p class="about-info-text"></p>
+        </div>
+        <button type="submit" class="button save-button">Save</button>
+    </form>
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -16,8 +16,7 @@ def watch(app, watch, compile):
     less_path = path.join(app_path, "less", compile + ".less")
     css_path = path.join(app_path, "css", compile + ".css")
 
-    print(f"Less watcher has been started on {app}:{watch}.less"
-          f"Compile to: {compile}")
+    print(f"Started on /{app}/less/{watch}.less -> /{app}/css/{compile}.css")
 
     time_tmp = path.getmtime(watch_path)
     time = time_tmp
@@ -47,6 +46,7 @@ Thread(target=watch, args=('auth_custom', 'login', 'login')).start()
 Thread(target=watch, args=('auth_custom', 'register', 'register')).start()
 
 Thread(target=watch, args=('pages', 'page', 'page')).start()
+Thread(target=watch, args=('pages', 'edit', 'edit')).start()
 
 Thread(target=watch, args=('pages', 'ajax/delete_post', 'delete_post')).start()
 Thread(target=watch, args=('pages', 'ajax/all_photos', 'ajax/all_photos')).start()

@@ -7,10 +7,10 @@ from .models import Photo, Video
 class EditPageForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "avatar", "status", "birthday",
+        fields = ['avatar', 'status', "first_name", "last_name", "birthday",
                   "gender", "city", "about"]
         widgets = {
-            "gender": forms.Select(choices=(
+            "gender": forms.RadioSelect(choices=(
                 ("Male", "Male"),
                 ("Female", "Female"),
                 ("", "None")
