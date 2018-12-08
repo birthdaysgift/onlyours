@@ -1,0 +1,185 @@
+.splitter {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ebebeb;
+  background-color: blue;
+}
+.posts-panel {
+  position: relative;
+}
+.posts-panel .form-info-block {
+  height: 65px;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  margin-bottom: 15px;
+  padding: 0px 0px;
+}
+.posts-panel .form-info-block .add-post {
+  width: 100%;
+  height: 65px;
+  resize: none;
+  font-size: 15px;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  /*rgba(160, 160, 255, 0.1)*/
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  border-color: #ccc;
+  padding: 10px 10px;
+}
+.posts-panel .form-info-block .add-post:invalid {
+  box-shadow: none;
+}
+.posts-panel .form-info-block .add-post:focus {
+  border-color: #aaaaaa;
+}
+.posts-panel .form-info-block .form-info-text {
+  margin: 0px 0px;
+  padding: 0px 0px;
+  font-size: 12px;
+  color: #777;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  display: none;
+}
+.posts-panel .post {
+  min-height: 90px;
+  margin-bottom: 15px;
+  padding: 10px 10px 0px 10px;
+  text-align: justify;
+  text-wraps: normal;
+  position: relative;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  /*rgba(160, 160, 255, 0.1)*/
+}
+.posts-panel .post .post-sender {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 0px 0px;
+}
+.posts-panel .post .post-text {
+  margin-bottom: 0px;
+}
+.posts-panel .post .sender-avatar {
+  float: left;
+  width: 67px;
+  height: 67px;
+  margin-right: 7px;
+  margin-bottom: 5px;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+}
+.posts-panel .post .close-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  background-image: url("../img/close-icon.png");
+  object-fit: cover;
+  background-size: 200% 100%;
+  background-position: 0px 0px;
+}
+.posts-panel .post .close-icon:hover {
+  cursor: pointer;
+  background-position: 50px 0px;
+}
+.posts-panel .post .likes-panel {
+  display: inline-block;
+  border-top: 1px solid #ebebeb;
+  width: 100%;
+  height: 30px;
+  position: relative;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+.posts-panel .post .likes-panel .like {
+  display: inline-block;
+  height: 15px;
+  float: right;
+}
+.posts-panel .post .likes-panel .like:hover {
+  cursor: pointer;
+}
+.posts-panel .post .likes-panel .like .like-icon {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  background-image: url('../img/likes.png');
+  background-size: 200% 300%;
+  background-position: 0px 0px;
+}
+.posts-panel .post .likes-panel .like .like-icon:hover {
+  background-position: 0px -15px;
+}
+.posts-panel .post .likes-panel .like .like-icon.like-selected {
+  background-position: 0px -30px;
+}
+.posts-panel .post .likes-panel .like .like-value {
+  display: inline-block;
+  color: grey;
+  height: 100%;
+  vertical-align: 1px;
+  margin-left: 3px;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.posts-panel .post .likes-panel .dislike {
+  display: inline-block;
+  height: 15px;
+  float: right;
+}
+.posts-panel .post .likes-panel .dislike:hover {
+  cursor: pointer;
+}
+.posts-panel .post .likes-panel .dislike .like-icon {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  background-image: url('../img/likes.png');
+  background-size: 200% 300%;
+  background-position: 0px 0px;
+}
+.posts-panel .post .likes-panel .dislike .like-icon:hover {
+  background-position: 0px -15px;
+}
+.posts-panel .post .likes-panel .dislike .like-icon.like-selected {
+  background-position: 0px -30px;
+}
+.posts-panel .post .likes-panel .dislike .like-value {
+  display: inline-block;
+  color: grey;
+  height: 100%;
+  vertical-align: 1px;
+  margin-left: 3px;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.posts-panel .post .likes-panel .dislike .dislike-icon {
+  display: inline-block;
+  width: 15px;
+  height: 100%;
+  background-image: url('../img/likes.png');
+  background-size: 200% 300%;
+  background-position: 0px 0px;
+  background-position: 15px 0px;
+}
+.posts-panel .post .likes-panel .dislike .dislike-icon:hover {
+  background-position: 0px -15px;
+}
+.posts-panel .post .likes-panel .dislike .dislike-icon:hover {
+  background-position: 15px -15px;
+}
+.posts-panel .post .likes-panel .dislike .dislike-icon.dislike-selected {
+  background-position: 15px -30px;
+}
+.posts-panel .post .likes-panel .dislike .dislike-value {
+  display: inline-block;
+  color: grey;
+  height: 100%;
+  vertical-align: 1px;
+  margin-left: 3px;
+  margin-right: 5px;
+  font-size: 13px;
+}

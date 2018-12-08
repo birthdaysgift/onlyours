@@ -7,9 +7,11 @@ from django.views import View
 
 
 from auth_custom.models import User
-from ..forms import EditPageForm, AddPostForm
-from ..models import Friendship, FriendshipRequest, Post, UserPhoto, Photo, \
-    UserVideo, Video, PostLike, PostDislike
+from posts.models import Post, PostDislike, PostLike
+from posts.forms import AddPostForm
+
+from ..forms import EditPageForm
+from ..models import Friendship, FriendshipRequest, UserPhoto, UserVideo
 
 
 class PageView(LoginRequiredMixin, View):

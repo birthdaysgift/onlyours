@@ -4,11 +4,12 @@ from django.urls import reverse
 from django.views import View
 
 from auth_custom.models import User
-from ..models import Post, PostLike, PostDislike
+
+from .models import Post, PostDislike, PostLike
 
 
 class DeletePostView(View):
-    template_name = 'pages/ajax/delete_post.html'
+    template_name = 'posts/ajax/delete_post.html'
 
     def get(self, request, username=None, post_id=None):
         page_owner = get_object_or_404(User, username=username)

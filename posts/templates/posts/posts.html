@@ -1,6 +1,8 @@
 {% load static %}
 {% load html_attrs %}
 
+<link rel="stylesheet" href="{% static 'posts/css/posts.css' %}">
+
 <div class="splitter"></div>
 <div class="posts-panel">
 
@@ -36,7 +38,7 @@
                 {% if page_owner.username == user.username %}
                     <a class="close-icon"></a>
                     <!--This link is used in js-->
-                    <a class="close-icon-link" href="{% url 'pages:delete_post' page_owner.username post.id %}"></a>
+                    <a class="close-icon-link" href="{% url 'pages:posts:delete' page_owner.username post.id %}"></a>
                 {% endif %}
 
                 {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
@@ -44,7 +46,7 @@
                     <div class="likes-panel">
                         <div class="dislike">
                             <!--This link is used in js-->
-                            <a href="{% url 'pages:dislike_post' user.username post.id %}" class="dislike-link"></a>
+                            <a href="{% url 'pages:posts:dislike' user.username post.id %}" class="dislike-link"></a>
                             {% if post.is_disliked %}
                                 <div class="dislike-icon dislike-selected"></div>
                             {% else %}
@@ -58,7 +60,7 @@
                         </div>
                         <div class="like">
                             <!--This link is used in js-->
-                            <a href="{% url 'pages:like_post' user.username post.id %}" class="like-link"></a>
+                            <a href="{% url 'pages:posts:like' user.username post.id %}" class="like-link"></a>
                             {% if post.is_liked %}
                                 <div class="like-icon like-selected"></div>
                             {% else %}
@@ -76,3 +78,5 @@
         {% endfor %}
     {% endif %}
 </div>
+
+<script src="{% static 'posts/js/posts.js' %}"></script>

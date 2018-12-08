@@ -1,10 +1,12 @@
 from django.urls import include, path
 
+import posts.urls
+
 import pages.views.friends as vfriends
 import pages.views.photos as vphotos
 import pages.views.videos as vvideos
-import pages.views.posts as vposts
 import pages.views.page as vpage
+
 
 app_name = "pages"
 
@@ -35,11 +37,6 @@ videos = [
     path('<int:uservideo_id>/dislike/', vvideos.DislikeVideoView.as_view(), name='dislike_video')
 ]
 
-posts = [
-    path('<int:post_id>/delete/', vposts.DeletePostView.as_view(), name='delete_post'),
-    path('<int:post_id>/like/', vposts.LikePostView.as_view(), name='like_post'),
-    path('<int:post_id>/dislike/', vposts.DislikePostView.as_view(), name='dislike_post')
-]
 
 urlpatterns = [
     path("<str:username>/", vpage.PageView.as_view(), name="page"),
@@ -48,6 +45,6 @@ urlpatterns = [
     path('<str:username>/friends/', include(friends)),
     path('<str:username>/photos/', include(photos)),
     path('<str:username>/videos/', include(videos)),
-    path('<str:username>/posts/', include(posts)),
+    path('<str:username>/posts/', include(posts.urls, namespace='posts')),
 ]
 

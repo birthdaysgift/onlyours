@@ -48,7 +48,6 @@ Thread(target=watch, args=('auth_custom', 'register', 'register')).start()
 Thread(target=watch, args=('pages', 'page', 'page')).start()
 Thread(target=watch, args=('pages', 'edit', 'edit')).start()
 
-Thread(target=watch, args=('pages', 'ajax/delete_post', 'delete_post')).start()
 Thread(target=watch, args=('pages', 'ajax/all_photos', 'ajax/all_photos')).start()
 Thread(target=watch, args=('pages', 'ajax/detail_photo', 'ajax/detail_photo')).start()
 Thread(target=watch, args=('pages', 'ajax/all_friends', 'ajax/all_friends')).start()
@@ -65,7 +64,6 @@ Thread(target=watch, args=('pages', 'left/buttons', 'page')).start()
 Thread(target=watch, args=('pages', 'left/friends', 'page')).start()
 
 Thread(target=watch, args=('pages', 'middle/about', 'page')).start()
-Thread(target=watch, args=('pages', 'middle/posts', 'page')).start()
 
 Thread(target=watch, args=('pages', 'right/audio', 'page')).start()
 Thread(target=watch, args=('pages', 'right/photo', 'page')).start()
@@ -76,3 +74,6 @@ Thread(target=watch, args=('talks', 'contacts', 'talks')).start()
 Thread(target=watch, args=('talks', 'messages', 'talks')).start()
 Thread(target=watch, args=('talks', 'mixins', 'talks')).start()
 Thread(target=watch, args=('talks', 'navigation', 'talks')).start()
+
+Thread(target=watch, args=('posts', 'ajax/delete_post', 'ajax/delete_post')).start()
+Thread(target=watch, args=('posts', 'posts', 'posts')).start()

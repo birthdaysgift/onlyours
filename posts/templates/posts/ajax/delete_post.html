@@ -1,5 +1,8 @@
 {% load static %}
 {% load html_attrs %}
+
+<link rel="stylesheet" href="{% static 'posts/css/ajax/delete_post.css' %}">
+
 <div class="delete-post-background">
         <div class="delete-post-confirm-window">
             <h6 class="confirmation-text">Do you really want to delete this post?</h6>
@@ -19,14 +22,11 @@
                     </div>
                     {{ post.text|linebreaks|set_attrs:"class='post-text'" }}
             </div>
-            <form action="{% url 'pages:delete_post' user.username post.id %}" method="POST">
+            <form action="{% url 'pages:posts:delete' user.username post.id %}" method="POST">
                 {% csrf_token %}
                 <a class="cancel-btn text-center">Cancel</a>
                 <input type="submit" value="Delete" class="delete-btn text-center">
             </form>
         </div>
     </div>
-<script>
-    var url = "{% static 'pages/js/ajax/delete_post.js' %}";
-    $.getScript(url);
-</script>
+<script src="{% static 'posts/js/ajax/delete_post.js' %}"></script>
