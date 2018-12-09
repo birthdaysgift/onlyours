@@ -10,9 +10,10 @@ from auth_custom.models import User
 from photos.models import UserPhoto
 from posts.models import Post, PostDislike, PostLike
 from posts.forms import AddPostForm
+from videos.models import UserVideo
 
 from ..forms import EditPageForm
-from ..models import Friendship, FriendshipRequest, UserVideo
+from ..models import Friendship, FriendshipRequest
 
 
 class PageView(LoginRequiredMixin, View):

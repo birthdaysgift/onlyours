@@ -2,9 +2,9 @@ from django.urls import include, path
 
 import photos.urls
 import posts.urls
+import videos.urls
 
 import pages.views.friends as vfriends
-import pages.views.videos as vvideos
 import pages.views.page as vpage
 
 app_name = "pages"
@@ -18,23 +18,12 @@ friends = [
     path('remove/', vfriends.RemoveFriendView.as_view(), name='remove_friend'),
 ]
 
-
-videos = [
-    path('', vvideos.VideosListView.as_view(), name='videos'),
-    path('add/', vvideos.AddVideoView.as_view(), name='add_video'),
-    path('<int:uservideo_id>/', vvideos.DetailVideoView.as_view(), name='detail_video'),
-    path('<int:uservideo_id>/delete/', vvideos.DeleteVideoView.as_view(), name='delete_video'),
-    path('<int:uservideo_id>/like/', vvideos.LikeVideoView.as_view(), name='like_video'),
-    path('<int:uservideo_id>/dislike/', vvideos.DislikeVideoView.as_view(), name='dislike_video')
-]
-
-
 urlpatterns = [
     path("<str:username>/", vpage.PageView.as_view(), name="page"),
     path("<str:username>/edit/", vpage.EditView.as_view(), name="edit"),
 
     path('<str:username>/friends/', include(friends)),
-    path('<str:username>/videos/', include(videos)),
+    path('<str:username>/videos/', include(videos.urls, namespace='videos')),
     path('<str:username>/posts/', include(posts.urls, namespace='posts')),
     path('<str:username>/photos/', include(photos.urls, namespace='photos')),
 ]

@@ -1,7 +1,6 @@
 from django import forms
 
 from auth_custom.models import User
-from .models import Video
 
 
 class EditPageForm(forms.ModelForm):
@@ -18,7 +17,3 @@ class EditPageForm(forms.ModelForm):
         }
 
 
-class AddVideoForm(forms.ModelForm):
-    class Meta:
-        model = Video
-        fields = ("file", )

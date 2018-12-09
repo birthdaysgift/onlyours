@@ -1,5 +1,7 @@
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'videos/css/ajax/detail_video.css' %}">
+
 <div class="detail-video-background">
     <div class="detail-video-window">
         <video src="{{ uservideo.video.file.url }}" class="detail-video" controls></video>
@@ -13,7 +15,7 @@
                     <div class="video-likes">
                         <div class="like">
                             <!--This link is used by js-->
-                            <a href="{% url 'pages:like_video' user.username uservideo.id %}" class="like-link"></a>
+                            <a href="{% url 'pages:videos:like' user.username uservideo.id %}" class="like-link"></a>
                             {% if uservideo.is_liked %}
                                 <div class="like-icon like-selected"></div>
                             {% else %}
@@ -27,7 +29,7 @@
                         </div>
                         <div class="dislike">
                             <!--This link is used by js-->
-                            <a href="{% url 'pages:dislike_video' user.username uservideo.id %}" class="dislike-link"></a>
+                            <a href="{% url 'pages:videos:dislike' user.username uservideo.id %}" class="dislike-link"></a>
                             {% if uservideo.is_disliked %}
                                 <div class="dislike-icon dislike-selected"></div>
                             {% else %}
@@ -46,6 +48,6 @@
     </div>
 </div>
 <script>
-    var url = "{% static 'pages/js/ajax/detail_video.js' %}";
+    var url = "{% static 'videos/js/ajax/detail_video.js' %}";
     $.getScript(url);
 </script>

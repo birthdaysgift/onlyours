@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "pages.apps.PagesConfig",
     'posts.apps.PostsConfig',
     'photos.apps.PhotosConfig',
+    'videos.apps.VideosConfig',
 ]
 
 MIDDLEWARE = [
