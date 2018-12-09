@@ -5,7 +5,8 @@ from django.utils.text import get_valid_filename
 from django.views import View
 
 from auth_custom.models import User
-from ..forms import AddVideoForm
+from photos.forms import AddPhotoForm
+
 from ..models import UserVideo, Video, VideoDislike, VideoLike
 
 

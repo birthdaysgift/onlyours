@@ -1,5 +1,7 @@
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'photos/css/ajax/detail_photo.css' %}">
+
 <div class="detail-photo-background">
     <div class="detail-photo-window">
         <img src="{{ userphoto.photo.file.url }}" alt="" class="detail-photo">
@@ -13,7 +15,7 @@
                     <div class="photo-likes">
                         <div class="like">
                             <!--This link is used in js-->
-                            <a href="{% url 'pages:like_photo' user.username userphoto.id %}" class="like-link"></a>
+                            <a href="{% url 'pages:photos:like' user.username userphoto.id %}" class="like-link"></a>
                             {% if userphoto.is_liked %}
                                 <div class="like-icon like-selected"></div>
                             {% else %}
@@ -27,7 +29,7 @@
                         </div>
                         <div class="dislike">
                             <!--This link is used in js-->
-                            <a href="{% url 'pages:dislike_photo' user.username userphoto.id %}" class="dislike-link"></a>
+                            <a href="{% url 'pages:photos:dislike' user.username userphoto.id %}" class="dislike-link"></a>
                             {% if userphoto.is_disliked %}
                                 <div class="dislike-icon dislike-selected"></div>
                             {% else %}
@@ -45,7 +47,8 @@
         </div>
     </div>
 </div>
+
 <script>
-    var url = "{% static 'pages/js/ajax/detail_photo.js' %}";
-    $.getScript(url);
+     var url = "{% static 'photos/js/ajax/detail_photo.js' %}";
+     $.getScript(url);
 </script>

@@ -6,12 +6,12 @@ from django.views import View
 
 
 from auth_custom.models import User
-from ..forms import AddPhotoForm
-from ..models import UserPhoto, Photo, PhotoDislike, PhotoLike
+from .forms import AddPhotoForm
+from .models import UserPhoto, Photo, PhotoDislike, PhotoLike
 
 
 class DetailPhotoView(View):
-    template_name = 'pages/ajax/detail_photo.html'
+    template_name = 'photos/ajax/detail_photo.html'
 
     def get(self, request, username=None, userphoto_id=None):
         if request.is_ajax():
@@ -35,7 +35,7 @@ class DetailPhotoView(View):
 
 
 class PhotosListView(View):
-    template_name = "pages/ajax/all_photos.html"
+    template_name = "photos/ajax/all_photos.html"
 
     def get(self, request, username=None):
         if request.is_ajax():
@@ -53,7 +53,7 @@ class PhotosListView(View):
 
 
 class AddPhotoView(View):
-    template_name = 'pages/ajax/all_photos.html'
+    template_name = 'photos/ajax/all_photos.html'
 
     def post(self, request, username=None):
         form = AddPhotoForm(request.POST, request.FILES)

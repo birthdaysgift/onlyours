@@ -125,6 +125,7 @@ $(".add-post").focusout(function(event) {
 $(".close-icon").click(function(event) {
     var url = $(event.target).parent().find(".close-icon-link").attr("href");
     $.get({
+        async: true,
         url: url,
         dataType: "html",
         success: function(htmlData) {
