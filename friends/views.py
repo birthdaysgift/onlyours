@@ -68,13 +68,13 @@ class RefuseFriendRequestView(View):
 class RemoveFriendView(View):
     def get(self, request, username=None):
         page_owner = get_object_or_404(User, username=username)
-        if request.user == page_owner:
+        if request.user != page_owner:
             try:
                 Friendship.objects.get(
                     Q(user1=page_owner, user2=request.user) |
                     Q(user1=request.user, user2=page_owner)
                 ).delete()
-            except FriendshipRequest.DoesNotExist:
+            except Friendship.DoesNotExist:
                 pass
         url = reverse("pages:page", kwargs={"username": username})
         return redirect(url)
