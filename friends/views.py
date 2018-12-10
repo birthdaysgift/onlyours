@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 
 from auth_custom.models import User
-from ..models import Friendship, FriendshipRequest
+from .models import Friendship, FriendshipRequest
 
 
 class SendFriendRequestView(View):
@@ -81,7 +81,7 @@ class RemoveFriendView(View):
 
 
 class FriendsListView(View):
-    template_name = "pages/ajax/all_friends.html"
+    template_name = "friends/ajax/all_friends.html"
 
     def get(self, request, username=None):
         if request.is_ajax():

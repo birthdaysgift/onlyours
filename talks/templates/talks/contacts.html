@@ -35,7 +35,7 @@
                     <b class="contact-username-text">{{ contact.username }}</b>
                 </a>
                 {% if contact in friends %}
-                    <img src="{% static 'talks/img/friends.png' %}" class="friends-icon" alt="">
+                    <img src="{% static 'friends/img/friends.png' %}" class="friends-icon" alt="">
                 {% endif %}
                 <div class="last-message-text">
                     {% if contact.last_message.sender == user %}

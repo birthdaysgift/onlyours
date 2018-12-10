@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 
 from auth_custom.models import User
-from pages.models import Friendship
+from friends.models import Friendship
 
 from .forms import TalksForm
 from .models import PublicMessage, PrivateMessage, DialogDoesNotExist

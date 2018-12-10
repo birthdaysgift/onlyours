@@ -48,16 +48,12 @@ Thread(target=watch, args=('auth_custom', 'register', 'register')).start()
 Thread(target=watch, args=('pages', 'page', 'page')).start()
 Thread(target=watch, args=('pages', 'edit', 'edit')).start()
 
-Thread(target=watch, args=('pages', 'ajax/all_friends', 'ajax/all_friends')).start()
-
-
 Thread(target=watch, args=('pages', 'elephant', 'elephant')).start()
 Thread(target=watch, args=('pages', 'mixins', 'page')).start()
 Thread(target=watch, args=('pages', 'navigation', 'page')).start()
 
 Thread(target=watch, args=('pages', 'left/avatar', 'page')).start()
 Thread(target=watch, args=('pages', 'left/buttons', 'page')).start()
-Thread(target=watch, args=('pages', 'left/friends', 'page')).start()
 
 Thread(target=watch, args=('pages', 'middle/about', 'page')).start()
 
@@ -79,3 +75,6 @@ Thread(target=watch, args=('photos', 'photos', 'photos')).start()
 Thread(target=watch, args=('videos', 'videos', 'videos')).start()
 Thread(target=watch, args=('videos', 'ajax/all_videos', 'ajax/all_videos')).start()
 Thread(target=watch, args=('videos', 'ajax/detail_video', 'ajax/detail_video')).start()
+
+Thread(target=watch, args=('friends', 'friends', 'friends')).start()
+Thread(target=watch, args=('friends', 'ajax/all_friends', 'ajax/all_friends')).start()

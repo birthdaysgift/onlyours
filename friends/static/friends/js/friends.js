@@ -8,8 +8,3 @@ $(".friends-text").click( function(event) {
         }
     });
 });
-
-
-
-
-

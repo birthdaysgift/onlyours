@@ -1,0 +1,67 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'friends/css/friends.css' %}">
+
+{% if page_owner != user %}
+    <div class="friendship-status-panel">
+        {% if friendship_status == 'friend' %}
+        <p class="friendship-status-text text-center">
+            <small>{{ page_owner.username }} is your friend</small>
+        </p>
+        <a href="{% url 'pages:friends:remove' page_owner.username %}" class="remove-friend-btn text-center">
+            Remove
+        </a>
+        {% elif friendship_status == 'requested' %}
+        <p class="friendship-status-text text-center">
+            You've requested a friendship
+        </p>
+        <a class="cancel-friend-request-btn text-center" href="{% url 'pages:friends:cancel' page_owner.username %}">
+            Cancel
+        </a>
+        {% elif friendship_status == 'requesting' %}
+        <p class="friendship-status-text text-center">
+            <small>{{ page_owner.username }} requesting your friendship</small>
+        </p>
+        <a href="{% url 'pages:friends:accept' page_owner.username %}" class="accept-friend-request-btn text-center">
+            Accept
+        </a>
+        <a href="{% url 'pages:friends:refuse' page_owner.username %}" class="refuse-friend-request-btn text-center">
+            Deny
+        </a>
+        {% else %}
+        <p class="friendship-status-text text-center">
+            <small>{{ page_owner.username }} isn't your friend</small>
+        </p>
+        <a class="send-friend-request-btn text-center" href="{% url 'pages:friends:send' page_owner.username %}">
+            Add to friends
+        </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<div class="friends-panel">
+    <b class="friends-text">Friends</b>
+    <!--This link is used in js.-->
+    <a href="{% url 'pages:friends:all' page_owner.username %}" class="friends-list-link"></a>
+    {% for friend in friends %}
+        <div class="friend-icon">
+            <a href="{% url 'pages:page' friend.username %}">
+
+                {% if friend.avatar %}
+                    <img src="{{ friend.avatar.url }}" class="friend-avatar">
+                {% else %}
+                    <img src="{% static 'pages/img/avatar_placeholder.png' %}" class="friend-avatar">
+                {% endif %}
+
+                {% if friend.username|length > 8 %}
+                    <div class="text-center friend-name">
+                        {{ friend.username|slice:":9" }}...
+                    </div>
+                {% else %}
+                    <div class="text-center friend-name">{{ friend.username }}</div>
+                {% endif %}
+            </a>
+        </div>
+    {% endfor %}
+</div>
+<script src="{% static 'friends/js/friends.js' %}"></script>

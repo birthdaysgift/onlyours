@@ -1,4 +1,7 @@
 {% load static %}
+
+<link rel="stylesheet" href="{% static 'friends/css/ajax/all_friends.css' %}">
+
 <div class="all-friends-background">
     <div class="all-friends">
         <div class="friends-header">
@@ -18,7 +21,7 @@
                         <b class="contact-username-text">{{ friend.username }}</b>
                     </a>
                     {% if friend in session_user_friends %}
-                        <img class="friends-icon" src="{% static 'pages/img/friends.png' %}">
+                        <img class="friends-icon" src="{% static 'friends/img/friends.png' %}">
                     {% endif %}
                     <a class="write-message-btn text-center" href="{% url 'talks:talk' friend.username 1 %}">Write a message</a>
                 </div>
@@ -27,7 +30,6 @@
     </div>
 </div>
 <script>
-    var url = "{% static 'pages/js/ajax/all_friends.js' %}";
+    var url = "{% static 'friends/js/ajax/all_friends.js' %}";
     $.getScript(url);
 </script>
-

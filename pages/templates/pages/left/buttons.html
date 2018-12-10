@@ -3,40 +3,4 @@
         Write a message
     </a>
 {% endif %}
-{% if page_owner != user %}
-    <div class="friendship-status-panel">
-        {% if friendship_status == 'friend' %}
-            <p class="friendship-status-text text-center">
-                <small>{{ page_owner.username }} is your friend</small>
-            </p>
-            <a href="{% url 'pages:remove_friend' page_owner.username %}" class="remove-friend-btn text-center">
-                Remove
-            </a>
-        {% elif friendship_status == 'requested' %}
-            <p class="friendship-status-text text-center">
-                You've requested a friendship
-            </p>
-            <a class="cancel-friend-request-btn text-center" href="{% url 'pages:cancel_friend_request' page_owner.username %}">
-                Cancel
-            </a>
-        {% elif friendship_status == 'requesting' %}
-            <p class="friendship-status-text text-center">
-                <small>{{ page_owner.username }} requesting your friendship</small>
-            </p>
-            <a href="{% url 'pages:accept_friend_request' page_owner.username %}" class="accept-friend-request-btn text-center">
-                Accept
-            </a>
-            <a href="{% url 'pages:refuse_friend_request' page_owner.username %}" class="refuse-friend-request-btn text-center">
-                Deny
-            </a>
-        {% else %}
-            <p class="friendship-status-text text-center">
-                <small>{{ page_owner.username }} isn't your friend</small>
-            </p>
-            <a class="send-friend-request-btn text-center" href="{% url 'pages:send_friend_request' page_owner.username %}">
-                Add to friends
-            </a>
-        {% endif %}
-    </div>
-{% endif %}
 

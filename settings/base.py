@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'photos.apps.PhotosConfig',
     'videos.apps.VideosConfig',
+    'friends.apps.FriendsConfig',
 ]
 
 MIDDLEWARE = [
