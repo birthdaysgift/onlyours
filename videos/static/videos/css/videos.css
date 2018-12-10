@@ -4,6 +4,7 @@
   border: 1px solid #ebebeb;
   border-radius: 5px 5px;
   background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  /*rgba(160, 160, 255, 0.1)*/
 }
 .video-panel .video-text {
   display: block;
@@ -24,4 +25,5 @@
   border: 1px solid grey;
   border-radius: 5px 5px;
   cursor: pointer;
+  object-fit: cover;
 }
