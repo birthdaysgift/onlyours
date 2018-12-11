@@ -22,6 +22,12 @@ class FriendshipManager(models.Manager):
                 friends.append(pair.user1)
         return friends
 
+    def is_friends(self, user1, user2):
+        result = self.filter(
+            Q(user1=user1, user2=user2) | Q(user1=user2, user2=user1)
+        ).exists()
+        return result
+
 
 class Friendship(models.Model):
     objects = FriendshipManager()

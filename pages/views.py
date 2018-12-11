@@ -46,7 +46,7 @@ class PageView(LoginRequiredMixin, View):
         # requested:  user --> page_owner
         # requesting: user <-- page_owner
         friendship_status = None
-        if request.user in friends:
+        if Friendship.objects.is_friends(request.user, page_owner):
             friendship_status = "friend"
         requested = FriendshipRequest.objects.filter(
             from_user=request.user, to_user=page_owner
