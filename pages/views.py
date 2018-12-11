@@ -28,21 +28,7 @@ class PageView(LoginRequiredMixin, View):
         posts = Post.objects.filter(receiver=page_owner)
         posts = posts.select_related('sender')
         posts = posts.order_by("-date", "-time")
-        for post in posts:
-            likes = PostLike.objects.filter(post=post)
-            likes = likes.select_related('user')
-            dislikes = PostDislike.objects.filter(post=post)
-            dislikes = dislikes.select_related('user')
-            setattr(post, 'likes', likes)
-            setattr(post, 'dislikes', dislikes)
-            is_liked = PostLike.objects.filter(
-                post=post, user=request.user
-            ).exists()
-            is_disliked = PostDislike.objects.filter(
-                post=post, user=request.user
-            ).exists()
-            setattr(post, 'is_liked', is_liked)
-            setattr(post, 'is_disliked', is_disliked)
+        posts.with_likes(check_user=request.user)
 
         # get user_photos
         user_photos = UserPhoto.objects.filter(user=page_owner)
