@@ -29,6 +29,15 @@ class FriendshipManager(models.Manager):
         return result
 
 
+class FriendshipRequestManager(models.Manager):
+    def who_sent_request(self, user1, user2):
+        if self.filter(from_user=user1, to_user=user2).exists():
+            return user1
+        if self.filter(from_user=user2, to_user=user1).exists():
+            return user2
+        return None
+
+
 class Friendship(models.Model):
     objects = FriendshipManager()
 
@@ -42,6 +51,8 @@ class Friendship(models.Model):
 
 
 class FriendshipRequest(models.Model):
+    objects = FriendshipRequestManager()
+
     from_user = models.ForeignKey(User, on_delete=models.CASCADE,
                                   related_name="from_user")
     to_user = models.ForeignKey(User, on_delete=models.CASCADE,

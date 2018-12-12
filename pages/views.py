@@ -42,22 +42,11 @@ class PageView(LoginRequiredMixin, View):
         friends = Friendship.objects.get_friends_of(page_owner)
 
         # get friendship status
-        # friend:     user <-> page_owner
-        # requested:  user --> page_owner
-        # requesting: user <-- page_owner
-        friendship_status = None
-        if Friendship.objects.is_friends(request.user, page_owner):
-            friendship_status = "friend"
-        requested = FriendshipRequest.objects.filter(
-            from_user=request.user, to_user=page_owner
-        ).exists()
-        if requested:
-            friendship_status = "requested"
-        requesting = FriendshipRequest.objects.filter(
-            from_user=page_owner, to_user=request.user
-        ).exists()
-        if requesting:
-            friendship_status = "requesting"
+        is_friend = Friendship.objects.is_friends(request.user, page_owner)
+        setattr(page_owner, 'is_friend', is_friend)
+        friend_request_sent_by = FriendshipRequest.objects.who_sent_request(
+            page_owner, request.user
+        )
 
         # after detecting friendship status
         # strict friends for view on user's page
@@ -72,8 +61,8 @@ class PageView(LoginRequiredMixin, View):
             "page_owner": page_owner,
             "posts": posts,
             "friends": friends,
+            'friend_request_sent_by': friend_request_sent_by,
             "user_photos": user_photos,
-            "friendship_status": friendship_status,
             "user_videos": user_videos
         }
         return render(request, self.template_name, context=context)
