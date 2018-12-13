@@ -28,7 +28,7 @@ class PageView(LoginRequiredMixin, View):
         posts = Post.objects.filter(receiver=page_owner)
         posts = posts.select_related('sender')
         posts = posts.order_by("-date", "-time")
-        posts.with_likes(check_user=request.user)
+        posts.attach_likes(check_user=request.user)
 
         # get user_photos
         user_photos = UserPhoto.objects.filter(user=page_owner)

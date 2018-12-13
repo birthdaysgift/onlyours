@@ -4,7 +4,7 @@ from Onlyours.settings import AUTH_USER_MODEL
 
 
 class PostQuerySet(models.QuerySet):
-    def with_likes(self, check_user=None):
+    def attach_likes(self, check_user=None):
         for post in self:
             likes = PostLike.objects.filter(post=post)
             dislikes = PostDislike.objects.filter(post=post)
