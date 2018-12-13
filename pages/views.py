@@ -39,7 +39,9 @@ class PageView(LoginRequiredMixin, View):
         user_videos = user_videos.select_related("user", "video")[:6]
 
         # get friends
-        friends = Friendship.objects.get_friends_of(page_owner)
+        friends = Friendship.objects.get_friends_of(page_owner,
+                                                    strict_to=6,
+                                                    random_order=True)
 
         # get friendship status
         is_friend = Friendship.objects.is_friends(request.user, page_owner)
@@ -47,14 +49,6 @@ class PageView(LoginRequiredMixin, View):
         friend_request_sent_by = FriendshipRequest.objects.who_sent_request(
             page_owner, request.user
         )
-
-        # after detecting friendship status
-        # strict friends for view on user's page
-        max_friends = 6  # max friends on friends-panel in page.html
-        if len(friends) < max_friends:
-            friends = random.sample(friends, len(friends))
-        else:
-            friends = random.sample(friends, max_friends)
 
         context = {
             "form": AddPostForm(),

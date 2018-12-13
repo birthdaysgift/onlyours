@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.db.models import Q
 
@@ -5,21 +7,37 @@ from auth_custom.models import User
 from Onlyours.settings import AUTH_USER_MODEL
 
 
+class ArgumentsError(Exception):
+    pass
+
+
 class FriendshipManager(models.Manager):
 
-    def get_friends_of(self, user, order_by=None):
-        user_friend_pairs = self.all().filter(
-            Q(user1=user) | Q(user2=user)
-        )
+    def get_friends_of(self, user, strict_to=None, order_by_attr=None,
+                       random_order=False):
+        if order_by_attr and random_order:
+            raise ArgumentsError('You can\'t set both `order_by_attr` and '
+                                 '`random_order` arguments.')
+
+        user_friend_pairs = self.filter(Q(user1=user) | Q(user2=user))
         user_friend_pairs = user_friend_pairs.select_related("user1", "user2")
-        if order_by:
-            user_friend_pairs = user_friend_pairs.order_by(order_by)
+
         friends = []
         for pair in user_friend_pairs:
             if pair.user1 == user:
                 friends.append(pair.user2)
             else:
                 friends.append(pair.user1)
+
+        if order_by_attr:
+            friends.sort(
+                key=lambda friend: getattr(friend, order_by_attr),
+                reverse=order_by_attr.startswith('-')
+            )
+        if random_order:
+            random.shuffle(friends)
+        if strict_to:
+            friends = friends[:strict_to]
         return friends
 
     def is_friends(self, user1, user2):
