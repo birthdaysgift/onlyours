@@ -87,11 +87,10 @@ class FriendsListView(View):
         if request.is_ajax():
             page_owner = User.objects.get(username=username)
             friends = Friendship.objects.get_friends_of(page_owner)
-            session_user_friends = Friendship.objects.get_friends_of(request.user)
-            friends.sort(key=lambda e: e.username.lower())
+            user_friends = Friendship.objects.get_friends_of(request.user)
             context = {
-                "friends": friends,
-                "session_user_friends": session_user_friends
+                "page_owner_friends": friends,
+                "user_friends": user_friends
             }
             return render(request, self.template_name, context=context)
         url = reverse('pages:page', kwargs={'username': username})
