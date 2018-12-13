@@ -1,6 +1,6 @@
 [
   {
-    "model": "pages.FriendshipRequest",
+    "model": "friends.FriendshipRequest",
     "pk": 0,
     "fields": {
       "from_user": 2,
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "pages.FriendshipRequest",
+    "model": "friends.FriendshipRequest",
     "pk": 1,
     "fields": {
       "from_user": 0,
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "pages.FriendshipRequest",
+    "model": "friends.FriendshipRequest",
     "pk": 2,
     "fields": {
       "from_user": 1,
