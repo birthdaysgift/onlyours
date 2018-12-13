@@ -20,7 +20,7 @@
                     <a href="{% url 'pages:page' friend.username %}">
                         <b class="contact-username-text">{{ friend.username }}</b>
                     </a>
-                    {% if friend in user_friends %}
+                    {% if friend in common_friends %}
                         <img class="friends-icon" src="{% static 'friends/img/friends.png' %}">
                     {% endif %}
                     <a class="write-message-btn text-center" href="{% url 'talks:talk' friend.username 1 %}">Write a message</a>
