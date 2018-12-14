@@ -14,7 +14,7 @@ class Photo(models.Model):
         return self.file.name
 
     def save(self, *args, **kwargs):
-        super().save()
+        super().save(*args, **kwargs)
         self._create_thumbnail()
 
     def _create_thumbnail(self):

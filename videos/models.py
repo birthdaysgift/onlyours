@@ -13,8 +13,8 @@ class Video(models.Model):
     def __str__(self):
         return self.file.name
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         self._create_thumbnail()
 
     def _create_thumbnail(self):
