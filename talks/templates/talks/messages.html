@@ -9,21 +9,26 @@
     </div>
     <div class="messages-panel">
         {% for message in dialog_messages %}
+
             {% if message.sender.username == user.username %}
                 <div class="message-icon message-right">
-                    <a href="{% url 'pages:page' message.sender.username %}"><b class="sender-username">{{ message.sender.username }}</b></a>
-                    <small>[{{ message.date }} {{ message.time }}]</small>
-                    <br>
-                    <p class="message-text">{{ message.text }}</p>
-                </div>
             {% else %}
                 <div class="message-icon">
-                    <a href="{% url 'pages:page' message.sender.username %}"><b class="sender-username">{{ message.sender.username }}</b></a>
+            {% endif %}
+                    <a href="{% url 'pages:page' message.sender.username %}">
+                        <b class="sender-username">
+                            {{ message.sender.username }}
+                        </b>
+                    </a>
                     <small>[{{ message.date }} {{ message.time }}]</small>
                     <br>
                     <p class="message-text">{{ message.text }}</p>
+            {% if message.sender == user %}
+                </div>
+            {% else %}
                 </div>
             {% endif %}
+
             <div style="clear: both;"></div>
         {% endfor %}
     </div>
@@ -37,7 +42,9 @@
                 {% if page == current_page %}
                     <span>{{ page }}</span>
                 {% else %}
-                    <a href="{% url 'talks:talk' receiver_name page  %}">{{ page }}</a>
+                    <a href="{% url 'talks:talk' receiver_name page  %}">
+                        {{ page }}
+                    </a>
                 {% endif %}
             {% endfor %}
         {% endif %}
