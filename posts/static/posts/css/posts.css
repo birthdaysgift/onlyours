@@ -183,3 +183,26 @@
   margin-right: 5px;
   font-size: 13px;
 }
+.posts-panel .more-posts-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.posts-panel .more-posts-panel .more-posts-btn {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  /*rgba(160, 160, 255, 0.1)*/
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px;
+  border-color: #ccc;
+}
+.posts-panel .more-posts-panel .more-posts-btn:hover {
+  border-color: #aaaaaa;
+  cursor: pointer;
+}

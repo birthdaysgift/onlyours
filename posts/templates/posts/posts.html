@@ -77,6 +77,13 @@
             </div>
         {% endfor %}
     {% endif %}
+    {% if next_posts_page %}
+        <div class="more-posts-panel">
+            <!--This link is used in js-->
+            <a href="{% url 'pages:posts:get_from_page' page_owner.username next_posts_page %}" class="more-posts-link"></a>
+            <div class="more-posts-btn">More</div>
+        </div>
+    {% endif %}
 </div>
 
 <script src="{% static 'posts/js/posts.js' %}"></script>

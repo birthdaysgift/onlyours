@@ -133,3 +133,18 @@ $(".close-icon").click(function(event) {
         }
     })
 });
+
+$('.more-posts-btn').click(function(event) {
+    var url = $(event.target).parent().find('.more-posts-link').attr('href');
+    $.get({
+        url: url,
+        dataType: 'html',
+        success: function(htmlData) {
+            // Delete old "more-posts-btn" because a new one will be in htmlData
+            // or not if there is no more posts
+            $(event.target).parent().remove();
+
+            $('.posts-panel').append(htmlData);
+        }
+    })
+});

@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -28,7 +29,14 @@ class PageView(LoginRequiredMixin, View):
         posts = Post.objects.filter(receiver=page_owner)
         posts = posts.select_related('sender')
         posts = posts.order_by("-date", "-time")
+        paginator = Paginator(posts, per_page=10)
+        posts_page = paginator.page(1)
+        posts = posts_page.object_list
         posts.attach_likes(check_user=request.user)
+        if posts_page.has_next():
+            next_posts_page = posts_page.next_page_number()
+        else:
+            next_posts_page = None
 
         # get user_photos
         user_photos = UserPhoto.objects.filter(user=page_owner)
@@ -54,10 +62,11 @@ class PageView(LoginRequiredMixin, View):
             "form": AddPostForm(),
             "page_owner": page_owner,
             "posts": posts,
+            "next_posts_page": next_posts_page,
             "friends": friends,
             'friend_request_sent_by': friend_request_sent_by,
             "user_photos": user_photos,
-            "user_videos": user_videos
+            "user_videos": user_videos,
         }
         return render(request, self.template_name, context=context)
 
