@@ -1,5 +1,3 @@
-import random
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,7 +8,7 @@ from django.views import View
 from auth_custom.models import User
 from friends.models import Friendship, FriendshipRequest
 from photos.models import UserPhoto
-from posts.models import Post, PostDislike, PostLike
+from posts.models import Post
 from posts.forms import AddPostForm
 from videos.models import UserVideo
 
