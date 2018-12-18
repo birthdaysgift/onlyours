@@ -86,8 +86,12 @@ class LikePhotoView(View):
     def get(self, request, username=None, userphoto_id=None):
         if request.is_ajax():
             userphoto = UserPhoto.objects.get(id=userphoto_id)
-            like = PhotoLike.objects.filter(user=request.user, userphoto=userphoto)
-            dislike = PhotoDislike.objects.filter(user=request.user, userphoto=userphoto)
+            like = PhotoLike.objects.filter(
+                user=request.user, userphoto=userphoto
+            )
+            dislike = PhotoDislike.objects.filter(
+                user=request.user, userphoto=userphoto
+            )
             if like.exists():
                 like[0].delete()
             else:
@@ -101,8 +105,12 @@ class DislikePhotoView(View):
     def get(self, request, username=None, userphoto_id=None):
         if request.is_ajax():
             userphoto = UserPhoto.objects.get(id=userphoto_id)
-            like = PhotoLike.objects.filter(user=request.user, userphoto=userphoto)
-            dislike = PhotoDislike.objects.filter(user=request.user, userphoto=userphoto)
+            like = PhotoLike.objects.filter(
+                user=request.user, userphoto=userphoto
+            )
+            dislike = PhotoDislike.objects.filter(
+                user=request.user, userphoto=userphoto
+            )
             if dislike.exists():
                 dislike[0].delete()
             else:

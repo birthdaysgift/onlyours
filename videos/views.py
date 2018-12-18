@@ -87,8 +87,12 @@ class LikeVideoView(View):
     def get(self, request, username=None, uservideo_id=None):
         if request.is_ajax():
             uservideo = get_object_or_404(UserVideo, id=uservideo_id)
-            like = VideoLike.objects.filter(user=request.user, uservideo=uservideo)
-            dislike = VideoDislike.objects.filter(user=request.user, uservideo=uservideo)
+            like = VideoLike.objects.filter(
+                user=request.user, uservideo=uservideo
+            )
+            dislike = VideoDislike.objects.filter(
+                user=request.user, uservideo=uservideo
+            )
             if like.exists():
                 like[0].delete()
             else:
@@ -102,8 +106,12 @@ class DislikeVideoView(View):
     def get(self, request, username=None, uservideo_id=None):
         if request.is_ajax():
             uservideo = get_object_or_404(UserVideo, id=uservideo_id)
-            like = VideoLike.objects.filter(user=request.user, uservideo=uservideo)
-            dislike = VideoDislike.objects.filter(user=request.user, uservideo=uservideo)
+            like = VideoLike.objects.filter(
+                user=request.user, uservideo=uservideo
+            )
+            dislike = VideoDislike.objects.filter(
+                user=request.user, uservideo=uservideo
+            )
             if dislike.exists():
                 dislike[0].delete()
             else:
