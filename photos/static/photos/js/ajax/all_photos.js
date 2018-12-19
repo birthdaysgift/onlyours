@@ -27,29 +27,31 @@ $(".photo-list-avatar").click(function(event){
 });
 
 $(document).keypress(function(event) {
-    var left_key = KeyEvent.DOM_VK_LEFT;
-    var right_key = KeyEvent.DOM_VK_RIGHT;
-    if ((event.keyCode === left_key) || (event.keyCode === right_key)) {
-        var selected_photo = $('.photo-avatar-wrapper.selected');
-        var opened_photo = $('.detail-photo-background');
-        if ((selected_photo.length === 1) && (opened_photo.length === 1)){
-            opened_photo.remove();
-            selected_photo.removeClass('selected');
-            if (event.keyCode === right_key) {
-                var next_photo = selected_photo.next();
-            }
-            if (event.keyCode === left_key) {
-                var next_photo = selected_photo.prev();
-            }
-            var url = next_photo.find('.detail-photo-link').attr('href');
-            $.get({
-                url: url,
-                success: function(htmlData) {
-                    next_photo.addClass('selected');
-                    $('.all-photos-background').prepend(htmlData);
+    if ($('.all-photos-background').length != 0) {
+        var left_key = KeyEvent.DOM_VK_LEFT;
+        var right_key = KeyEvent.DOM_VK_RIGHT;
+        if ((event.keyCode === left_key) || (event.keyCode === right_key)) {
+            var selected_photo = $('.photo-avatar-wrapper.selected');
+            var opened_photo = $('.detail-photo-background');
+            if ((selected_photo.length === 1) && (opened_photo.length === 1)){
+                opened_photo.remove();
+                selected_photo.removeClass('selected');
+                if (event.keyCode === right_key) {
+                    var next_photo = selected_photo.next();
                 }
-            });
-            next_photo.addClass('selected');
+                if (event.keyCode === left_key) {
+                    var next_photo = selected_photo.prev();
+                }
+                var url = next_photo.find('.detail-photo-link').attr('href');
+                $.get({
+                    url: url,
+                    success: function(htmlData) {
+                        next_photo.addClass('selected');
+                        $('.all-photos-background').prepend(htmlData);
+                    }
+                });
+                next_photo.addClass('selected');
+            }
         }
     }
 });
