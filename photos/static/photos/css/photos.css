@@ -16,7 +16,10 @@
   color: #0056b3;
   text-decoration: underline;
 }
-.photo-panel .photo-avatar {
+.photo-panel .photo-avatar-wrapper {
+  display: inline-block;
+}
+.photo-panel .photo-avatar-wrapper .photo-avatar {
   padding: 0px 0px;
   display: inline-block;
   width: 70px;
