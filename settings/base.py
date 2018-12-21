@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'photos.apps.PhotosConfig',
     'videos.apps.VideosConfig',
     'friends.apps.FriendsConfig',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
