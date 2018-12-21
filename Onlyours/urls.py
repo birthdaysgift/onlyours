@@ -14,7 +14,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("auth/", include("auth_custom.urls")),
     path("pages/", include("pages.urls")),
-    path("talks/", include("talks.urls"))
+    path("talks/", include("talks.urls")),
+    path('search/', include('search.urls')),
 ]
 
 if settings.DEBUG:
