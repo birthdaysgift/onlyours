@@ -1,0 +1,27 @@
+.tabs-panel {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid #ebebeb;
+}
+.tabs-panel .tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100%;
+  border: 1px solid #ebebeb;
+  border-radius: 5px 5px 0px 0px;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  text-decoration: none;
+  color: black;
+}
+.tabs-panel .tab.tab-selected {
+  background-color: white;
+  background-image: none;
+  border-bottom-width: 0px;
+}
