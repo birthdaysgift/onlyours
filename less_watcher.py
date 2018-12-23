@@ -81,3 +81,4 @@ Thread(target=watch, args=('friends', 'ajax/all_friends', 'ajax/all_friends')).s
 
 Thread(target=watch, args=('search', 'users', 'users')).start()
 Thread(target=watch, args=('search', 'tabs', 'tabs')).start()
+Thread(target=watch, args=('search', 'query', 'query')).start()

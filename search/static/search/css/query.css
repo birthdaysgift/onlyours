@@ -1,0 +1,24 @@
+.query-panel {
+  display: flex;
+  width: 500px;
+  height: 35px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+.query-panel form {
+  width: 100%;
+}
+.query-panel form .query-entry {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-left: 10px;
+  background-image: linear-gradient(to bottom, #F5F5FF, #fff);
+  border-radius: 5px 5px;
+  border: 1px solid #ebebeb;
+  font-size: 15px;
+}
+.query-panel form .query-entry::placeholder,
+.query-panel form .-ms-input-placeholder {
+  color: grey;
+}
