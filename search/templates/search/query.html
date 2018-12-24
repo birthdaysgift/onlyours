@@ -1,9 +1,11 @@
 {% load static %}
+{% load html_attrs %}
 
 <link rel="stylesheet" href="{% static 'search/css/query.css' %}">
 
 <div class="query-panel">
     <form method="POST">
-        <input type="text" class="query-entry" placeholder="Write a search query and press Enter">
+        {% csrf_token %}
+        {{ form.username|set_attrs:"class='query-entry' placeholder='Write username and press Enter'" }}
     </form>
 </div>
