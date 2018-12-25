@@ -4,8 +4,10 @@
 <link rel="stylesheet" href="{% static 'search/css/query.css' %}">
 
 <div class="query-panel">
-    <form method="POST">
+    <form method="POST" action="{% url 'search:users' %}">
         {% csrf_token %}
         {{ form.username|set_attrs:"class='query-entry' placeholder='Write username and press Enter'" }}
     </form>
 </div>
+
+<script src="{% static 'search/js/query.js' %}"></script>
