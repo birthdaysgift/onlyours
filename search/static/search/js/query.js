@@ -11,7 +11,7 @@ $('.query-entry').keypress(function(event) {
                 csrfmiddlewaretoken: $('.query-entry').prev().attr('value')
             },
             success: function(htmlData) {
-                $('.query-panel').append(htmlData);
+                $('.container').append(htmlData);
             }
         });
     }

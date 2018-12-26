@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 
+from auth_custom.models import User
+
 from . import forms
 
 
@@ -16,4 +18,7 @@ class SearchPageView(View):
 
     def post(self, request):
         if request.is_ajax():
-            return render(request, self.ajax_template)
+            context = {
+                'users': User.objects.all()
+            }
+            return render(request, self.ajax_template, context=context)
