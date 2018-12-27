@@ -1,15 +1,15 @@
-.all-friends {
+.users-results {
   display: flex;
   margin: 0 auto;
   width: 500px;
   background-color: white;
 }
-.all-friends .friends-list {
+.users-results .users-list {
   width: 100%;
   padding: 10px 10px;
   max-height: 600px;
 }
-.all-friends .friends-list .friends-list-icon {
+.users-results .users-list .users-list-icon {
   margin-bottom: 10px;
   width: 100%;
   height: 72px;
@@ -21,10 +21,10 @@
   /*rgba(160, 160, 255, 0.1)*/
   object-fit: cover;
 }
-.all-friends .friends-list .friends-list-icon:hover {
+.users-results .users-list .users-list-icon:hover {
   border: 1px solid #c8c8c8;
 }
-.all-friends .friends-list .friends-list-icon .contact-avatar {
+.users-results .users-list .users-list-icon .user-avatar {
   display: inline-block;
   float: left;
   width: 70px;
@@ -33,21 +33,21 @@
   border-radius: 5px 5px;
   margin-right: 10px;
 }
-.all-friends .friends-list .friends-list-icon .contact-username-text {
+.users-results .users-list .users-list-icon .user-username-text {
   color: #1E7BFF;
 }
-.all-friends .friends-list .friends-list-icon .contact-username-text:hover {
+.users-results .users-list .users-list-icon .user-username-text:hover {
   text-decoration: underline;
   color: #0056b3;
 }
-.all-friends .friends-list .friends-list-icon .friends-icon {
+.users-results .users-list .users-list-icon .user-icon {
   width: 17px;
   height: 13px;
   position: absolute;
   right: 10px;
   top: 5px;
 }
-.all-friends .friends-list .friends-list-icon .write-message-btn {
+.users-results .users-list .users-list-icon .write-message-btn {
   display: inline-block;
   position: absolute;
   left: 80px;
@@ -62,6 +62,6 @@
   color: black;
   text-decoration: none;
 }
-.all-friends .friends-list .friends-list-icon .write-message-btn:hover {
+.users-results .users-list .users-list-icon .write-message-btn:hover {
   border-color: #6464ff;
 }

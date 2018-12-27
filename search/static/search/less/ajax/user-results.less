@@ -1,75 +1,75 @@
 @import '../mixins.less';
 
 
-    .all-friends {
-        display: flex;
-        margin: 0 auto;
-        width: 500px;
-        background-color: white;
+.users-results {
+    display: flex;
+    margin: 0 auto;
+    width: 500px;
+    background-color: white;
 
-        .friends-list {
+    .users-list {
+        width: 100%;
+        padding: 10px 10px;
+        max-height: 600px;
+
+        .users-list-icon {
+            margin-bottom: 10px;
             width: 100%;
-            padding: 10px 10px;
-            max-height: 600px;
+            height: 72px;
+            cursor: pointer;
+            position: relative;
+            .main_border();
+            .main_bg();
 
-            .friends-list-icon {
-                margin-bottom: 10px;
-                width: 100%;
-                height: 72px;
-                cursor: pointer;
-                position: relative;
-                .main_border();
-                .main_bg();
+            &:hover {
+                border: 1px solid rgb(200, 200, 200);
+            }
+
+            .user-avatar {
+                display: inline-block;
+                float:left;
+                width: 70px;
+                height: 70px;
+                border: 1px solid grey;
+                border-radius: 5px 5px;
+                margin-right: 10px;
+            }
+                object-fit: cover;
+
+            .user-username-text {
+                color: #1E7BFF;
 
                 &:hover {
-                    border: 1px solid rgb(200, 200, 200);
+                    text-decoration: underline;
+                    color: #0056b3;
                 }
+            }
 
-                .contact-avatar {
-                    display: inline-block;
-                    float:left;
-                    width: 70px;
-                    height: 70px;
-                    border: 1px solid grey;
-                    border-radius: 5px 5px;
-                    margin-right: 10px;
-                }
-                    object-fit: cover;
+            .user-icon {
+                width: 17px;
+                height: 13px;
+                position: absolute;
+                right: 10px;
+                top: 5px;
+            }
 
-                .contact-username-text {
-                    color: #1E7BFF;
+            .write-message-btn {
+                display: inline-block;
+                position: absolute;
+                left: 80px;
+                top: 30px;
+                .main_border();
+                .main_bg();
+                box-shadow: 0px 0px 1px rgb(0, 0, 255);
+                width: 130px;
+                height: 30px;
+                color: black;
+                text-decoration: none;
 
-                    &:hover {
-                        text-decoration: underline;
-                        color: #0056b3;
-                    }
-                }
-
-                .friends-icon {
-                    width: 17px;
-                    height: 13px;
-                    position: absolute;
-                    right: 10px;
-                    top: 5px;
-                }
-
-                .write-message-btn {
-                    display: inline-block;
-                    position: absolute;
-                    left: 80px;
-                    top: 30px;
-                    .main_border();
-                    .main_bg();
-                    box-shadow: 0px 0px 1px rgb(0, 0, 255);
-                    width: 130px;
-                    height: 30px;
-                    color: black;
-                    text-decoration: none;
-
-                    &:hover {
-                        border-color: rgb(100, 100, 255);
-                    }
+                &:hover {
+                    border-color: rgb(100, 100, 255);
                 }
             }
         }
     }
+}
