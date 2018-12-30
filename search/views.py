@@ -20,6 +20,6 @@ class SearchPageView(View):
         if request.is_ajax():
             username = request.POST['query_text']
             context = {
-                'users': User.objects.filter(username=username)
+                'users': User.objects.filter(username__icontains=username)
             }
             return render(request, self.ajax_template, context=context)
