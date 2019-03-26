@@ -7,6 +7,7 @@ from time import asctime, sleep
 def watch(app, watch, compile):
     app_path = path.join(
         path.dirname(path.abspath(__file__)),
+        'app',
         app,
         "static",
         app
