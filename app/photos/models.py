@@ -1,9 +1,8 @@
 import os
 
 import PIL.Image
+from django.conf import settings
 from django.db import models
-
-from Onlyours.settings import AUTH_USER_MODEL, MEDIA_ROOT
 
 
 class Photo(models.Model):
@@ -20,18 +19,18 @@ class Photo(models.Model):
     def _create_thumbnail(self):
         if not self.thumbnail:
             filename = self.file.name
-            photo_path = os.path.join(MEDIA_ROOT, filename)
+            photo_path = os.path.join(settings.MEDIA_ROOT, filename)
             img = PIL.Image.open(photo_path)
             img.thumbnail((150, 150))
             thumb_name = 'thumb_' + filename.split('.')[0] + '.jpg'
-            thumb_path = os.path.join(MEDIA_ROOT, thumb_name)
+            thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
             img.save(thumb_path, 'jpeg')
             self.thumbnail = thumb_name
             self.save()
 
 
 class UserPhoto(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
@@ -41,7 +40,7 @@ class UserPhoto(models.Model):
 
 
 class PhotoLike(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -49,7 +48,7 @@ class PhotoLike(models.Model):
 
 
 class PhotoDislike(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
 
     def __str__(self):

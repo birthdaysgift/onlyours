@@ -1,9 +1,8 @@
 import os
 import subprocess
 
+from django.conf import settings
 from django.db import models
-
-from Onlyours.settings import AUTH_USER_MODEL, MEDIA_ROOT
 
 
 class Video(models.Model):
@@ -21,10 +20,10 @@ class Video(models.Model):
         if not self.thumbnail:
             filename = self.file.name
             ffmpeg = r'"D:\Program Files\ffmpeg-4.0.2-win64-static\bin\ffmpeg.exe"'
-            video = os.path.join(MEDIA_ROOT, filename)
+            video = os.path.join(settings.MEDIA_ROOT, filename)
             time = 0.1
             image_name = 'thumb_' + filename.split('.')[0] + '.jpg'
-            image = os.path.join(MEDIA_ROOT, image_name)
+            image = os.path.join(settings.MEDIA_ROOT, image_name)
 
             cmd = f'{ffmpeg} -i {video} -ss {time} -f image2 -vframes 1 -y -vf scale=200:-2 {image}'
             result = subprocess.run(cmd, shell=True)
@@ -35,7 +34,7 @@ class Video(models.Model):
 
 
 class UserVideo(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
@@ -45,7 +44,7 @@ class UserVideo(models.Model):
 
 
 class VideoLike(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     uservideo = models.ForeignKey(UserVideo, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -53,7 +52,7 @@ class VideoLike(models.Model):
 
 
 class VideoDislike(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     uservideo = models.ForeignKey(UserVideo, on_delete=models.CASCADE)
 
     def __str__(self):

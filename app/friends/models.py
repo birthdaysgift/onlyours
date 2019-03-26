@@ -1,10 +1,10 @@
 import random
 
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 
 from auth_custom.models import User
-from Onlyours.settings import AUTH_USER_MODEL
 
 
 class ArgumentsError(Exception):
@@ -59,9 +59,9 @@ class FriendshipRequestManager(models.Manager):
 class Friendship(models.Model):
     objects = FriendshipManager()
 
-    user1 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
+    user1 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user1")
-    user2 = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
+    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                               related_name="user2")
 
     def __str__(self):

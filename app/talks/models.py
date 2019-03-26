@@ -1,8 +1,8 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 
 from auth_custom.models import User
-from Onlyours.settings import AUTH_USER_MODEL
 
 from .exceptions import DialogDoesNotExist
 
@@ -10,7 +10,7 @@ from .exceptions import DialogDoesNotExist
 class Message(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
                                default=0)
     text = models.TextField()
 
@@ -40,7 +40,7 @@ class PrivateMessageQuerySet(models.QuerySet):
 class PrivateMessage(Message):
     objects = PrivateMessageQuerySet.as_manager()
 
-    receiver = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
                                  related_name="receiver")
 
     def __str__(self):

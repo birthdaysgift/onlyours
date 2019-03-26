@@ -1,6 +1,7 @@
 import os
 
-from Onlyours.settings import MEDIA_ROOT
+from django.conf import settings
+
 from . import models
 
 
@@ -10,11 +11,11 @@ def delete_unused_photo(sender, **kwargs):
         photo = models.Photo.objects.get(file=deleted_userphoto.photo.file)
         photo.delete()
         try:
-            os.remove(os.path.join(MEDIA_ROOT, photo.file.name))
+            os.remove(os.path.join(settings.MEDIA_ROOT, photo.file.name))
         except FileNotFoundError:
             pass
 
         try:
-            os.remove(os.path.join(MEDIA_ROOT, photo.thumbnail.name))
+            os.remove(os.path.join(settings.MEDIA_ROOT, photo.thumbnail.name))
         except FileNotFoundError:
             pass
