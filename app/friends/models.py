@@ -4,8 +4,6 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 
-from auth_custom.models import User
-
 
 class ArgumentsError(Exception):
     pass
@@ -76,10 +74,10 @@ class FriendshipRequest(models.Model):
     objects = FriendshipRequestManager()
 
     from_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="from_user"
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name="from_user"
     )
     to_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="to_user"
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name="to_user"
     )
 
     def __str__(self):
