@@ -20,15 +20,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    "auth_custom.apps.AuthConfig",
-    "talks.apps.TalksConfig",
-    "pages.apps.PagesConfig",
-    'posts.apps.PostsConfig',
-    'photos.apps.PhotosConfig',
-    'videos.apps.VideosConfig',
-    'friends.apps.FriendsConfig',
-    'search.apps.SearchConfig',
+
+    'auth_custom.apps.AuthConfig',
     'common.apps.CommonConfig',
+    'friends.apps.FriendsConfig',
+    'pages.apps.PagesConfig',
+    'photos.apps.PhotosConfig',
+    'posts.apps.PostsConfig',
+    'search.apps.SearchConfig',
+    'talks.apps.TalksConfig',
+    'videos.apps.VideosConfig',
 ]
 
 MIDDLEWARE = [
