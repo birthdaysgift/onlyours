@@ -44,7 +44,7 @@ class PhotoLike(models.Model):
     userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{user} :: {userphoto}'
+        return f'{self.user} :: {self.userphoto}'
 
 
 class PhotoDislike(models.Model):
@@ -52,4 +52,4 @@ class PhotoDislike(models.Model):
     userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{user} :: {userphoto}'
+        return f'{self.user} :: {self.userphoto}'
