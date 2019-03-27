@@ -1,4 +1,4 @@
-from .base import *
+from .common import *
 
 
 ALLOWED_HOSTS.append("onlyours.herokuapp.com")
