@@ -57,7 +57,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'html_attrs': "Onlyours.templatetags.html_attrs"
+                'html_attrs': "common.templatetags.html_attrs"
             }
         },
     },
