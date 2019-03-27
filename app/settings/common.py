@@ -40,7 +40,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = 'Onlyours.urls'
+ROOT_URLCONF = 'onlyours.urls'
 
 TEMPLATES = [
     {
@@ -61,7 +61,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Onlyours.wsgi.application'
+WSGI_APPLICATION = 'onlyours.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
