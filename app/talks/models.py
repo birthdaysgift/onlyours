@@ -10,8 +10,9 @@ from .exceptions import DialogDoesNotExist
 class Message(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
-                               default=0)
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.DO_NOTHING, default=0
+    )
     text = models.TextField()
 
     class Meta:
@@ -40,8 +41,9 @@ class PrivateMessageQuerySet(models.QuerySet):
 class PrivateMessage(Message):
     objects = PrivateMessageQuerySet.as_manager()
 
-    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
-                                 related_name="receiver")
+    receiver = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.DO_NOTHING, related_name="receiver"
+    )
 
     def __str__(self):
         return f"#{self.id} [{self.date} {self.time}] {self.sender} -> " \

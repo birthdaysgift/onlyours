@@ -20,10 +20,14 @@ class Post(models.Model):
 
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
-                               default=0, related_name="post_sender_new")
-    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
-                                 default=0, related_name="post_receiver_new")
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+        related_name="post_sender_new", default=0
+    )
+    receiver = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+        related_name="post_receiver_new", default=0,
+    )
     text = models.TextField()
 
     def liked_by(self, user):
@@ -44,8 +48,9 @@ class Post(models.Model):
 
 class PostLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                             related_name='like_user_new')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name='like_user_new'
+    )
 
     def __str__(self):
         return f'{self.user} :: [{self.post}]'
@@ -53,8 +58,10 @@ class PostLike(models.Model):
 
 class PostDislike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                             related_name='dislike_user_new')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.CASCADE,
+        related_name='dislike_user_new'
+    )
 
     def __str__(self):
         return f'{self.user} :: [{self.post}]'

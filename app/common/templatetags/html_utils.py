@@ -10,8 +10,9 @@ register = template.Library()
 def set_attrs(element, attrs):
     # To parse our attrs with BeautifulSoup we have to add any tag
     # to get valid html.
-    attrs_soup = bs4.BeautifulSoup("<tag " + attrs + "></tag>",
-                                   features="html.parser")
+    attrs_soup = bs4.BeautifulSoup(
+        "<tag " + attrs + "></tag>", features="html.parser"
+    )
     element_soup = bs4.BeautifulSoup(str(element), features="html.parser")
     for child in element_soup.children:
         # Checking type of child to avoid NavigableString objects

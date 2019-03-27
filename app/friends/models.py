@@ -16,8 +16,10 @@ class FriendshipManager(models.Manager):
     def get_friends_of(self, user, strict_to=None, order_by_attr=None,
                        random_order=False):
         if order_by_attr and random_order:
-            raise ArgumentsError('You can\'t set both `order_by_attr` and '
-                                 '`random_order` arguments.')
+            raise ArgumentsError(
+                'You can\'t set both `order_by_attr` and '
+                '`random_order` arguments.'
+            )
 
         user_friend_pairs = self.filter(Q(user1=user) | Q(user2=user))
         user_friend_pairs = user_friend_pairs.select_related("user1", "user2")
@@ -59,10 +61,12 @@ class FriendshipRequestManager(models.Manager):
 class Friendship(models.Model):
     objects = FriendshipManager()
 
-    user1 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                              related_name="user1")
-    user2 = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                              related_name="user2")
+    user1 = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name="user1"
+    )
+    user2 = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name="user2"
+    )
 
     def __str__(self):
         return f'{self.user1} <-> {self.user2}'
@@ -71,10 +75,12 @@ class Friendship(models.Model):
 class FriendshipRequest(models.Model):
     objects = FriendshipRequestManager()
 
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE,
-                                  related_name="from_user")
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE,
-                                related_name="to_user")
+    from_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="from_user"
+    )
+    to_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="to_user"
+    )
 
     def __str__(self):
         return f'{self.from_user} -> {self.to_user}'

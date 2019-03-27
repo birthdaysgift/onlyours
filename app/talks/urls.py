@@ -11,10 +11,10 @@ urlpatterns = [
 ]
 
 helpers = [
-    path("add_private_messages/<str:u1>/<str:u2>/",
-         add_private_messages),
-    path("add_public_messages/<str:u1>/<str:u2>/<str:u3>/",
-         add_public_messages)
+    path("add_private_messages/<str:u1>/<str:u2>/", add_private_messages),
+    path(
+        "add_public_messages/<str:u1>/<str:u2>/<str:u3>/", add_public_messages
+    ),
 ]
 
 urlpatterns += helpers
