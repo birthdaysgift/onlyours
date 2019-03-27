@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
+from django.views.generic.base import RedirectView
 
 from auth_custom.models import User
 from friends.models import Friendship
@@ -98,3 +99,9 @@ class TalksView(LoginRequiredMixin, views.View):
             return redirect(url)
         else:
             return render(request, self.template, context={"form": form})
+
+
+class RedirectToTalksView(RedirectView):
+    url = reverse_lazy(
+        'talks:talk', kwargs={'receiver_name': 'global', 'page_num': 1}
+    )
