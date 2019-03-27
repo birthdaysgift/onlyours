@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'videos.apps.VideosConfig',
     'friends.apps.FriendsConfig',
     'search.apps.SearchConfig',
+    'common.apps.CommonConfig',
 ]
 
 MIDDLEWARE = [
