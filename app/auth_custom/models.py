@@ -12,5 +12,12 @@ class User(auth_models.AbstractUser):
     status = models.CharField(max_length=1000, blank=True, default="")
     city = models.CharField(max_length=50, blank=True, default="")
     birthday = models.DateField(blank=True, null=True, default=None)
-    gender = models.CharField(max_length=6, blank=True, default="")
+    gender = models.CharField(
+        max_length=1, blank=True, default='',
+        choices=(
+            ('M', 'Male'),
+            ('F', 'Female'),
+            ('', '---')
+        )
+    )
     about = models.TextField(blank=True, default="")
