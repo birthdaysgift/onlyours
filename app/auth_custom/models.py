@@ -11,7 +11,7 @@ class User(auth_models.AbstractUser):
     avatar = models.ImageField()
     status = models.CharField(max_length=1000, blank=True, default="")
     city = models.CharField(max_length=50, blank=True, default="")
-    birthday = models.DateField(blank=True, null=True, default=None)
+    birthday = models.DateField(blank=True, null=True)
     gender = models.CharField(
         max_length=1, blank=True, default='',
         choices=(
