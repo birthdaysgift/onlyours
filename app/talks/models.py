@@ -10,9 +10,7 @@ from .exceptions import DialogDoesNotExist
 class Message(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(
-        settings.AUTH_USER_MODEL, models.DO_NOTHING, default=0
-    )
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING)
     text = models.TextField()
 
     class Meta:
