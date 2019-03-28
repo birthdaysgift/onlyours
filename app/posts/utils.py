@@ -5,7 +5,7 @@ from .models import Post
 
 
 def get_posts_for(page_owner, page=1, check_user=None):
-    posts = Post.objects.filter(receiver=page_owner)
+    posts = page_owner.received_posts.all()
     posts = posts.select_related('sender')
     posts = posts.order_by("-date", "-time")
     paginator = Paginator(posts, per_page=10)

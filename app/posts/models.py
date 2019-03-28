@@ -22,11 +22,11 @@ class Post(models.Model):
     time = models.TimeField(auto_now_add=True)
     sender = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
-        related_name="post_sender_new"
+        related_name="sent_posts"
     )
     receiver = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
-        related_name="post_receiver_new"
+        related_name="received_posts"
     )
     text = models.TextField()
 
