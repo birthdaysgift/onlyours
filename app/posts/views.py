@@ -10,7 +10,7 @@ from .utils import get_posts_for
 
 
 class GetPostsView(View):
-    template_name = 'posts/ajax/posts.html'
+    template_name = 'posts/posts_list.html'
 
     def get(self, request, username=None, page=None):
         page_owner = get_object_or_404(User, username=username)
