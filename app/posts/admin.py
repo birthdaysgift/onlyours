@@ -4,5 +4,3 @@ from . import models
 
 
 admin.site.register(models.Post)
-admin.site.register(models.PostLike)
-admin.site.register(models.PostDislike)

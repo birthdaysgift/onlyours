@@ -1,12 +1,11 @@
-from django.http import Http404, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 
 from auth_custom.models import User
 
-from .models import Post, PostDislike, PostLike
-from .utils import get_posts_for
+from .models import get_posts_for, Post
 
 
 class GetPostsView(View):
@@ -14,11 +13,12 @@ class GetPostsView(View):
 
     def get(self, request, username=None, page=None):
         page_owner = get_object_or_404(User, username=username)
-        posts = get_posts_for(page_owner, check_user=request.user, page=page)
+        posts = get_posts_for(
+            page_owner, page=page, count_likes=True, check_user=request.user
+        )
         context = {
             'page_owner': page_owner,
-            'posts': posts['posts'],
-            'next_posts_page': posts['next_posts_page'],
+            'posts': posts,
         }
         return render(request, self.template_name, context=context)
 
@@ -42,31 +42,27 @@ class DeletePostView(View):
         return redirect(url)
 
 
-class LikePostView(View):
-    def get(self, request, username=None, post_id=None):
-        if request.is_ajax():
-            post = Post.objects.get(id=post_id)
-            like = PostLike.objects.filter(user=request.user, post=post)
-            dislike = PostDislike.objects.filter(user=request.user, post=post)
-            if like.exists():
-                like[0].delete()
-            else:
-                if dislike.exists():
-                    dislike[0].delete()
-                PostLike(user=request.user, post=post).save()
-            return HttpResponse()
+def like_post(request, username=None, post_id=None):
+    if request.method == 'GET' and request.is_ajax():
+        post = get_object_or_404(Post, id=post_id)
+        if post.disliked_by(request.user):
+            post.users_who_disliked.remove(request.user)
+        if post.liked_by(request.user):
+            post.users_who_liked.remove(request.user)
+        else:
+            post.users_who_liked.add(request.user)
+        post.save()
+    return HttpResponse()
 
 
-class DislikePostView(View):
-    def get(self, request, username=None, post_id=None):
-        if request.is_ajax():
-            post = Post.objects.get(id=post_id)
-            like = PostLike.objects.filter(user=request.user, post=post)
-            dislike = PostDislike.objects.filter(user=request.user, post=post)
-            if dislike.exists():
-                dislike[0].delete()
-            else:
-                if like.exists():
-                    like[0].delete()
-                PostDislike(user=request.user, post=post).save()
-            return HttpResponse()
+def dislike_post(request, username=None, post_id=None):
+    if request.method == 'GET' and request.is_ajax():
+        post = Post.objects.get(id=post_id)
+        if post.liked_by(request.user):
+            post.users_who_liked.remove(request.user)
+        if post.disliked_by(request.user):
+            post.users_who_disliked.remove(request.user)
+        else:
+            post.users_who_disliked.add(request.user)
+        post.save()
+    return HttpResponse()

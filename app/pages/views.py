@@ -6,9 +6,8 @@ from django.views import View
 from auth_custom.models import User
 from friends.models import Friendship, FriendshipRequest
 from photos.models import UserPhoto
-from posts.models import Post
+from posts.models import Post, get_posts_for
 from posts.forms import AddPostForm
-from posts.utils import get_posts_for
 from videos.models import UserVideo
 
 from .forms import EditPageForm
@@ -21,7 +20,9 @@ class PageView(LoginRequiredMixin, View):
     def get(self, request, username=None):
         page_owner = get_object_or_404(User, username=username)
 
-        posts = get_posts_for(page_owner, check_user=request.user)
+        posts = get_posts_for(
+            page_owner, count_likes=True, check_user=request.user
+        )
 
         # get user_photos
         user_photos = UserPhoto.objects.filter(user=page_owner)
@@ -46,8 +47,7 @@ class PageView(LoginRequiredMixin, View):
         context = {
             "form": AddPostForm(),
             "page_owner": page_owner,
-            "posts": posts['posts'],
-            "next_posts_page": posts['next_posts_page'],
+            "posts": posts,
             "friends": friends,
             'friend_request_sent_by': friend_request_sent_by,
             "user_photos": user_photos,
