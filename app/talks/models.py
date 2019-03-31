@@ -7,21 +7,19 @@ from auth_custom.models import User
 from .exceptions import DialogDoesNotExist
 
 
-class Message(models.Model):
+class PublicMessage(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING)
-    text = models.TextField()
+    text = models.TextField(blank=False)
 
-    class Meta:
-        abstract = True
-
-
-class PublicMessage(Message):
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+        related_name='sent_public_messages'
+    )
 
     def __str__(self):
-        return f"#{self.id} [{self.date} {self.time}] {self.sender.username}: "\
-               f"{self.text}"
+        return f'#{self.id} [{self.date} {self.time}] {self.sender.username}: '\
+               f'{self.text[:30]}'
 
 
 class PrivateMessageQuerySet(models.QuerySet):
@@ -36,13 +34,22 @@ class PrivateMessageQuerySet(models.QuerySet):
         )
 
 
-class PrivateMessage(Message):
+class PrivateMessage(models.Model):
     objects = PrivateMessageQuerySet.as_manager()
 
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
+    text = models.TextField(blank=False)
+
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+        related_name='sent_messages'
+    )
     receiver = models.ForeignKey(
-        settings.AUTH_USER_MODEL, models.DO_NOTHING, related_name="receiver"
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING,
+        related_name='received_messages'
     )
 
     def __str__(self):
-        return f"#{self.id} [{self.date} {self.time}] {self.sender} -> " \
-               f"{self.receiver}: {self.text}"
+        return f'#{self.id} [{self.date} {self.time}] {self.sender.username}: '\
+               f'{self.text[:30]}'
