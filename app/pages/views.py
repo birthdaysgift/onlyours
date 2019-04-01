@@ -4,7 +4,6 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 
 from auth_custom.models import User
-from friends.models import Friendship, FriendshipRequest
 from photos.models import UserPhoto
 from posts.models import Post, get_posts_for
 from posts.forms import AddPostForm
@@ -32,16 +31,15 @@ class PageView(LoginRequiredMixin, View):
         user_videos = UserVideo.objects.filter(user=page_owner)
         user_videos = user_videos.select_related("user", "video")[:6]
 
-        # get friends
-        friends = Friendship.objects.get_friends_of(page_owner,
-                                                    strict_to=6,
-                                                    random_order=True)
+        friends = page_owner.get_friends()
+        if friends:
+            friends = friends.order_by('?')[:6]
 
-        # get friendship status
-        is_friend = Friendship.objects.is_friends(request.user, page_owner)
-        setattr(page_owner, 'is_friend', is_friend)
-        friend_request_sent_by = FriendshipRequest.objects.who_sent_request(
-            page_owner, request.user
+        page_owner.sent_friend_request = page_owner.sent_friend_request_to(
+            request.user
+        )
+        request.user.sent_friend_request = request.user.sent_friend_request_to(
+            page_owner
         )
 
         context = {
@@ -49,7 +47,6 @@ class PageView(LoginRequiredMixin, View):
             "page_owner": page_owner,
             "posts": posts,
             "friends": friends,
-            'friend_request_sent_by': friend_request_sent_by,
             "user_photos": user_photos,
             "user_videos": user_videos,
         }

@@ -8,7 +8,6 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import RedirectView
 
 from auth_custom.models import User
-from friends.models import Friendship
 
 from .forms import TalksForm
 from .models import PublicMessage, PrivateMessage, DialogDoesNotExist
@@ -45,8 +44,7 @@ class TalksView(LoginRequiredMixin, views.View):
         if len(pages) == 1:
             pages = None
 
-        # get friends
-        friends = Friendship.objects.get_friends_of(request.user)
+        friends = request.user.get_friends()
 
         # get contacts
         sent_messages = PrivateMessage.objects.filter(

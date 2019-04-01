@@ -1,98 +1,36 @@
 from django.db import IntegrityError
-from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.views import View
 
 from auth_custom.models import User
-from .models import Friendship, FriendshipRequest
 
 
-class SendFriendRequestView(View):
-    def get(self, request, username=None):
+def add_friend(request, username=None):
+    page_owner = get_object_or_404(User, username=username)
+    if request.user != page_owner:
+        try:
+            request.user.friends.add(page_owner)
+        except IntegrityError:
+            pass
+    url = reverse('pages:page', kwargs={'username': username})
+    return redirect(url)
+
+
+def remove_friend(request, username=None):
+    page_owner = get_object_or_404(User, username=username)
+    if request.user != page_owner:
+        request.user.friends.remove(page_owner)
+        page_owner.friends.remove(request.user)
+    url = reverse('pages:page', kwargs={'username': username})
+    return redirect(url)
+
+
+def all_friends(request, username=None):
+    if request.is_ajax():
         page_owner = get_object_or_404(User, username=username)
-        if request.user != page_owner:
-            try:
-                FriendshipRequest(
-                    from_user=request.user, to_user=page_owner
-                ).save()
-            # it is raised when such FriendshipRequest already exists
-            except IntegrityError:
-                pass
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
-
-
-class CancelFriendRequestView(View):
-    def get(self, request, username=None):
-        page_owner = get_object_or_404(User, username=username)
-        if request.user != page_owner:
-            try:
-                FriendshipRequest.objects.get(
-                    from_user=request.user, to_user=page_owner
-                ).delete()
-            except FriendshipRequest.DoesNotExist:
-                pass
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
-
-
-class AcceptFriendRequestView(View):
-    def get(self, request, username=None):
-        page_owner = get_object_or_404(User, username=username)
-        if request.user != page_owner:
-            friendship_request = FriendshipRequest.objects.filter(
-                from_user=page_owner, to_user=request.user
-            )
-            if friendship_request.exists():
-                friendship_request.delete()
-                Friendship(user1=request.user, user2=page_owner).save()
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
-
-
-class RefuseFriendRequestView(View):
-    def get(self, request, username=None):
-        page_owner = get_object_or_404(User, username=username)
-        if request.user != page_owner:
-            try:
-                FriendshipRequest.objects.get(
-                    from_user=page_owner, to_user=request.user
-                ).delete()
-            except FriendshipRequest.DoesNotExist:
-                pass
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
-
-
-class RemoveFriendView(View):
-    def get(self, request, username=None):
-        page_owner = get_object_or_404(User, username=username)
-        if request.user != page_owner:
-            try:
-                Friendship.objects.get(
-                    Q(user1=page_owner, user2=request.user) |
-                    Q(user1=request.user, user2=page_owner)
-                ).delete()
-            except Friendship.DoesNotExist:
-                pass
-        url = reverse("pages:page", kwargs={"username": username})
-        return redirect(url)
-
-
-class FriendsListView(View):
-    template_name = "friends/ajax/all_friends.html"
-
-    def get(self, request, username=None):
-        if request.is_ajax():
-            page_owner = User.objects.get(username=username)
-            page_owner_friends = Friendship.objects.get_friends_of(page_owner)
-            user_friends = Friendship.objects.get_friends_of(request.user)
-            common_friends = set(page_owner_friends) & set(user_friends)
-            context = {
-                "page_owner_friends": page_owner_friends,
-                'common_friends': common_friends,
-            }
-            return render(request, self.template_name, context=context)
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
+        friends = page_owner.get_friends(check_common_with=request.user)
+        template_name = 'friends/ajax/all_friends.html'
+        context = {
+            'friends': friends,
+        }
+        return render(request, template_name, context=context)
