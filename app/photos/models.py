@@ -34,22 +34,20 @@ class UserPhoto(models.Model):
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
+    users_who_liked = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='liked_photos'
+    )
+    users_who_disliked = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='disliked_photos'
+    )
+
+    def liked_by(self, user):
+        is_liked = self.users_who_liked.filter(id=user.id)
+        return is_liked
+
+    def disliked_by(self, user):
+        is_disliked = self.users_who_disliked.filter(id=user.id)
+        return is_disliked
 
     def __str__(self):
         return f"{self.user.username}: {self.photo.file.name}"
-
-
-class PhotoLike(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user} :: {self.userphoto}'
-
-
-class PhotoDislike(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    userphoto = models.ForeignKey(UserPhoto, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user} :: {self.userphoto}'

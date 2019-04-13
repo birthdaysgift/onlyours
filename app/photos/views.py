@@ -7,7 +7,7 @@ from django.views import View
 
 from auth_custom.models import User
 from .forms import AddPhotoForm
-from .models import UserPhoto, Photo, PhotoDislike, PhotoLike
+from .models import UserPhoto, Photo
 
 
 class DetailPhotoView(View):
@@ -16,16 +16,12 @@ class DetailPhotoView(View):
     def get(self, request, username=None, userphoto_id=None):
         if request.is_ajax():
             userphoto = get_object_or_404(UserPhoto, id=userphoto_id)
-            likes = PhotoLike.objects.filter(userphoto=userphoto)
-            dislikes = PhotoDislike.objects.filter(userphoto=userphoto)
+            likes = userphoto.users_who_liked.all()
+            dislikes = userphoto.users_who_disliked.all()
             setattr(userphoto, 'likes', likes)
             setattr(userphoto, 'dislikes', dislikes)
-            is_liked = PhotoLike.objects.filter(
-                userphoto=userphoto, user=request.user
-            ).exists()
-            is_disliked = PhotoDislike.objects.filter(
-                userphoto=userphoto, user=request.user
-            ).exists()
+            is_liked = userphoto.liked_by(request.user)
+            is_disliked = userphoto.disliked_by(request.user)
             setattr(userphoto, 'is_liked', is_liked)
             setattr(userphoto, 'is_disliked', is_disliked)
             context = {'userphoto': userphoto}
@@ -82,39 +78,25 @@ class DeletePhotoView(View):
         return redirect(url)
 
 
-class LikePhotoView(View):
-    def get(self, request, username=None, userphoto_id=None):
-        if request.is_ajax():
-            userphoto = UserPhoto.objects.get(id=userphoto_id)
-            like = PhotoLike.objects.filter(
-                user=request.user, userphoto=userphoto
-            )
-            dislike = PhotoDislike.objects.filter(
-                user=request.user, userphoto=userphoto
-            )
-            if like.exists():
-                like[0].delete()
-            else:
-                if dislike.exists():
-                    dislike[0].delete()
-                PhotoLike(user=request.user, userphoto=userphoto).save()
-            return HttpResponse()
+def like_photo(request, username=None, userphoto_id=None):
+    if request.is_ajax():
+        userphoto = UserPhoto.objects.get(id=userphoto_id)
+        if userphoto.liked_by(request.user):
+            userphoto.users_who_liked.remove(request.user)
+        else:
+            if userphoto.disliked_by(request.user):
+                userphoto.users_who_disliked.remove(request.user)
+            userphoto.users_who_liked.add(request.user)
+        return HttpResponse()
 
 
-class DislikePhotoView(View):
-    def get(self, request, username=None, userphoto_id=None):
-        if request.is_ajax():
-            userphoto = UserPhoto.objects.get(id=userphoto_id)
-            like = PhotoLike.objects.filter(
-                user=request.user, userphoto=userphoto
-            )
-            dislike = PhotoDislike.objects.filter(
-                user=request.user, userphoto=userphoto
-            )
-            if dislike.exists():
-                dislike[0].delete()
-            else:
-                if like.exists():
-                    like[0].delete()
-                PhotoDislike(user=request.user, userphoto=userphoto).save()
-            return HttpResponse()
+def dislike_photo(request, username=None, userphoto_id=None):
+    if request.is_ajax():
+        userphoto = UserPhoto.objects.get(id=userphoto_id)
+        if userphoto.disliked_by(request.user):
+            userphoto.users_who_disliked.remove(request.user)
+        else:
+            if userphoto.liked_by(request.user):
+                userphoto.users_who_liked.remove(request.user)
+            userphoto.users_who_disliked.add(request.user)
+        return HttpResponse()
