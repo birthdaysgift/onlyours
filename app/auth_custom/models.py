@@ -3,10 +3,6 @@ from django.db import models
 from django.db.models import Count, Q
 
 
-def user_photos_path(instance, filename):
-    return f'photos/{instance.username}/{filename}'
-
-
 class User(auth_models.AbstractUser):
     objects = auth_models.UserManager()
     avatar = models.ImageField(upload_to='photos', blank=True)
