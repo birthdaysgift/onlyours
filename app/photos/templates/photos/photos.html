@@ -8,11 +8,11 @@
     </div>
     <!--This link is used by js-->
     <a href="{% url 'pages:photos:all' page_owner.username %}" class="photos-list-link"></a>
-    {% for user_photo in user_photos %}
+    {% for posted_photo in posted_photos %}
         <div class="photo-avatar-wrapper">
             <!--This link is used by js-->
-            <a href="{% url 'pages:photos:detail' page_owner.username user_photo.id %}" class="detail-photo-link"></a>
-            <img src="{{ user_photo.photo.thumbnail.url }}" class="photo-avatar">
+            <a href="{% url 'pages:photos:detail' page_owner.username posted_photo.id %}" class="detail-photo-link"></a>
+            <img src="{{ posted_photo.photo.thumbnail.url }}" class="photo-avatar">
         </div>
     {% endfor %}
 </div>

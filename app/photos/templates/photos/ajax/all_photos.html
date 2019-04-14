@@ -21,13 +21,13 @@
                     <input type="submit" class="new-photo-submit" hidden>
                 </form>
             {% endif %}
-            {% for user_photo in user_photos %}
+            {% for posted_photo in posted_photos %}
                 <div class="photo-avatar-wrapper">
                     <!--This link is used in js-->
-                    <a href="{% url 'pages:photos:detail' page_owner.username user_photo.id %}" class="detail-photo-link"></a>
-                    <img class="photo-list-avatar" src="{{ user_photo.photo.file.url }}">
+                    <a href="{% url 'pages:photos:detail' page_owner.username posted_photo.id %}" class="detail-photo-link"></a>
+                    <img class="photo-list-avatar" src="{{ posted_photo.photo.file.url }}">
                     {% if user == page_owner %}
-                        <a class="delete-icon" href="{% url 'pages:photos:delete' page_owner.username user_photo.id %}"></a>
+                        <a class="delete-icon" href="{% url 'pages:photos:delete' page_owner.username posted_photo.id %}"></a>
                     {% endif %}
                 </div>
             {% endfor %}

@@ -4,7 +4,6 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 
 from auth_custom.models import User
-from photos.models import UserPhoto
 from posts.models import Post, get_posts_for
 from posts.forms import AddPostForm
 from videos.models import UserVideo
@@ -23,7 +22,7 @@ class PageView(LoginRequiredMixin, View):
             page_owner, count_likes=True, check_user=request.user
         )
 
-        user_photos = page_owner.posted_photos.select_related('photo')[:6]
+        posted_photos = page_owner.posted_photos.select_related('photo')[:6]
 
         # get user_videos
         user_videos = UserVideo.objects.filter(user=page_owner)
@@ -45,7 +44,7 @@ class PageView(LoginRequiredMixin, View):
             "page_owner": page_owner,
             "posts": posts,
             "friends": friends,
-            "user_photos": user_photos,
+            "posted_photos": posted_photos,
             "user_videos": user_videos,
         }
         return render(request, self.template_name, context=context)

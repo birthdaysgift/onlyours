@@ -29,7 +29,7 @@ class Photo(models.Model):
             self.save()
 
 
-class UserPhoto(models.Model):
+class PostedPhoto(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, models.CASCADE, related_name='posted_photos'
     )

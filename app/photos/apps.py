@@ -13,5 +13,5 @@ class PhotosConfig(AppConfig):
 
         post_delete.connect(
             signals.delete_unused_photo,
-            sender=models.UserPhoto
+            sender=models.PostedPhoto
         )

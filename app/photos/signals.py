@@ -6,9 +6,9 @@ from . import models
 
 
 def delete_unused_photo(sender, **kwargs):
-    deleted_userphoto = kwargs["instance"]
-    if not sender.objects.filter(photo=deleted_userphoto.photo):
-        photo = models.Photo.objects.get(file=deleted_userphoto.photo.file)
+    deleted_posted_photo = kwargs["instance"]
+    if not sender.objects.filter(photo=deleted_posted_photo.photo):
+        photo = models.Photo.objects.get(file=deleted_posted_photo.photo.file)
         photo.delete()
         try:
             os.remove(os.path.join(settings.MEDIA_ROOT, photo.file.name))
