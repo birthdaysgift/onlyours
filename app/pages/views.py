@@ -23,9 +23,7 @@ class PageView(LoginRequiredMixin, View):
             page_owner, count_likes=True, check_user=request.user
         )
 
-        # get user_photos
-        user_photos = UserPhoto.objects.filter(user=page_owner)
-        user_photos = user_photos.select_related("user", "photo")[:6]
+        user_photos = page_owner.posted_photos.select_related('photo')[:6]
 
         # get user_videos
         user_videos = UserVideo.objects.filter(user=page_owner)

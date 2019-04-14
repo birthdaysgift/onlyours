@@ -36,7 +36,7 @@ class PhotosListView(View):
     def get(self, request, username=None):
         if request.is_ajax():
             page_owner = get_object_or_404(User, username=username)
-            user_photos = UserPhoto.objects.filter(user=page_owner)
+            user_photos = page_owner.posted_photos.all()
             user_photos = user_photos.select_related('photo')
             context = {
                 "user_photos": user_photos,

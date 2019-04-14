@@ -30,7 +30,9 @@ class Photo(models.Model):
 
 
 class UserPhoto(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name='posted_photos'
+    )
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
