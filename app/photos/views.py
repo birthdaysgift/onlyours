@@ -15,14 +15,13 @@ class DetailPhotoView(View):
     def get(self, request, username=None, posted_photo_id=None):
         if request.is_ajax():
             posted_photo = get_object_or_404(PostedPhoto, id=posted_photo_id)
-            likes = posted_photo.users_who_liked.all()
-            dislikes = posted_photo.users_who_disliked.all()
-            setattr(posted_photo, 'likes', likes)
-            setattr(posted_photo, 'dislikes', dislikes)
-            is_liked = posted_photo.liked_by(request.user)
-            is_disliked = posted_photo.disliked_by(request.user)
-            setattr(posted_photo, 'is_liked', is_liked)
-            setattr(posted_photo, 'is_disliked', is_disliked)
+
+            posted_photo.n_likes = posted_photo.users_who_liked.count()
+            posted_photo.n_dislikes = posted_photo.users_who_disliked.count()
+
+            posted_photo.is_liked = posted_photo.liked_by(request.user)
+            posted_photo.is_disliked = posted_photo.disliked_by(request.user)
+
             context = {'posted_photo': posted_photo}
             return render(request, self.template_name, context=context)
         url = reverse('pages:page', kwargs={'username': username})
