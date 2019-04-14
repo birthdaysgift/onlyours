@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
@@ -31,8 +31,7 @@ class DeletePostView(View):
         if request.is_ajax() and request.user == page_owner:
             post = Post.objects.get(id=post_id)
             return render(request, self.template_name, context={"post": post})
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
+        raise Http404()
 
     def post(self, request, username=None, post_id=None):
         page_owner = get_object_or_404(User, username=username)
@@ -52,7 +51,7 @@ def like_post(request, username=None, post_id=None):
         else:
             post.users_who_liked.add(request.user)
         post.save()
-    return HttpResponse()
+    raise Http404()
 
 
 def dislike_post(request, username=None, post_id=None):
@@ -65,4 +64,4 @@ def dislike_post(request, username=None, post_id=None):
         else:
             post.users_who_disliked.add(request.user)
         post.save()
-    return HttpResponse()
+    raise Http404()

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import get_valid_filename
@@ -30,8 +30,7 @@ class DetailVideoView(View):
             setattr(uservideo, 'is_disliked', is_disliked)
             context = {'uservideo': uservideo}
             return render(request, self.template_name, context=context)
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
+        raise Http404()
 
 
 class VideosListView(View):
@@ -48,8 +47,7 @@ class VideosListView(View):
                 "video_form": AddVideoForm()
             }
             return render(request, self.template_name, context=context)
-        url = reverse('pages:page', kwargs={'username': username})
-        return redirect(url)
+        raise Http404()
 
 
 class AddVideoView(View):
@@ -100,6 +98,7 @@ class LikeVideoView(View):
                     dislike[0].delete()
                 VideoLike(user=request.user, uservideo=uservideo).save()
             return HttpResponse()
+        raise Http404()
 
 
 class DislikeVideoView(View):
@@ -119,3 +118,4 @@ class DislikeVideoView(View):
                     like[0].delete()
                 VideoDislike(user=request.user, uservideo=uservideo).save()
             return HttpResponse()
+        raise Http404()

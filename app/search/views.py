@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.views import View
 
@@ -23,3 +24,4 @@ class SearchPageView(View):
                 'users': User.objects.filter(username__icontains=username)
             }
             return render(request, self.ajax_template, context=context)
+        raise Http404()

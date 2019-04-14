@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import get_valid_filename
@@ -9,8 +9,8 @@ from .models import PostedPhoto, Photo
 
 
 def detail_photo(request, username=None, posted_photo_id=None):
-    template_name = 'photos/ajax/detail_photo.html'
     if request.is_ajax():
+        template_name = 'photos/ajax/detail_photo.html'
         posted_photo = get_object_or_404(PostedPhoto, id=posted_photo_id)
 
         posted_photo.n_likes = posted_photo.users_who_liked.count()
@@ -21,13 +21,12 @@ def detail_photo(request, username=None, posted_photo_id=None):
 
         context = {'posted_photo': posted_photo}
         return render(request, template_name, context=context)
-    url = reverse('pages:page', kwargs={'username': username})
-    return redirect(url)
+    raise Http404()
 
 
 def all_photos(request, username=None):
-    template_name = "photos/ajax/all_photos.html"
     if request.is_ajax():
+        template_name = "photos/ajax/all_photos.html"
         page_owner = get_object_or_404(User, username=username)
         posted_photos = page_owner.get_posted_photos()
         context = {
@@ -36,8 +35,7 @@ def all_photos(request, username=None):
             "photo_form": AddPhotoForm()
         }
         return render(request, template_name, context=context)
-    url = reverse('pages:page', kwargs={'username': username})
-    return redirect(url)
+    raise Http404()
 
 
 def add_photo(request, username=None):
@@ -76,6 +74,7 @@ def like_photo(request, username=None, posted_photo_id=None):
                 posted_photo.users_who_disliked.remove(request.user)
             posted_photo.users_who_liked.add(request.user)
         return HttpResponse()
+    raise Http404()
 
 
 def dislike_photo(request, username=None, posted_photo_id=None):
@@ -88,3 +87,4 @@ def dislike_photo(request, username=None, posted_photo_id=None):
                 posted_photo.users_who_liked.remove(request.user)
             posted_photo.users_who_disliked.add(request.user)
         return HttpResponse()
+    raise Http404()

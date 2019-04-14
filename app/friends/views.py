@@ -1,4 +1,5 @@
 from django.db import IntegrityError
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -34,3 +35,4 @@ def all_friends(request, username=None):
             'friends': friends,
         }
         return render(request, template_name, context=context)
+    raise Http404()
