@@ -9,19 +9,17 @@ from auth_custom.models import User
 from .models import get_posts_for, Post
 
 
-class GetPostsView(View):
+def all_posts(request, username=None, page=None):
     template_name = 'posts/posts_list.html'
-
-    def get(self, request, username=None, page=None):
-        page_owner = get_object_or_404(User, username=username)
-        posts = get_posts_for(
-            page_owner, page=page, count_likes=True, check_user=request.user
-        )
-        context = {
-            'page_owner': page_owner,
-            'posts': posts,
-        }
-        return render(request, self.template_name, context=context)
+    page_owner = get_object_or_404(User, username=username)
+    posts = get_posts_for(
+        page_owner, page=page, count_likes=True, check_user=request.user
+    )
+    context = {
+        'page_owner': page_owner,
+        'posts': posts,
+    }
+    return render(request, template_name, context=context)
 
 
 class DeletePostView(View):
