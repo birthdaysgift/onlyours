@@ -1,4 +1,4 @@
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -17,6 +17,7 @@ def add_friend(request, username=None):
     return redirect(url)
 
 
+@transaction.atomic
 def remove_friend(request, username=None):
     page_owner = get_object_or_404(User, username=username)
     if request.user != page_owner:

@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -41,6 +42,7 @@ class DeletePostView(View):
         return redirect(url)
 
 
+@transaction.atomic
 def like_post(request, username=None, post_id=None):
     if request.method == 'GET' and request.is_ajax():
         post = get_object_or_404(Post, id=post_id)
@@ -54,6 +56,7 @@ def like_post(request, username=None, post_id=None):
     raise Http404()
 
 
+@transaction.atomic
 def dislike_post(request, username=None, post_id=None):
     if request.method == 'GET' and request.is_ajax():
         post = Post.objects.get(id=post_id)

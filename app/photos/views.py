@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -64,6 +65,7 @@ def delete_photo(request, username=None, posted_photo_id=None):
     return redirect(url)
 
 
+@transaction.atomic
 def like_photo(request, username=None, posted_photo_id=None):
     if request.is_ajax():
         posted_photo = PostedPhoto.objects.get(id=posted_photo_id)
@@ -77,6 +79,7 @@ def like_photo(request, username=None, posted_photo_id=None):
     raise Http404()
 
 
+@transaction.atomic
 def dislike_photo(request, username=None, posted_photo_id=None):
     if request.is_ajax():
         posted_photo = PostedPhoto.objects.get(id=posted_photo_id)

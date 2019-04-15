@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -82,6 +83,7 @@ class DeleteVideoView(View):
 
 
 class LikeVideoView(View):
+    @transaction.atomic
     def get(self, request, username=None, uservideo_id=None):
         if request.is_ajax():
             uservideo = get_object_or_404(UserVideo, id=uservideo_id)
@@ -102,6 +104,7 @@ class LikeVideoView(View):
 
 
 class DislikeVideoView(View):
+    @transaction.atomic
     def get(self, request, username=None, uservideo_id=None):
         if request.is_ajax():
             uservideo = get_object_or_404(UserVideo, id=uservideo_id)
