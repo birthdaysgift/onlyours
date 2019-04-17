@@ -12,7 +12,11 @@
         <div class="photo-avatar-wrapper">
             <!--This link is used by js-->
             <a href="{% url 'pages:photos:detail' page_owner.username posted_photo.id %}" class="detail-photo-link"></a>
-            <img src="{{ posted_photo.photo.thumbnail.url }}" class="photo-avatar">
+            {% if posted_photo.photo.thumbnail %}
+                <img src="{{ posted_photo.photo.thumbnail.url }}" class="photo-avatar">
+            {% else %}
+                <img src="" class="photo-avatar">
+            {% endif %}
         </div>
     {% endfor %}
 </div>

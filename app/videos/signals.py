@@ -14,7 +14,8 @@ def delete_unused_video(sender, **kwargs):
             os.remove(os.path.join(settings.MEDIA_ROOT, video.file.name))
         except FileNotFoundError:
             pass
-        try:
-            os.remove(os.path.join(settings.MEDIA_ROOT, video.thumbnail.name))
-        except FileNotFoundError:
-            pass
+        if video.thumbnail:
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, video.thumbnail.name))
+            except FileNotFoundError:
+                pass

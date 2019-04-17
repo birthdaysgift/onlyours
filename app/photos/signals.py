@@ -14,8 +14,8 @@ def delete_unused_photo(sender, **kwargs):
             os.remove(os.path.join(settings.MEDIA_ROOT, photo.file.name))
         except FileNotFoundError:
             pass
-
-        try:
-            os.remove(os.path.join(settings.MEDIA_ROOT, photo.thumbnail.name))
-        except FileNotFoundError:
-            pass
+        if photo.thumbnail:
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, photo.thumbnail.name))
+            except FileNotFoundError:
+                pass

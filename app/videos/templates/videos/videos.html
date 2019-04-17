@@ -11,7 +11,11 @@
     {% for user_video in user_videos %}
         <!--This link is used by js-->
         <a href="{% url 'pages:videos:detail' page_owner.username user_video.id %}"></a>
-        <img src="{{ user_video.video.thumbnail.url }}" class="video-avatar">
+        {% if user_video.video.thumbnail %}
+            <img src="{{ user_video.video.thumbnail.url }}" class="video-avatar">
+        {% else %}
+            <img src="" class="video-avatar">
+        {% endif %}
     {% endfor %}
 </div>
 <script src="{% static 'videos/js/videos.js' %}"></script>

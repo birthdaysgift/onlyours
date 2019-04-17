@@ -7,7 +7,7 @@ from django.db import models
 
 class Photo(models.Model):
     file = models.ImageField()
-    thumbnail = models.ImageField(default='')
+    thumbnail = models.ImageField(blank=True)
 
     def __str__(self):
         return self.file.name
