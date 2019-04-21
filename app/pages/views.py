@@ -25,7 +25,7 @@ class PageView(LoginRequiredMixin, View):
         posted_photos = page_owner.get_posted_photos()[:6]
 
         # get posted_videos
-        posted_videos = PostedVideo.objects.filter(user=page_owner)
+        posted_videos = page_owner.posted_videos.all()
         posted_videos = posted_videos.select_related("user", "video")[:6]
 
         friends = page_owner.get_friends()

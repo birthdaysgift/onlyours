@@ -30,7 +30,7 @@ def all_videos(request, username=None):
     template_name = "videos/ajax/all_videos.html"
     if request.is_ajax():
         page_owner = get_object_or_404(User, username=username)
-        posted_videos = PostedVideo.objects.filter(user=page_owner)
+        posted_videos = page_owner.posted_videos.all()
         posted_videos = posted_videos.select_related("video")
         context = {
             "posted_videos": posted_videos,
