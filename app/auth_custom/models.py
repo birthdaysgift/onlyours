@@ -34,5 +34,8 @@ class User(auth_models.AbstractUser):
     def get_posted_photos(self):
         return self.posted_photos.select_related('photo').all()
 
+    def get_posted_videos(self):
+        return self.posted_videos.select_related('video').all()
+
     def sent_friend_request_to(self, user):
         return self.friends.filter(id=user.id).exists()

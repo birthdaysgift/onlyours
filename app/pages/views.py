@@ -6,7 +6,6 @@ from django.views import View
 from auth_custom.models import User
 from posts.models import Post, get_posts_for
 from posts.forms import AddPostForm
-from videos.models import PostedVideo
 
 from .forms import EditPageForm
 
@@ -23,10 +22,7 @@ class PageView(LoginRequiredMixin, View):
         )
 
         posted_photos = page_owner.get_posted_photos()[:6]
-
-        # get posted_videos
-        posted_videos = page_owner.posted_videos.all()
-        posted_videos = posted_videos.select_related("user", "video")[:6]
+        posted_videos = page_owner.get_posted_videos()[:6]
 
         friends = page_owner.get_friends()
         if friends:
