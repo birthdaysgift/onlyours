@@ -24,9 +24,7 @@ class PageView(LoginRequiredMixin, View):
         posted_photos = page_owner.get_posted_photos()[:6]
         posted_videos = page_owner.get_posted_videos()[:6]
 
-        friends = page_owner.get_friends()
-        if friends:
-            friends = friends.order_by('?')[:6]
+        friends = page_owner.get_friends().order_by('?')[:6]
 
         page_owner.sent_friend_request = page_owner.sent_friend_request_to(
             request.user
