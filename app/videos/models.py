@@ -39,22 +39,20 @@ class UserVideo(models.Model):
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
+    users_who_liked = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='liked_videos'
+    )
+    users_who_disliked = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='disliked_videos'
+    )
+
+    def liked_by(self, user):
+        is_liked = self.users_who_liked.filter(id=user.id)
+        return is_liked
+
+    def disliked_by(self, user):
+        is_disliked = self.users_who_disliked.filter(id=user.id)
+        return is_disliked
+
     def __str__(self):
         return f"{self.user.username}: {self.video.file.name}"
-
-
-class VideoLike(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    uservideo = models.ForeignKey(UserVideo, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user} :: {self.uservideo}'
-
-
-class VideoDislike(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    uservideo = models.ForeignKey(UserVideo, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.user} :: {self.uservideo}'
-

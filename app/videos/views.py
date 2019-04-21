@@ -7,25 +7,20 @@ from django.utils.text import get_valid_filename
 from auth_custom.models import User
 
 from .forms import AddVideoForm
-from .models import UserVideo, Video, VideoDislike, VideoLike
+from .models import UserVideo, Video
 
 
 def detail_video(request, username=None, uservideo_id=None):
     template_name = 'videos/ajax/detail_video.html'
     if request.is_ajax():
         uservideo = get_object_or_404(UserVideo, id=uservideo_id)
-        likes = VideoLike.objects.filter(uservideo=uservideo)
-        dislikes = VideoDislike.objects.filter(uservideo=uservideo)
-        setattr(uservideo, 'likes', likes)
-        setattr(uservideo, 'dislikes', dislikes)
-        is_liked = VideoLike.objects.filter(
-            uservideo=uservideo, user=request.user
-        ).exists()
-        is_disliked = VideoDislike.objects.filter(
-            uservideo=uservideo, user=request.user
-        ).exists()
-        setattr(uservideo, 'is_liked', is_liked)
-        setattr(uservideo, 'is_disliked', is_disliked)
+
+        uservideo.likes = uservideo.users_who_liked.all()
+        uservideo.dislikes = uservideo.users_who_disliked.all()
+
+        uservideo.is_liked = uservideo.liked_by(request.user)
+        uservideo.is_disliked = uservideo.disliked_by(request.user)
+
         context = {'uservideo': uservideo}
         return render(request, template_name, context=context)
     raise Http404()
@@ -78,18 +73,12 @@ def delete_video(request, username=None, uservideo_id=None):
 def like_video(request, username=None, uservideo_id=None):
     if request.is_ajax():
         uservideo = get_object_or_404(UserVideo, id=uservideo_id)
-        like = VideoLike.objects.filter(
-            user=request.user, uservideo=uservideo
-        )
-        dislike = VideoDislike.objects.filter(
-            user=request.user, uservideo=uservideo
-        )
-        if like.exists():
-            like[0].delete()
+        if uservideo.liked_by(request.user):
+            uservideo.users_who_liked.remove(request.user)
         else:
-            if dislike.exists():
-                dislike[0].delete()
-            VideoLike(user=request.user, uservideo=uservideo).save()
+            if uservideo.disliked_by(request.user):
+                uservideo.users_who_disliked.remove(request.user)
+            uservideo.users_who_liked.add(request.user)
         return HttpResponse()
     raise Http404()
 
@@ -98,17 +87,12 @@ def like_video(request, username=None, uservideo_id=None):
 def dislike_video(request, username=None, uservideo_id=None):
     if request.is_ajax():
         uservideo = get_object_or_404(UserVideo, id=uservideo_id)
-        like = VideoLike.objects.filter(
-            user=request.user, uservideo=uservideo
-        )
-        dislike = VideoDislike.objects.filter(
-            user=request.user, uservideo=uservideo
-        )
-        if dislike.exists():
-            dislike[0].delete()
+        if uservideo.disliked_by(request.user):
+            uservideo.users_who_disliked.remove(request.user)
         else:
-            if like.exists():
-                like[0].delete()
-            VideoDislike(user=request.user, uservideo=uservideo).save()
+            if uservideo.liked_by(request.user):
+                uservideo.users_who_liked.remove(request.user)
+            uservideo.users_who_disliked.add(request.user)
         return HttpResponse()
     raise Http404()
+
