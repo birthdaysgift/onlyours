@@ -15,8 +15,8 @@ def detail_video(request, username=None, uservideo_id=None):
     if request.is_ajax():
         uservideo = get_object_or_404(UserVideo, id=uservideo_id)
 
-        uservideo.likes = uservideo.users_who_liked.all()
-        uservideo.dislikes = uservideo.users_who_disliked.all()
+        uservideo.n_likes = uservideo.users_who_liked.count()
+        uservideo.n_dislikes = uservideo.users_who_disliked.count()
 
         uservideo.is_liked = uservideo.liked_by(request.user)
         uservideo.is_disliked = uservideo.disliked_by(request.user)

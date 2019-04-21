@@ -22,8 +22,8 @@
                                 <div class="like-icon"></div>
                             {% endif %}
                             <div class="like-value">
-                                {% if uservideo.likes %}
-                                    {{ uservideo.likes|length }}
+                                {% if uservideo.n_likes > 0 %}
+                                    {{ uservideo.n_likes }}
                                 {% endif %}
                             </div>
                         </div>
@@ -36,8 +36,8 @@
                                 <div class="dislike-icon"></div>
                             {% endif %}
                             <div class="dislike-value">
-                                {% if uservideo.dislikes %}
-                                    {{ uservideo.dislikes|length }}
+                                {% if uservideo.n_dislikes > 0 %}
+                                    {{ uservideo.n_dislikes }}
                                 {% endif %}
                             </div>
                         </div>
