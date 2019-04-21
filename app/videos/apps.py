@@ -13,5 +13,5 @@ class VideosConfig(AppConfig):
 
         post_delete.connect(
             signals.delete_unused_video,
-            sender=models.UserVideo
+            sender=models.PostedVideo
         )

@@ -4,40 +4,40 @@
 
 <div class="detail-video-background">
     <div class="detail-video-window">
-        <video src="{{ uservideo.video.file.url }}" class="detail-video" controls></video>
+        <video src="{{ posted_video.video.file.url }}" class="detail-video" controls></video>
         <div class="video-info-block">
             <div class="col1">
                 <div class="video-user">Posted by&nbsp;<a href="">{{ user.username }}</a></div>
-                <div class="video-datetime">{{ uservideo.time }} {{ uservideo.date }}</div>
+                <div class="video-datetime">{{ posted_video.time }} {{ posted_video.date }}</div>
             </div>
             <div class="col2">
                 {% spaceless %}
                     <div class="video-likes">
                         <div class="like">
                             <!--This link is used by js-->
-                            <a href="{% url 'pages:videos:like' user.username uservideo.id %}" class="like-link"></a>
-                            {% if uservideo.is_liked %}
+                            <a href="{% url 'pages:videos:like' user.username posted_video.id %}" class="like-link"></a>
+                            {% if posted_video.is_liked %}
                                 <div class="like-icon like-selected"></div>
                             {% else %}
                                 <div class="like-icon"></div>
                             {% endif %}
                             <div class="like-value">
-                                {% if uservideo.n_likes > 0 %}
-                                    {{ uservideo.n_likes }}
+                                {% if posted_video.n_likes > 0 %}
+                                    {{ posted_video.n_likes }}
                                 {% endif %}
                             </div>
                         </div>
                         <div class="dislike">
                             <!--This link is used by js-->
-                            <a href="{% url 'pages:videos:dislike' user.username uservideo.id %}" class="dislike-link"></a>
-                            {% if uservideo.is_disliked %}
+                            <a href="{% url 'pages:videos:dislike' user.username posted_video.id %}" class="dislike-link"></a>
+                            {% if posted_video.is_disliked %}
                                 <div class="dislike-icon dislike-selected"></div>
                             {% else %}
                                 <div class="dislike-icon"></div>
                             {% endif %}
                             <div class="dislike-value">
-                                {% if uservideo.n_dislikes > 0 %}
-                                    {{ uservideo.n_dislikes }}
+                                {% if posted_video.n_dislikes > 0 %}
+                                    {{ posted_video.n_dislikes }}
                                 {% endif %}
                             </div>
                         </div>

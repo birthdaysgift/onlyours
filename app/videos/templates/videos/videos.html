@@ -8,7 +8,7 @@
     </div>
     <!--This link is used by js-->
     <a href="{% url 'pages:videos:all' page_owner.username %}" class="videos-list-link"></a>
-    {% for user_video in user_videos %}
+    {% for user_video in posted_videos %}
         <!--This link is used by js-->
         <a href="{% url 'pages:videos:detail' page_owner.username user_video.id %}"></a>
         {% if user_video.video.thumbnail %}

@@ -23,7 +23,7 @@
                     <input type="submit" class="new-video-submit" hidden>
                 </form>
             {% endif %}
-            {% for user_video in user_videos %}
+            {% for user_video in posted_videos %}
                 <div class="video-avatar-wrapper">
                     <!--This link is used in js-->
                     <a href="{% url 'pages:videos:detail' page_owner.username user_video.id %}"></a>
