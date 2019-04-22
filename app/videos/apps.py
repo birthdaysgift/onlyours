@@ -12,6 +12,10 @@ class VideosConfig(AppConfig):
         from . import models
 
         post_delete.connect(
-            signals.delete_unused_video,
+            signals.delete_posted_video,
             sender=models.PostedVideo
+        )
+        post_delete.connect(
+            signals.delete_video,
+            sender=models.Video
         )
