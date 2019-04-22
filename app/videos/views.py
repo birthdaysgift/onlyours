@@ -41,7 +41,6 @@ def all_videos(request, username=None):
 
 
 def add_video(request, username=None):
-    template_name = "videos/ajax/add_video.html"
     page_owner = get_object_or_404(User, username=username)
     form = AddVideoForm(request.POST, request.FILES)
     if request.user == page_owner and form.is_valid():
