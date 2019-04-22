@@ -6,8 +6,8 @@ from django.db import models
 
 
 class Photo(models.Model):
-    file = models.ImageField()
-    thumbnail = models.ImageField(blank=True)
+    file = models.ImageField(upload_to='photos')
+    thumbnail = models.ImageField(upload_to='photos', blank=True)
 
     def __str__(self):
         return self.file.name
@@ -22,9 +22,13 @@ class Photo(models.Model):
             photo_path = os.path.join(settings.MEDIA_ROOT, filename)
             img = PIL.Image.open(photo_path)
             img.thumbnail((150, 150))
-            thumb_name = 'thumb_' + filename.split('.')[0] + '.jpg'
-            thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
-            img.save(thumb_path, 'jpeg')
+            path_before, slash, filename = filename.rpartition('/')
+            filename, extension = filename.split('.')
+            thumb_name = ''.join((
+                path_before, slash, 'thumb_', filename, '.', extension
+            ))
+            thumb_abspath = os.path.join(settings.MEDIA_ROOT, thumb_name)
+            img.save(thumb_abspath, 'jpeg')
             self.thumbnail = thumb_name
             self.save()
 

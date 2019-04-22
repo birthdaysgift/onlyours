@@ -48,7 +48,7 @@ def add_video(request, username=None):
         form.save()
 
         filename = get_valid_filename(form.cleaned_data['file'].name)
-        video = get_object_or_404(Video, file=filename)
+        video = get_object_or_404(Video, file='videos/'+filename)
         user = get_object_or_404(User, username=username)
         PostedVideo(user=user, video=video).save()
 

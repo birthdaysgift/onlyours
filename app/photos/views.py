@@ -46,7 +46,7 @@ def add_photo(request, username=None):
         form.save()
 
         filename = get_valid_filename(form.cleaned_data['file'].name)
-        photo = get_object_or_404(Photo, file=filename)
+        photo = get_object_or_404(Photo, file='photos/'+filename)
 
         user = get_object_or_404(User, username=username)
         PostedPhoto(user=user, photo=photo).save()
